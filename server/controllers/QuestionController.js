@@ -18,10 +18,27 @@ export default class QuestionController {
             res.send(newQuestion)
         } catch (error) { next(error) }
     }
+
+    async editQuestion(req, res, next) {
+        try {
+            let editedQuestion = await questionRepo.findByIdAndUpdate(req.params.id, req.body, { new: true })
+            res.send(editedQuestion)
+        } catch (error) { next(error) }
+    }
+
+    async delortQuestion(req, res, next) {
+        try {
+            await questionRepo.findByIdAndDelete(req.params.id)
+            res.send("Successfully Delorted")
+        } catch (error) { next(error) }
+    }
+
     constructor() {
         this.router = express.Router()
             .get('', this.getAllQuestions)
             .post('', this.createQuestion)
+            .put('/:id', this.editQuestion)
+            .delete('/:id', this.delortQuestion)
     }
 
 }
