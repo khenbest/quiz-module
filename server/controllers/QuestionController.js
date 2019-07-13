@@ -11,7 +11,12 @@ export default class QuestionController {
             res.send(questions)
         } catch (error) { next(error) }
     }
-
+    async getOneQuestion(req, res, next) {
+        try {
+            let question = await questionRepo.findById(req.params.id)
+            res.send(question)
+        } catch (error) { next(error) }
+    }
     async createQuestion(req, res, next) {
         try {
             let newQuestion = await questionRepo.create(req.body)
@@ -36,6 +41,7 @@ export default class QuestionController {
     constructor() {
         this.router = express.Router()
             .get('', this.getAllQuestions)
+            .get('/:id', this.getOneQuestion)
             .post('', this.createQuestion)
             .put('/:id', this.editQuestion)
             .delete('/:id', this.delortQuestion)
