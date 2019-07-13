@@ -1,14 +1,13 @@
-import mongoose from 'mongoose'
-let ObjectId = mongoose.Schema.Types.ObjectId
+import mongoose, { Schema } from 'mongoose'
+let ObjectId = Schema.Types.ObjectId
 
-let schema = new mongoose.Schema({
-    name: { type: String, required: true, unique: true },
-    questions: [{ type: ObjectId, ref: "Question" }]
+let schema = new Schema({
+    name: { type: String, required: true },
+    questions: [{ type: ObjectId, ref: "Question", required: true }]
 })
 
 export default class QuizService {
-
     get repository() {
-        return mongoose.model("Quiz", schema)
+        return mongoose.model('Quiz', schema)
     }
 }
