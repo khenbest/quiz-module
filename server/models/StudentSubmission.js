@@ -1,8 +1,6 @@
 export default class StudentSubmission {
   constructor(data) {
     this.submission = data.submission
-    this.questionId = data.questionId
-
   }
 }
 

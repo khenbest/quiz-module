@@ -1,6 +1,4 @@
-import mongoose, { Schema } from 'mongoose'
-
-
+import mongoose from 'mongoose'
 
 let schema = new mongoose.Schema({
     prompt: { type: String, required: true },
@@ -14,21 +12,16 @@ export default class QuestionService {
 
     grade(answer, question) {
         let correct = 0
-        for (var key in answer) {
-            if (answer[key] == question[key]) {
+        for (var key in answer.submission) {
+            if (answer.submission[key] == question.correct[key]) {
                 correct += 1
             }
         }
-        let numberOfQuestions = question.keys()
+        let numberOfQuestions = Object.keys(question.correct).length
         if (correct == numberOfQuestions) {
-            console.log('yes')
-        } else { console.log("no") }
+            return "Correct"
+        } else { return "Incorrect" }
     }
-
-
-
-
-
 
     get repository() {
         return mongoose.model("Question", schema)
