@@ -15,11 +15,11 @@ export default class QuestionService {
     grade(answer, question) {
         let correct = 0
         for (var key in answer) {
-            if (answer[key] == question[key]) {
+            if (answer[key] == question.correct[key]) {
                 correct += 1
             }
         }
-        let numberOfQuestions = question.keys()
+        let numberOfQuestions = Object.keys(question).length
         if (correct == numberOfQuestions) {
             console.log('yes')
         } else { console.log("no") }
