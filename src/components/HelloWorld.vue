@@ -11,19 +11,23 @@
           <div class="col-12">
             <div v-if="question.type == 'Match'" class="d-flex row justify-content-center">
               <div class="col-5">
-                <textarea v-for="obj in question.options" class="form-control mb-1" :placeholder="displayQuestion(obj)"
-                  readonly></textarea>
+                <textarea v-for="prop in question.options" class="form-control mb-1"
+                  :placeholder="displayQuestionVal(prop)" readonly></textarea>
               </div>
               <div class="col-5">
-                <input v-for="obj in question.options2" class="form-control mb-2" type="text"
-                  :placeholder="displayQuestion(obj)" readonly>
+                <input v-for="prop in question.options2" class="form-control mb-2" type="text"
+                  :placeholder="displayQuestionVal(prop)" readonly>
               </div>
             </div>
-            <form v-else class="form-inline">
-              <div class="col-12 justify-content-center">
-                <input v-for="obj in question.options" class="form-control  mr-3" type="text"
-                  :placeholder="displayQuestion(obj)" readonly>
+            <form @submit.prevent="gradeQuestion(question, checked)" v-else class="form-inline justify-content-center">
+              <div v-for="prop in question.options" class="form-check mt-3 mr-5">
+                <input class="form-check-input" v-model="checked" type="radio" name="option"
+                  :id="displayQuestionKey(prop)" :value="displayQuestionKey(prop)" checked>
+                <label class="form-check-label" :for="displayQuestionKey(prop)">
+                  {{displayQuestionVal(prop)}}
+                </label>
               </div>
+              <button class="btn btn-success mt-3" type="submit">Submit</button>
             </form>
           </div>
         </div>
@@ -41,7 +45,8 @@
     },
     data() {
       return {
-        currentQuestion: 1
+        currentQuestion: 0,
+        checked: ''
       }
     },
     computed: {
@@ -54,8 +59,14 @@
         this.currentQuestion += num
         this.$store.dispatch("getQuestion", this.currentQuestion)
       },
-      displayQuestion(q) {
+      displayQuestionVal(q) {
         return `${Object.values(q)[0]}`
+      },
+      displayQuestionKey(q) {
+        return `${Object.keys(q)[0]}`
+      },
+      gradeQuestion(question, submission) {
+        this.$store.dispatch("gradeQuestion", { question, submission })
       }
     },
 

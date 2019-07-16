@@ -13,6 +13,13 @@ export default class QuestionService {
 
     grade(answer, question) {
         let correct = 0
+        if (question.type == "TrueFalse") {
+            if (answer.submission == Object.keys(question.correct)[0]) {
+                return "Correct!"
+            } else {
+                return "So close."
+            }
+        }
         for (var key in answer.submission) {
             if (answer.submission[key] == question.correct[key]) {
                 correct += 1
