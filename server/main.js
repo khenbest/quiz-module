@@ -1,5 +1,6 @@
 import express from "express"
 import bp from "body-parser"
+import cors from 'cors'
 import "./db/dbconfig"
 
 import QuestionController from './controllers/QuestionController'
@@ -10,7 +11,19 @@ let port = 3000
 let server = express()
 
 server.use(bp.json())
+server.use(bp.urlencoded({
+    extended: true
+}))
 
+var whitelist = ['http://localhost:8080', 'http://localhost:3000/api/questions'];
+var corsOptions = {
+    origin: function (origin, callback) {
+        var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+        callback(null, originIsWhitelisted);
+    },
+    credentials: true
+};
+server.use(cors(corsOptions))
 
 server.use('/api/questions', new QuestionController().router)
 server.use('/api/quizzes', new QuizController().router)

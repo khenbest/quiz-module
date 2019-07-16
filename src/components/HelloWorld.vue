@@ -1,56 +1,84 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div v-if="question.options" class="container-fluid">
+    <div class="d-flex row justify-content-center">
+      <div class="col-12 justify-content-center">
+        <button class="btn btn-dark col-4 mr-1" @click="getQuestion(0)">Start Quiz</button>
+        <button class="btn btn-primary col-4" @click="getQuestion(1)">Next Question</button>
+        <div class="d-flex row justify-content-center">
+          <div class="col-8">
+            <h1>{{question.prompt}}</h1>
+          </div>
+          <div class="col-12">
+            <div v-if="question.type == 'Match'" class="d-flex row justify-content-center">
+              <div class="col-5">
+                <textarea v-for="obj in question.options" class="form-control mb-1" :placeholder="displayQuestion(obj)"
+                  readonly></textarea>
+              </div>
+              <div class="col-5">
+                <input v-for="obj in question.options2" class="form-control mb-2" type="text"
+                  :placeholder="displayQuestion(obj)" readonly>
+              </div>
+            </div>
+            <form v-else class="form-inline">
+              <div class="col-12 justify-content-center">
+                <input v-for="obj in question.options" class="form-control  mr-3" type="text"
+                  :placeholder="displayQuestion(obj)" readonly>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  export default {
+    name: 'HelloWorld',
+    created() {
+      this.$store.dispatch("getQuestion", 0)
+    },
+    data() {
+      return {
+        currentQuestion: 1
+      }
+    },
+    computed: {
+      question() {
+        return this.$store.state.question
+      }
+    },
+    methods: {
+      getQuestion(num) {
+        this.currentQuestion += num
+        this.$store.dispatch("getQuestion", this.currentQuestion)
+      },
+      displayQuestion(q) {
+        return `${Object.values(q)[0]}`
+      }
+    },
+
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+  h3 {
+    margin: 40px 0 0;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+    margin: 0 10px;
+  }
+
+  a {
+    color: #42b983;
+  }
 </style>

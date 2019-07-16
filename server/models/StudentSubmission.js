@@ -3,6 +3,3 @@ export default class StudentSubmission {
     this.submission = data.submission
   }
 }
-
-//{answer: {a: true}, {questionId: dkaafie;eafk}}
-// {answer: [{a:1}, {b:4}]}

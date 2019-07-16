@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 let schema = new mongoose.Schema({
     prompt: { type: String, required: true },
     options: [{ type: Object, required: true }],
+    options2: [{ type: Object }],
     correct: { type: Object, required: true },
     type: { type: String, enum: ["TrueFalse", "Match", "OpenEnded", "FillInTheBlank", "MultipleChoice"], default: "MultipleChoice", required: true },
     rationale: { type: String },
@@ -19,8 +20,8 @@ export default class QuestionService {
         }
         let numberOfQuestions = Object.keys(question.correct).length
         if (correct == numberOfQuestions) {
-            return "Correct"
-        } else { return "Incorrect" }
+            return "Correct!"
+        } else { return "You have " + correct + " correct answers." }
     }
 
     get repository() {
