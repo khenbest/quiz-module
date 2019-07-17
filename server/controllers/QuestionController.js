@@ -9,7 +9,7 @@ export default class QuestionController {
 
     async getAllQuestions(req, res, next) {
         try {
-            let questions = await questionRepo.find({})
+            let questions = await questionRepo.find({}).select("-correct -rationale")
             res.send(questions)
         } catch (error) { next(error) }
     }
