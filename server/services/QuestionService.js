@@ -13,7 +13,7 @@ let schema = new mongoose.Schema({
 let o = [
     { value: "express" },
     { value: "http" },
-    { value: "who wants money", defintion: true }
+    { value: "who wants money", isDefintion: true }
 ]
 
 let correct = [{ value: "express", definition: "how wants money" }, { value: "http" }]
