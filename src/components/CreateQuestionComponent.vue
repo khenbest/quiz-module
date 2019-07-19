@@ -1,15 +1,17 @@
 <template>
-  <div class="CreateQuestion">
-    <button class="btn btn-info" @click="makeQuestion = !makeQuestion">Create a Question</button>
-    <form v-if="makeQuestion" @submit.prevent="createQuestion">
-      <div class="form-group">
-        <label for="questionType">Select Type of Question</label>
-        <select class="form-control" id="questionType" v-model="selected">
-          <option v-for="type in types" :value="type.value">{{type.text}}</option>
-        </select>
-        <component :is="selected"></component>
-      </div>
-    </form>
+  <div class="CreateQuestion row">
+    <div class="col-12">
+      <button class="btn btn-info" @click="makeQuestion = !makeQuestion">Create a Question</button>
+      <form v-if="makeQuestion" @submit.prevent="createQuestion">
+        <div class="form-group">
+          <label for="questionType">Select Type of Question</label>
+          <select class="form-control" id="questionType" v-model="selected">
+            <option v-for="type in types" :value="type.value">{{type.text}}</option>
+          </select>
+          <component :is="selected"></component>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 

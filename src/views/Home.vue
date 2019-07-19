@@ -1,20 +1,23 @@
 <template>
   <div class="home">
-    <CreateQuestion></CreateQuestion>
     <!-- <Question /> -->
+    <button @click="go">Go to create question page</button>
   </div>
 </template>
 
 <script>
   // @ is an alias to /src
   import Question from '@/components/Question.vue'
-  import CreateQuestion from '@/components/CreateQuestion.vue'
-
+  import router from '../router.js'
   export default {
     name: 'home',
     components: {
       Question,
-      CreateQuestion
+    },
+    methods: {
+      go() {
+        router.push({ name: 'createQuestion' })
+      }
     }
   }
 </script>
