@@ -32,24 +32,18 @@
     },
     watch: {
       numberOfMatches: function () {
-        // debugger
         this.newQuestion.options = []
         for (let i = 0; i < this.numberOfMatches; i++) {
-
           this.newQuestion.options.push({ term: '' }, { term: '', isDefinition: true })
-
         }
         return this.newQuestion.options
-
       }
     },
     computed: {
 
     },
     methods: {
-      createObjects() {
-        this.number()
-      },
+
     },
     components: {}
   }

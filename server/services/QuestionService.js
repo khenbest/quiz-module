@@ -47,21 +47,18 @@ export default class QuestionService {
         if (answer.submission == Object.keys(question.correct[0])) {
             return "Correct!"
         } else {
-            return "So close."
+            return "So close"
         }
     }
     gradeMultipleChoice(answer, question) {
-        let correct = 0
-        for (var key in answer.submission) {
-            if (answer.submission[key] == question.correct[key]) {
-                correct += 1
-                console.log(correct)
-            }
+        if (answer.submission.length != question.correct.length) {
+            return "You have incorrect answers"
         }
-        let numberOfQuestions = Object.keys(question.correct).length
-        if (correct == numberOfQuestions) {
-            return "Correct!"
-        } else { return "You have " + correct + " correct answers." }
+        let correctStudentAnswers = answer.submission.filter(x => question.correct.find(y => y.value == x.value))
+        if (correctStudentAnswers.length !== question.correct.length) {
+            return "WRONGO"
+        }
+        else return "Correct!"
     }
     gradeFillInTheBlank(answer, question) {
 
