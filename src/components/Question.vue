@@ -18,9 +18,12 @@
 <script>
   import Match from "./QuestionTypes/Match"
   import TrueFalse from "./QuestionTypes/TrueFalse"
+  import OpenEnded from "./QuestionTypes/OpenEnded"
+  import MultipleChoice from "./QuestionTypes/MultipleChoice"
+  import FillInTheBlank from "./QuestionTypes/FillInTheBlank"
 
   export default {
-    name: 'HelloWorld',
+    name: 'Question',
     created() {
       this.$store.dispatch("getQuestion", 0)
     },
@@ -46,7 +49,10 @@
     },
     components: {
       Match,
-      TrueFalse
+      TrueFalse,
+      MultipleChoice,
+      OpenEnded,
+      FillInTheBlank
     }
   }
 </script>

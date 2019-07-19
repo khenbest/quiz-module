@@ -3,34 +3,71 @@ import mongoose from 'mongoose'
 let schema = new mongoose.Schema({
     prompt: { type: String, required: true },
     options: [{ type: Object, required: true }],
-    // options2: [{ type: Object }],
     correct: [{ type: Object, required: true }],
-    type: { type: String, enum: ["TrueFalse", "Match", "OpenEnded", "FillInTheBlank", "MultipleChoice"], default: "MultipleChoice", required: true },
+    type: { type: String, enum: ["TrueFalse", "Match", "OpenEnded", "FillInTheBlank", "MultipleChoice"], required: true },
     rationale: { type: String },
 }, { timestamps: true })
 
 //Match -- definition to value
-let o = [
-    { value: "express" },
-    { value: "http" },
-    { value: "who wants money", defintion: true }
-]
+// let o = [
+//     { value: "express" },
+//     { value: "http" },
+//     { value: "who wants money", defintion: true }
+// ]
 
-let correct = [{ value: "express", definition: "how wants money" }, { value: "http" }]
+// let correct = [{ value: "express", definition: "how wants money" }, { value: "http" }]
 
 
 export default class QuestionService {
 
-    grade(answer, question) {
+    gradeQuestion(answer, question) {
+
+        switch (question.type) {
+            case "TrueFalse":
+                this.gradeTrueFalse(answer, question)
+                break;
+            case "MultipleChoice":
+                this.gradeMultipleChoice(answer, question)
+                break;
+            case "FillInTheBlank":
+                this.gradeFillInTheBlank(answer, question)
+                break;
+            case "Match":
+                this.gradeMatch(answer, question)
+                break;
+            case "OpenEnded":
+                this.gradeOpenEnded(answer, question)
+                break;
+            default: "No Function Here"
+                break;
+        }
+    }
+
+    gradeTrueFalse(answer, question) {
+        if (answer.submission == Object.keys(question.correct[0])) {
+            return "Correct!"
+        } else {
+            return "So close."
+        }
+    }
+    gradeMultipleChoice(answer, question) {
         let correct = 0
-        // may change this to Match as I believe Match will be the actual outlier, NOT t/f
-        if (question.type == "TrueFalse") {
-            if (answer.submission == Object.keys(question.correct)[0]) {
-                return "Correct!"
-            } else {
-                return "So close."
+        for (var key in answer.submission) {
+            if (answer.submission[key] == question.correct[key]) {
+                correct += 1
+                console.log(correct)
             }
         }
+        let numberOfQuestions = Object.keys(question.correct).length
+        if (correct == numberOfQuestions) {
+            return "Correct!"
+        } else { return "You have " + correct + " correct answers." }
+    }
+    gradeFillInTheBlank(answer, question) {
+
+    }
+    gradeMatch(answer, question) {
+        // may change this to Match as I believe Match will be the actual outlier, NOT t/f
         for (var key in answer.submission) {
             if (answer.submission[key] == question.correct[key]) {
                 correct += 1
@@ -40,6 +77,9 @@ export default class QuestionService {
         if (correct == numberOfQuestions) {
             return "Correct!"
         } else { return "You have " + correct + " correct answers." }
+    }
+    gradeOpenEnded(answer, question) {
+
     }
 
     get repository() {

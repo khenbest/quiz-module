@@ -44,7 +44,7 @@ export default class QuestionController {
         try {
             let answer = new StudentSubmission(req.body)
             let question = await questionRepo.findById(req.params.id)
-            let gradedAnswer = questionServ.grade(answer, question)
+            let gradedAnswer = questionServ.gradeQuestion(answer, question)
             res.send(gradedAnswer)
         } catch (err) { next(err) }
     }

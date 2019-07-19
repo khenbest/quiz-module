@@ -31,9 +31,7 @@ export default new Vuex.Store({
       }).catch(err => console.error(err))
     },
     gradeQuestion({ commit, dispatch }, payload) {
-      questionApi.post(`${payload.question._id}/answers`, payload).then(res => {
-        console.log(res.data)
-      }).catch(err => console.error(err))
+      questionApi.post(`${payload.question._id}/answers`, payload).then().catch(err => console.error(err))
     }
   }
 })
