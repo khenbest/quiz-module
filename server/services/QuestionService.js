@@ -64,6 +64,7 @@ export default class QuestionService {
 
     }
     gradeMatch(answer, question) {
+        let correct = 0
         // may change this to Match as I believe Match will be the actual outlier, NOT t/f
         for (var key in answer.submission) {
             if (answer.submission[key] == question.correct[key]) {
