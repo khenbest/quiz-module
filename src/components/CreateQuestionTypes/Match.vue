@@ -47,7 +47,6 @@
     },
     watch: {
       numberOfMatches: function () {
-        // debugger
         this.newQuestion.options = []
         for (let i = 0; i < this.numberOfMatches; i++) {
 
@@ -55,7 +54,6 @@
 
         }
         return this.newQuestion.options
-
       }
     },
     computed: {
