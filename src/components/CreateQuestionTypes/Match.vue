@@ -23,6 +23,7 @@
           </span>
         </div>
       </div>
+      <button @click="setCorrect">make the correct array!</button>
     </div>
 
   </div>
@@ -48,6 +49,7 @@
     watch: {
       numberOfMatches: function () {
         this.newQuestion.options = []
+        this.newQuestion.correct = []
         for (let i = 0; i < this.numberOfMatches; i++) {
 
           this.newQuestion.options.push({ term: '', isDefinition: false }, { term: '', isDefinition: true })
@@ -65,7 +67,15 @@
       }
     },
     methods: {
+      setCorrect() {
+        //  this.newQuestion.correct = new Array(this.numberOfMatches)
+        for (let i = 1; i < this.newQuestion.options.length; i += 2) {
+          let temp = [this.newQuestion.options[i - 1], this.newQuestion.options[i]]
+          this.newQuestion.correct.push(temp)
 
+        }
+
+      }
     },
     components: {}
   }
