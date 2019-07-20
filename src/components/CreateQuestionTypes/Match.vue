@@ -6,14 +6,18 @@
       <textarea placeholder="Question prompt..." v-model="newQuestion.prompt" id="prompt" class-="form-control mx-auto"
         spellcheck="true"></textarea>
       <label for="howManyMatching" class="my-2">How many matching pairs would you like?</label>
-      <input class="form-control col-1 mx-auto" type="number" id="howManyMatching" v-model="numberOfMatches">
+      <button v-if="numberOfMatches > 0" class="btn btn-info" @click="addMatch">Add a Pair</button>
+      <input v-if="numberOfMatches == 0" class="form-control col-1 mx-auto" type="number" id="howManyMatching"
+        v-model="numberOfMatches">
     </div>
     <div class="col">
       <div v-if="newQuestion.options.length > 0" class="row d-flex justify-content-center">
         <div class="col-5 d-flex flex-column justify-content-center">
+
           <h3>Terms</h3>
-          <span v-for="option in terms">
+          <span v-for="(option, index) in terms">
             <input class="form-control my-1 col-6 mx-auto" v-model="option.term" type="text">
+            <button class="btn btn-danger" @click="removeMatch(option)">Delete</button>
           </span>
         </div>
         <div class="col-5 d-flex flex-column justify-content-center">
@@ -53,7 +57,6 @@
         for (let i = 0; i < this.numberOfMatches; i++) {
 
           this.newQuestion.options.push({ term: '', isDefinition: false }, { term: '', isDefinition: true })
-
         }
         return this.newQuestion.options
       }
@@ -74,6 +77,15 @@
           this.newQuestion.correct.push(temp)
 
         }
+
+      },
+      addMatch() {
+        this.newQuestion.options.push({ term: '', isDefinition: false }, { term: '', isDefinition: true })
+      },
+      removeMatch(option) {
+        let index = this.newQuestion.options.indexOf(option)
+        console.log(index)
+        this.newQuestion.options.splice(index, 2)
 
       }
     },
