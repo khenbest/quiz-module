@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <!-- <Question /> -->
+    <Question />
     <button @click="go">Go to create question page</button>
   </div>
 </template>

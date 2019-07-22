@@ -30,8 +30,30 @@ export default new Vuex.Store({
         }
       }).catch(err => console.error(err))
     },
+    getQuestions({ commit, dispatch }) {
+      try {
+        questionApi.get('')
+          .then(res => {
+            commit("setQuestions", res.data)
+          })
+      } catch (error) {
+        console.error(error)
+      }
+    },
     gradeQuestion({ commit, dispatch }, payload) {
       questionApi.post(`${payload.question._id}/answers`, payload).then().catch(err => console.error(err))
+    },
+    createQuestion({ commit, dispatch }, payload) {
+      try {
+        questionApi.post('', payload)
+          .then(res => {
+            console.log("successss: ", res.data)
+            dispatch('getQuestions')
+          })
+      } catch (error) {
+        console.error(error)
+      }
+
     }
   }
 })
