@@ -3,8 +3,10 @@
         {{question.prompt}}
         <div class="d-flex row justify-content-center">
             <div class="col-5">
-                <textarea draggable="true" v-for="prop in question.options" class="form-control mb-1"
-                    :placeholder="displayQuestion(prop)" readonly></textarea>
+                <drag :transfer-data="prop" v-for="prop in question.options">drag</drag>
+                <drop @drop="handleDrop">drop</drop>
+                <textarea draggable="true" class="form-control mb-1" :placeholder="displayQuestion(prop)"
+                    readonly></textarea>
             </div>
             <!-- <div class="col-5">
                 <input v-for="prop in question" class="form-control mb-2" type="text"
@@ -15,6 +17,7 @@
 </template>
 
 <script>
+    import { Drag, Drop } from 'vue-drag-drop'
     export default {
         name: "Match",
         props: {
@@ -31,7 +34,11 @@
             },
             displayQuestion(q) {
                 return `${Object.values(q)[0]}`
-            }
-        }
+            },
+            handleDrop(data) {
+                alert(`You dropped with data: ${JSON.stringify(data)}`);
+            },
+        },
+        components: { Drag, Drop },
     }
 </script>
