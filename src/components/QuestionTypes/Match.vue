@@ -1,15 +1,15 @@
 <template>
     <div>
-        {{question}}
+        {{question.prompt}}
         <div class="d-flex row justify-content-center">
             <div class="col-5">
-                <textarea v-for="prop in question.options" class="form-control mb-1"
+                <textarea draggable="true" v-for="prop in question.options" class="form-control mb-1"
                     :placeholder="displayQuestion(prop)" readonly></textarea>
             </div>
-            <div class="col-5">
-                <input v-for="prop in question.options2" class="form-control mb-2" type="text"
+            <!-- <div class="col-5">
+                <input v-for="prop in question" class="form-control mb-2" type="text"
                     :placeholder="displayQuestion(prop)" readonly>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
