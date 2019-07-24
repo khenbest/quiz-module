@@ -4,12 +4,12 @@ import StudentSubmission from '../models/StudentSubmission';
 
 let questionServ = new QuestionService()
 let questionRepo = questionServ.repository
-
+// .select("-correct -rationale")
 export default class QuestionController {
 
     async getAllQuestions(req, res, next) {
         try {
-            let questions = await questionRepo.find({}).select("-correct -rationale")
+            let questions = await questionRepo.find({})
             res.send(questions)
         } catch (error) { next(error) }
     }

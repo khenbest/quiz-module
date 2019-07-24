@@ -9,8 +9,8 @@
       <input v-if="numberOfMatches == 0" class="form-control col-1 mx-auto" type="number" min="0" id="howManyMatching"
         v-model="numberOfMatches">
     </div>
-    <div class="col">
-      <div v-if="newQuestion.options.length > 0" class="row d-flex justify-content-center">
+    <div v-if="newQuestion.options.length > 0" class="col">
+      <div class="row d-flex justify-content-center">
         <div class="col-5 d-flex flex-column justify-content-center">
           <h3>Terms</h3>
           <span v-for="(option, index) in terms">
@@ -65,8 +65,8 @@
     },
     methods: {
       setCorrect() {
-        for (let i = 1; i < this.newQuestion.options.length; i += 2) {
-          let temp = [this.newQuestion.options[i - 1], this.newQuestion.options[i]]
+        for (let i = 0; i < this.newQuestion.options.length; i += 2) {
+          let temp = { value: this.newQuestion.options[i].term, definition: this.newQuestion.options[i + 1].term }
           this.newQuestion.correct.push(temp)
         }
         this.createQuestion()

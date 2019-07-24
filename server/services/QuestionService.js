@@ -64,18 +64,29 @@ export default class QuestionService {
 
     }
     gradeMatch(answer, question) {
-        let correct = 0
-        // may change this to Match as I believe Match will be the actual outlier, NOT t/f
-        for (var key in answer.submission) {
-            if (answer.submission[key] == question.correct[key]) {
-                correct += 1
-            }
-        }
-        let numberOfQuestions = Object.keys(question.correct).length
-        if (correct == numberOfQuestions) {
-            return "Correct!"
-        } else { return "You have " + correct + " correct answers." }
+        let correct = true
+        question.correct.forEach(x => {
+            let y = answer.submission.find(z => z.value == x.value)
+            console.log("X", x, "Y", y)
+            if (!y) { correct = false; return }
+            if (y.definition !== x.definition) { correct = false }
+        })
+        console.log(correct)
+        return correct
     }
+
+    // matchSolver(sub, ans) {
+    //     var correct = true
+    //     ans.forEach(x => {
+    //         var q = sub.find(b => b.value == x.value)
+    //         console.log("Q", q, "X", x)
+    //         if (!q) { correct = false; return }
+    //         if (q.definition !== x.definition) { correct = false; }
+    //     })
+    //     return correct
+    // }
+
+
     gradeOpenEnded(answer, question) {
 
     }
