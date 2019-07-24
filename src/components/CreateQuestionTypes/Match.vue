@@ -76,7 +76,6 @@
       },
       removeMatch(option) {
         let index = this.newQuestion.options.indexOf(option)
-        console.log(index)
         this.newQuestion.options.splice(index, 2)
         if (this.newQuestion.options.length == 0) {
           this.numberOfMatches = 0
