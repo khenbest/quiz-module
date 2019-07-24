@@ -69,8 +69,9 @@ export default class QuestionService {
             let y = answer.submission.find(z => z.value == x.value)
             console.log("X", x, "Y", y)
             if (!y) { correct = false; return }
-            if (y.isDefinition !== x.isDefinition) { correct = false }
+            if (y.definition !== x.definition) { correct = false }
         })
+        console.log(correct)
         return correct
     }
 
