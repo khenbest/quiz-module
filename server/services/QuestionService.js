@@ -75,18 +75,6 @@ export default class QuestionService {
         return correct
     }
 
-    // matchSolver(sub, ans) {
-    //     var correct = true
-    //     ans.forEach(x => {
-    //         var q = sub.find(b => b.value == x.value)
-    //         console.log("Q", q, "X", x)
-    //         if (!q) { correct = false; return }
-    //         if (q.definition !== x.definition) { correct = false; }
-    //     })
-    //     return correct
-    // }
-
-
     gradeOpenEnded(answer, question) {
 
     }
