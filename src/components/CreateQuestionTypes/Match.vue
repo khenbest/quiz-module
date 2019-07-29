@@ -33,7 +33,7 @@
 <script>
   export default {
     name: "Match",
-    props: ["selected"],
+    props: ["selected", "categories"],
     data() {
       return {
         numberOfMatches: 0,
@@ -41,6 +41,7 @@
           prompt: '',
           options: [],
           correct: [],
+          categories: this.categories,
           type: this.selected,
         }
       }

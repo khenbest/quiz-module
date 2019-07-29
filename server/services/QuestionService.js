@@ -6,6 +6,7 @@ let schema = new mongoose.Schema({
     correct: [{ type: Object, required: true }],
     type: { type: String, enum: ["TrueFalse", "Match", "OpenEnded", "FillInTheBlank", "MultipleChoice"], required: true },
     rationale: { type: String },
+    categories: [{ type: String, enum: ["HTML", "CSS", "Style and Design", "Built In Methods", "SOLID", "OOP Pillars", "C#", "Scrum", "Javascript", "Design Patterns"] }]
 }, { timestamps: true })
 
 //Match -- definition to value

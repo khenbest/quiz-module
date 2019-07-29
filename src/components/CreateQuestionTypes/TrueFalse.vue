@@ -39,7 +39,7 @@
 <script>
   export default {
     name: "TrueFalse",
-    props: ['selected'],
+    props: ['selected', 'categories'],
     data() {
       return {
         checked: '',
@@ -48,6 +48,7 @@
           options: [{ a: true }, { b: false }],
           correct: [],
           type: this.selected,
+          categories: this.categories,
           rationale: ''
         }
       }

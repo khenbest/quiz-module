@@ -40,7 +40,7 @@
 <script>
   export default {
     name: "FillInTheBlank",
-    props: ["selected"],
+    props: ["selected", "categories"],
     data() {
       return {
         numOfBlanks: 0,
@@ -51,6 +51,7 @@
           options: [],
           correct: [],
           type: this.selected,
+          categories: this.categories,
           rationale: ''
         }
       }
