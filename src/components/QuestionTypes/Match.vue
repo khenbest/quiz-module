@@ -43,15 +43,24 @@
         },
         computed: {
             drags() {
-                return this.question.options.filter(o => o.isDefinition == false)
+                let arr = this.question.options.filter(o => o.isDefinition == false)
+                return this.shuffle(arr)
             },
             drops() {
-                return this.question.options.filter(o => o.isDefinition == true)
+                let arr = this.question.options.filter(o => o.isDefinition == true)
+                return this.shuffle(arr)
             },
         },
         methods: {
             submit() {
                 this.$emit("submit", { question: this.question, submission: this.submission })
+            },
+            shuffle(a) {
+                for (let i = a.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [a[i], a[j]] = [a[j], a[i]];
+                }
+                return a;
             },
             displayQuestion(q) {
                 return `${Object.values(q)[0]}`
