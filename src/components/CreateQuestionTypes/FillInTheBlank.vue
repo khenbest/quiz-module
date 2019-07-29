@@ -19,17 +19,17 @@
         <button class="btn btn-danger" @click="cancel">Cancel</button>
       </span>
 
-      <span v-if="numOfBlanks > 0">
-        <label for="numOfOptions">How many words would you like in your word bank, in addition to
-          the correct terms
-          already identified?</label>
-        <input v-if="numOfOptions == 0" min="0" type="number" id="numOfOptions" class="form-control mx-auto"
+      <span v-if="numOfBlanks > 0" class="d-flex flex-column">
+        <h3>How many words would you like in your word bank?</h3>
+        <input v-if="numOfOptions <= 0" min="0" type="number" id="numOfOptions" class="form-control mx-auto"
           v-model="numOfOptions">
         <label for="wordBank">Word Bank</label>
       </span>
-      <span v-for="option in options">
-        <i class="fas fa-ban fa-lg inline-form mr-2" @click="removeOption(option)"></i>
-        <input type="text" id="wordBank" class="inline-form my-1 col-6 mx-auto f-control" v-model="option.value">
+      <span v-for="(option, index) in options">
+        <span v-if="index > newQuestion.correct.length-1">
+          <i class="fas fa-ban fa-lg inline-form mr-2" @click="removeOption(option)"></i>
+          <input type="text" id="wordBank" class="inline-form my-1 col-6 mx-auto f-control" v-model="option.value">
+        </span>
       </span>
       <button v-if="newQuestion.options.length > 0" class="btn btn-success mt-3" @click="createQuestion">Submit</button>
 
@@ -61,13 +61,10 @@
         this.createObjects(this.numOfBlanks, 'correct')
       },
       numOfOptions: function () {
+        //if number of options changes, then it resets the array to prevent new items from being added to an old array.
         this.newQuestion.options = []
-        for (let i = 0; i < this.newQuestion.correct.length; i++) {
-          let correct = this.newQuestion.correct[i]
-          this.newQuestion.options.push(correct)
-        }
-        let adjustedNumOfOptions = this.numOfOptions - this.newQuestion.correct.length
-        this.createObjects(adjustedNumOfOptions, 'options')
+        //calls method to add the correct objects to the options array
+        this.addCorrectToOptions()
       }
     },
     computed: {
@@ -79,50 +76,78 @@
       }
     },
     methods: {
+      addCorrectToOptions() {
+        //iterates over correct array and pushes objects into options array
+        if (!this.numOfOptions > 0) { return }
+        this.newQuestion.options = []
+        for (let i = 0; i < this.newQuestion.correct.length; i++) {
+          let correct = this.newQuestion.correct[i]
+          this.newQuestion.options.push(correct)
+        }
+        //ensures that the total number of words in the options array (i.e., 'word bank') account for the number of objects objects already in the array (the 'correct' options)
+        let adjustedNumOfOptions = this.numOfOptions - this.newQuestion.correct.length
+        //creates additional empty objects for word bank
+        this.createObjects(adjustedNumOfOptions, 'options')
+      },
+      //creates {value: '} objects for both the correct array and the options array. It is called by the watchers. 
       createObjects(num, prop) {
         for (let i = 0; i < num; i++) {
           this.newQuestion[prop].push({ value: '' })
         }
       },
-      remove(option) {
+      //Removes an option; called from delete button in the form
+      removeOption(option) {
         let index = this.newQuestion.options.indexOf(option)
         this.newQuestion.options.splice(index, 1)
       },
+      //removes words from the sentence and replaces it with underscores. it is called from the @click event, not from another method.
       format() {
-        // debugger
-        let promptArray = this.newQuestion.prompt.split(' ')
+        let out = ''
+        let prompt = this.newQuestion.prompt
         for (let i = 0; i < this.newQuestion.correct.length; i++) {
-          let word = this.newQuestion.correct[i]
-          let index = promptArray.indexOf(word['value'])
-          if (index < 0) {
+          let target = this.newQuestion.correct[i]
+          let value = target['value']
+          let reg = new RegExp(value, "gi")
+          if (!reg.test(prompt)) {
             this.newQuestion.correct = []
             this.numOfBlanks = 0;
-            this.invalidAlert()
+            this.invalidAlert(value)
             return;
           }
-          promptArray.splice(index, 1, '___________')
+          out = prompt.replace(reg, "___________")
+          prompt = out
         }
-        this.newQuestion.prompt = promptArray.join(' ')
+        this.newQuestion.prompt = prompt
+        console.log(prompt)
+
       },
+
       createQuestion() {
         this.$emit("createQuestion", this.newQuestion)
       },
-      invalidAlert() {
-        // Use sweetalert2
+      //alerts which word is not in the sentence
+      invalidAlert(value) {
         this.$swal({
-          title: 'Invalid Entry',
+          title: 'Invalid Entry: ' + value,
           text: 'That word does not seem to be in the sentence',
           showCloseButton: true
         });
       },
+      //resets everything
       cancel() {
         this.newQuestion.prompt = ''
         this.numOfBlanks = 0
         this.numOfOptions = 0
         this.newQuestion.correct = []
         this.newQuestion.options = []
-      }
+      },
+
     },
     components: {}
   }
 </script>
+// let promptArray = this.newQuestion.prompt.split(' ')
+// for (let i = 0; i < this.newQuestion.correct.length; i++) { // let word=this.newQuestion.correct[i] // let
+  index=promptArray.indexOf(word['value']) // if (index < 0) { // this.newQuestion.correct=[] // this.numOfBlanks=0; //
+  this.invalidAlert() // return; // } // promptArray.splice(index, 1, '___________' ) // } //
+  this.newQuestion.prompt=promptArray.join(' ')
