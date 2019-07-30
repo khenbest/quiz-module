@@ -147,8 +147,8 @@
     components: {}
   }
 </script>
-// let promptArray = this.newQuestion.prompt.split(' ')
+<!-- // let promptArray = this.newQuestion.prompt.split(' ')
 // for (let i = 0; i < this.newQuestion.correct.length; i++) { // let word=this.newQuestion.correct[i] // let
   index=promptArray.indexOf(word['value']) // if (index < 0) { // this.newQuestion.correct=[] // this.numOfBlanks=0; //
   this.invalidAlert() // return; // } // promptArray.splice(index, 1, '___________' ) // } //
-  this.newQuestion.prompt=promptArray.join(' ')
+  this.newQuestion.prompt=promptArray.join(' ') -->
