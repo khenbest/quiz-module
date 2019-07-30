@@ -1,7 +1,8 @@
 <template>
   <div class="home">
     <Question />
-    <button @click="go">Go to create question page</button>
+    <button @click="go('createQuestion')">Go to create question page</button>
+    <button @click="go('createTest')">Go to create test page</button>
   </div>
 </template>
 
@@ -15,8 +16,8 @@
       Question,
     },
     methods: {
-      go() {
-        router.push({ name: 'createQuestion' })
+      go(pageName) {
+        router.push({ name: pageName })
       }
     }
   }
