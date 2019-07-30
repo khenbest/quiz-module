@@ -31,7 +31,8 @@
           <input type="text" id="wordBank" class="inline-form my-1 col-6 mx-auto f-control" v-model="option.value">
         </span>
       </span>
-      <button v-if="newQuestion.options.length > 0" class="btn btn-success mt-3" @click="createQuestion">Submit</button>
+      <button v-if="newQuestion.options.length > 0" class="btn btn-success mt-3 col-3"
+        @click="createQuestion">Submit</button>
 
     </div>
   </div>
@@ -40,7 +41,7 @@
 <script>
   export default {
     name: "FillInTheBlank",
-    props: ["selected", "categories"],
+    props: ["selected"],
     data() {
       return {
         numOfBlanks: 0,
@@ -51,7 +52,6 @@
           options: [],
           correct: [],
           type: this.selected,
-          categories: this.categories,
           rationale: ''
         }
       }
@@ -147,8 +147,3 @@
     components: {}
   }
 </script>
-// let promptArray = this.newQuestion.prompt.split(' ')
-// for (let i = 0; i < this.newQuestion.correct.length; i++) { // let word=this.newQuestion.correct[i] // let
-  index=promptArray.indexOf(word['value']) // if (index < 0) { // this.newQuestion.correct=[] // this.numOfBlanks=0; //
-  this.invalidAlert() // return; // } // promptArray.splice(index, 1, '___________' ) // } //
-  this.newQuestion.prompt=promptArray.join(' ')

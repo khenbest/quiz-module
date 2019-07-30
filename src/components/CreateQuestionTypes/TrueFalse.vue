@@ -40,15 +40,15 @@
   export default {
     name: "TrueFalse",
     props: ['selected', 'categories'],
+
     data() {
       return {
         checked: '',
         newQuestion: {
           prompt: '',
-          options: [{ a: true }, { b: false }],
+          options: [{ value: true }, { value: false }],
           correct: [],
           type: this.selected,
-          categories: this.categories,
           rationale: ''
         }
       }
@@ -57,9 +57,9 @@
       correct() {
         this.newQuestion.correct = []
         if (this.checked == 'a') {
-          this.newQuestion.correct.push({ a: true })
+          this.newQuestion.correct.push({ value: true })
         } else if (this.checked == 'b') {
-          this.newQuestion.correct.push({ b: false })
+          this.newQuestion.correct.push({ value: false })
         }
       }
     },
