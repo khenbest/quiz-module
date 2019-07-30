@@ -5,7 +5,7 @@ import store from './store'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import VueDragDrop from 'vue-drag-drop';
-
+import "./assets/custom.css"
 Vue.use(VueDragDrop);
 
 Vue.use(VueSweetalert2);
