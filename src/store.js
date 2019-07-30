@@ -10,7 +10,8 @@ const questionApi = axios.create({
 export default new Vuex.Store({
   state: {
     questions: [],
-    question: {}
+    question: {},
+    searchResults: []
   },
   mutations: {
     setQuestions(state, val) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     setQuestion(state, val) {
       state.question = val
+    },
+    setSearchResults(state, data) {
+      state.searchResults = data
     }
   },
   actions: {
@@ -53,7 +57,18 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error)
       }
-
+    },
+    searchQuestions({ commit, dispatch }, payload) {
+      try {
+        questionApi.put('', payload)
+          .then(res => {
+            console.log(res.data)
+            debugger
+            commit('setSearchResults', res.data)
+          })
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 })
