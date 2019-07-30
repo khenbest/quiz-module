@@ -33,6 +33,13 @@ export default class QuestionController {
         } catch (error) { next(error) }
     }
 
+    async searchQuestions(req, res, next) {
+        try {
+            let questions = await questionRepo.find({ categories: { $in: [...req.body] } })
+            res.send(questions)
+        } catch (error) { next(error) }
+    }
+
     async delortQuestion(req, res, next) {
         try {
             await questionRepo.findByIdAndDelete(req.params.id)
@@ -58,6 +65,7 @@ export default class QuestionController {
             .post('', this.createQuestion)
             .post('/:id/answers', this.gradeAnswer)
             .put('/:id', this.editQuestion)
+            .put('', this.searchQuestions)
             .delete('/:id', this.delortQuestion)
     }
 
