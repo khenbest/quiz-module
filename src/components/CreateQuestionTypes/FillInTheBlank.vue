@@ -1,6 +1,6 @@
 <template>
   <div class="FillInTheBlank row">
-    <div class="col d-flex flex-column">
+    <!-- <div class="col d-flex flex-column">
       <label for="prompt">Please write the complete sentence</label>
       <input type="text" id="prompt" class="form-control col-6 mx-auto" placeholder="Complete sentence here"
         v-model="newQuestion.prompt">
@@ -33,13 +33,13 @@
       </span>
       <button v-if="newQuestion.options.length > 0" class="btn btn-success mt-3 col-3"
         @click="createQuestion">Submit</button>
-    </div>
+    </div> -->
     <!-- start of copied template here  -->
 
 
     <!-- start of card -->
     <div class="md-layout-item md-medium-size-100 md-size-66">
-      <form>
+      <form @submit.prevent="createQuestion">
         <div class="md-card md-theme-default">
           <div class="md-card-header" data-background-color="green">
             <h4 class="title">Edit Profile</h4>
@@ -64,71 +64,27 @@
               <div class="md-layout-item md-small-size-100 md-size-33" v-for="word in correct">
                 <md-field class="has-danger">
                   <label>Word to remove: </label>
-                  <md-input v-for="word in correct" type="text"></md-input>
+                  <md-input v-for="word in correct" type="text" v-model="word.value"></md-input>
                 </md-field>
               </div>
-              <div class="md-layout-item md-small-size-100 md-size-50">
-                <div class="md-field md-theme-default">
-                  <md-field class="has-danger">
-                    <label>Number of words in word bank: </label>
-                    <md-input v-model="numOfOptions" type="number"></md-input>
-                  </md-field>
-
-                </div>
+              <div v-if="numOfBlanks > 0" class="md-layout-item md-small-size-100 md-size-33">
+                <md-field class="has-danger">
+                  <label>Number of Options </label>
+                  <md-input v-model="numOfOptions" type="number"></md-input>
+                </md-field>
               </div>
-              <div class="md-layout-item md-small-size-100 md-size-50">
-                <div class="md-field md-theme-default"><label for="md-input-z9xle712">Last Name</label><input
-                    type="text" id="md-input-z9xle712" class="md-input">
-                  <!---->
-                  <!---->
-                  <!---->
-                </div>
-              </div>
-              <div class="md-layout-item md-small-size-100 md-size-100">
-                <div class="md-field md-theme-default"><label for="md-input-idnm23jlp">Adress</label><input type="text"
-                    id="md-input-idnm23jlp" class="md-input">
-                  <!---->
-                  <!---->
-                  <!---->
-                </div>
-              </div>
-              <div class="md-layout-item md-small-size-100 md-size-33">
-                <div class="md-field md-theme-default"><label for="md-input-qg3m8v7hp">City</label><input type="text"
-                    id="md-input-qg3m8v7hp" class="md-input">
-                  <!---->
-                  <!---->
-                  <!---->
-                </div>
-              </div>
-              <div class="md-layout-item md-small-size-100 md-size-33">
-                <div class="md-field md-theme-default"><label for="md-input-zyvqmvdr7">Country</label><input type="text"
-                    id="md-input-zyvqmvdr7" class="md-input">
-                  <!---->
-                  <!---->
-                  <!---->
-                </div>
-              </div>
-              <div class="md-layout-item md-small-size-100 md-size-33">
-                <div class="md-field md-theme-default"><label for="md-input-5y1ipo93n">Postal Code</label><input
-                    type="number" id="md-input-5y1ipo93n" class="md-input">
-                  <!---->
-                  <!---->
-                  <!---->
-                </div>
-              </div>
-              <div class="md-layout-item md-size-100">
-                <div class="md-field md-theme-default md-has-value md-has-textarea" maxlength="5"><label
-                    for="md-textarea-rxlelfgt5">About Me</label><textarea id="md-textarea-rxlelfgt5"
-                    class="md-textarea"></textarea>
-                  <!---->
-                  <!---->
-                  <!---->
-                </div>
+              <div class="md-layout-item md-small-size-100 md-size-33" v-for="(option, index) in options">
+                <md-field class="has-danger">
+                  <label>Optin in word bank: </label>
+                  <i class="fas fa-ban fa-sm inline-form d-flex align-self-center mr-2"
+                    @click="removeOption(option)"></i>
+                  <md-input v-model="option.value" type="text"></md-input>
+                </md-field>
               </div>
               <div class="md-layout-item md-size-100 text-right"><button type="button"
                   class="md-button md-raised md-success md-theme-default">
                   <div class="md-ripple">
-                    <div class="md-button-content">Update Profile</div>
+                    <div class="md-button-content">Submit</div>
                   </div>
                 </button></div>
             </div>
@@ -221,11 +177,12 @@
         }
         this.newQuestion.prompt = prompt
         console.log(prompt)
-
+        this.$emit("createQuestion", this.newQuestion)
       },
 
       createQuestion() {
-        this.$emit("createQuestion", this.newQuestion)
+        this.format()
+        // this.$emit("createQuestion", this.newQuestion)
       },
       //alerts which word is not in the sentence
       invalidAlert(value) {
