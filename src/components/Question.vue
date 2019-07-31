@@ -2,8 +2,17 @@
   <div v-if="question.options" class="container-fluid">
     <div class="d-flex row justify-content-center">
       <div class="col-12 justify-content-center">
-        <button class="btn btn-dark col-4 mr-1" @click="getQuestion(0)">Start Quiz</button>
-        <button class="btn btn-primary col-4" @click="getQuestion(1)">Next Question</button>
+        <button type="button" @click="getQuestion(0)" class="md-button md-info md-lg md-theme-default">
+          <div class="md-ripple">
+            <div class="md-button-content">Quiz</div>
+          </div>
+        </button>
+        <!-- <button class="btn btn-primary col-4" @click="getQuestion(1)">Next Question</button> -->
+        <button type="button" @click="getQuestion(1)" class="md-button md-primary md-lg md-theme-default">
+          <div class="md-ripple">
+            <div class="md-button-content">Next Question</div>
+          </div>
+        </button>
         <div class="d-flex row justify-content-center">
           <div class="col-12">
             <component :is="question.type" :question="question" @submit="gradeQuestion" />
