@@ -1,83 +1,44 @@
 <template>
   <div class="home">
-    <button @click="go('createQuestion')" type="button" class="md-button md-info md-theme-default">
+    <button @click="go('createQuestion')" type="button" class="md-button md-primary md-theme-default">
       <div class="md-ripple">
         <div class="md-button-content">Create A Question</div>
       </div>
     </button>
-    <button @click="go('Questions')" type="button" class="md-button md-primary md-theme-default">
+    <button @click="go('Questions')" type="button" class="md-button  md-primary md-theme-default">
       <div class="md-ripple">
         <div class="md-button-content">Test Question(s)</div>
       </div>
     </button>
-    <button @click="go('createTest')" type="button" class="md-button md-info md-theme-default">
+    <button @click="go('createTest')" type="button" class="md-button md-primary md-theme-default">
       <div class="md-ripple">
         <div class="md-button-content">Create A Quiz</div>
       </div>
     </button>
     <div class="row justify-content-center">
-      <div class="md-layout-item md-medium-size-75 md-xsmall-size-75 md-size-75">
-        <div class="md-card md-theme-default">
-          <div class="md-card-header" data-background-color="orange">
-            <h4 class="title">Quiz Creator</h4>
-            <p class="category">Add questions from below</p>
-          </div>
-          <div class="md-card-content">
-            <div>
-              <div class="md-content md-table md-theme-default" table-header-color="gray" value>
-                <div class="md-content md-table-content md-scrollbar md-theme-default">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th class="md-table-head">
-                          <div class="md-table-head-container md-ripple md-disabled">
-                            <div class="md-table-head-label">Prompt</div>
-                          </div>
-                        </th>
-                        <th class="md-table-head">
-                          <div class="md-table-head-container md-ripple md-disabled">
-                            <div class="md-table-head-label">Type</div>
-                          </div>
-                        </th>
-                        <th class="md-table-head">
-                          <div class="md-table-head-container md-ripple md-disabled">
-                            <div class="md-table-head-label">Categories</div>
-                          </div>
-                        </th>
-                        <th class="md-table-head">
-                          <div class="md-table-head-container md-ripple md-disabled">
-                            <div class="md-table-head-label">Selected</div>
-                          </div>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody v-for="question in questions" :key="question._id">
-                      <tr class="md-table-row">
-                        <td class="md-table-cell">
-                          <div class="md-table-cell-container">{{question.prompt}}</div>
-                        </td>
-                        <td class="md-table-cell">
-                          <div class="md-table-cell-container">{{question.type}}</div>
-                        </td>
-                        <td class="md-table-cell">
-                          <div class="md-table-cell-container">{{prettify(question.categories)}}</div>
-                        </td>
-                        <td class="md-table-cell">
-                          <div class="md-table-cell-container justify-content-end">
-                            <md-checkbox v-model="selectedQuestions" :value="question">
-                            </md-checkbox>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!--table needs v-model both places DON'T delete one-->
+      <md-table class="col-8" v-model="selectedQuestions" md-sort="question" md-sort-order="asc" md-card
+        md-fixed-header>
+        <md-table-toolbar class="md-header my-3" data-background-color="blue">
+          <h1 class="md-title" style="color:white !important; text-shadow: gray 0 1px; font-weight: 500;">Questions</h1>
+        </md-table-toolbar>
+
+        <md-table-row slot="md-table-row" v-for="question in questions">
+          <md-table-cell md-label="Prompt" md-sort-by="question.prompt" md-numeric>{{ question.prompt }}</md-table-cell>
+          <md-table-cell md-label="Type" md-sort-by="question.type">{{ question.type }}</md-table-cell>
+          <md-table-cell md-label="Categories" md-sort-by="question.categories">{{ prettify(question.categories) }}
+          </md-table-cell>
+          <md-table-cell md-label="Selected">
+            <md-checkbox v-model="selectedQuestions" :value="question">
+              <!--table needs v-model both places DON'T delete one-->
+
+            </md-checkbox>
+          </md-table-cell>
+
+        </md-table-row>
+      </md-table>
     </div>
+
   </div>
 </template>
 
