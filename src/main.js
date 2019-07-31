@@ -6,6 +6,10 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import VueDragDrop from 'vue-drag-drop';
 import "./assets/custom.css"
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/vue-material.min.css'
+
+Vue.use(VueMaterial)
 Vue.use(VueDragDrop);
 
 Vue.use(VueSweetalert2);
