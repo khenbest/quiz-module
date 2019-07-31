@@ -64,7 +64,8 @@
                         </td>
                         <td class="md-table-cell">
                           <div class="md-table-cell-container justify-content-end">
-                            <input type="checkbox" name id />
+                            <md-checkbox v-model="selectedQuestions" :value="question">
+                            </md-checkbox>
                           </div>
                         </td>
                       </tr>
@@ -81,32 +82,35 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import Question from "@/components/Question.vue";
-import router from "../router.js";
-export default {
-  name: "home",
-  components: {
-    Question
-  },
-  methods: {
-    go(pageName) {
-      router.push({ name: pageName });
+  // @ is an alias to /src
+  import Question from "@/components/Question.vue";
+  import router from "../router.js";
+  export default {
+    name: "home",
+    data() {
+      return {
+        selectedQuestions: []
+      }
+    },
+    components: {
+      Question
+    },
+    mounted() {
+      this.$store.dispatch("getQuestions");
+    },
+    computed: {
+      questions() {
+        return this.$store.state.questions;
+      }
+    },
+    methods: {
+      prettify(arr) {
+        let str = arr.join(" ");
+        return str;
+      },
+      go(pageName) {
+        router.push({ name: pageName });
+      }
     }
-  },
-  mounted() {
-    this.$store.dispatch("getQuestions");
-  },
-  computed: {
-    questions() {
-      return this.$store.state.questions;
-    }
-  },
-  methods: {
-    prettify(arr) {
-      let str = arr.join(" ");
-      return str;
-    }
-  }
-};
+  };
 </script>
