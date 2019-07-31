@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import CreateQuestion from './views/CreateQuestion.vue'
 import CreateTest from './views/CreateTest.vue'
+import QuestionView from './views/QuestionView.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -21,6 +22,11 @@ export default new Router({
       path: '/create-test',
       name: 'createTest',
       component: CreateTest
-    }
+    },
+    {
+      path: '/questions-test',
+      name: 'Questions',
+      component: QuestionView
+    },
   ]
 })

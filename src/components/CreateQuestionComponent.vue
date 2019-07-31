@@ -47,11 +47,12 @@
     computed: {},
     methods: {
       createQuestion(question) {
+        question.categories = this.categories
         this.$store.dispatch('createQuestion', question)
       },
 
       updateCategories(payload) {
-        this.categories = payload;
+        this.categories = payload
       }
     },
     components: {
