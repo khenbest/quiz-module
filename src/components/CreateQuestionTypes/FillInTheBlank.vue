@@ -1,49 +1,10 @@
 <template>
   <div class="FillInTheBlank row">
-    <!-- <div class="col d-flex flex-column">
-      <label for="prompt">Please write the complete sentence</label>
-      <input type="text" id="prompt" class="form-control col-6 mx-auto" placeholder="Complete sentence here"
-        v-model="newQuestion.prompt">
-
-      <span v-if="numOfBlanks == 0">
-        <label for="numOfBlanks">How many words would you like to remove from the sentence?</label>
-        <input min="0" type="number" id="numOfBlanks" class="form-control mx-auto col-6" v-model="numOfBlanks">
-      </span>
-      <hr>
-      <span v-if="numOfBlanks > 0">
-        <label for="correctWord" class="mt-2"><strong>Please identify the word(s) you would like to replace with a
-            blank</strong></label>
-        <input v-for="word in correct" type="text" id="correctWord" class="form-control my-2 col-6 mx-auto"
-          v-model="word.value">
-        <button class="btn btn-info" @click="format">Confirm</button>
-        <button class="btn btn-danger" @click="cancel">Cancel</button>
-      </span>
-
-      <span v-if="numOfBlanks > 0" class="d-flex flex-column">
-        <h3>How many words would you like in your word bank?</h3>
-        <input v-if="numOfOptions <= 0" min="0" type="number" id="numOfOptions" class="form-control mx-auto"
-          v-model="numOfOptions">
-        <label for="wordBank">Word Bank</label>
-      </span>
-      <span v-for="(option, index) in options">
-        <span v-if="index > newQuestion.correct.length-1">
-          <i class="fas fa-ban fa-lg inline-form mr-2" @click="removeOption(option)"></i>
-          <input type="text" id="wordBank" class="inline-form my-1 col-6 mx-auto f-control" v-model="option.value">
-        </span>
-      </span>
-      <button v-if="newQuestion.options.length > 0" class="btn btn-success mt-3 col-3"
-        @click="createQuestion">Submit</button>
-    </div> -->
-    <!-- start of copied template here  -->
-
-
-    <!-- start of card -->
     <div class="md-layout-item md-medium-size-100 md-size-66">
       <form @submit.prevent="createQuestion">
         <div class="md-card md-theme-default">
-          <div class="md-card-header" data-background-color="green">
-            <h4 class="title">Edit Profile</h4>
-            <p class="category">Complete your profile</p>
+          <div class="md-card-header yellowBtn">
+            <h4 class="title">Fill In The Blank</h4>
           </div>
           <div class="md-card-content">
             <div class="md-layout">
@@ -75,13 +36,13 @@
               </div>
               <div class="md-layout-item md-small-size-100 md-size-33" v-for="(option, index) in options">
                 <md-field class="has-danger">
-                  <label>Optin in word bank: </label>
+                  <label>Option in word bank: </label>
                   <i class="fas fa-ban fa-sm inline-form d-flex align-self-center mr-2"
                     @click="removeOption(option)"></i>
                   <md-input v-model="option.value" type="text"></md-input>
                 </md-field>
               </div>
-              <div class="md-layout-item md-size-100 text-right"><button type="button"
+              <div class="md-layout-item md-size-100 text-right"><button type="submit"
                   class="md-button md-raised md-success md-theme-default">
                   <div class="md-ripple">
                     <div class="md-button-content">Submit</div>
@@ -160,6 +121,7 @@
       },
       //removes words from the sentence and replaces it with underscores. it is called from the @click event, not from another method.
       format() {
+        debugger
         let out = ''
         let prompt = this.newQuestion.prompt
         for (let i = 0; i < this.newQuestion.correct.length; i++) {
