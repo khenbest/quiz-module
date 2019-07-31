@@ -1,15 +1,16 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
+      <router-link to="/">Home</router-link>|
+      <router-link to="/questions-test">Test</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -25,6 +26,32 @@
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #403e3a;
+  margin-right: 3px;
+}
+.purpBtn {
+  background-color: #bf5e8b !important;
+  color: #ffffe8;
+  font-weight: 500;
+}
+.blueBtn {
+  background-color: #0896a6 !important;
+  color: #ffffe8;
+  font-weight: 500;
+}
+.yellowBtn {
+  background-color: #ffff48 !important;
+  color: #403e3a;
+  font-weight: 600;
+}
+.blackBtn {
+  background-color: #403e3a !important;
+  color: #ffffe8;
+  font-weight: 500;
+}
+.whiteBtn {
+  background-color: #ffffe8 !important;
+  color: #0896a6;
+  font-weight: bold;
 }
 </style>
