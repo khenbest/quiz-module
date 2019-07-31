@@ -22,19 +22,17 @@
         <md-table-toolbar class="md-header my-3" data-background-color="blue">
           <h1 class="md-title" style="color:white !important; text-shadow: gray 0 1px; font-weight: 500;">Questions</h1>
         </md-table-toolbar>
-
         <md-table-row slot="md-table-row" v-for="question in questions">
-          <md-table-cell md-label="Prompt" md-sort-by="question.prompt" md-numeric>{{ question.prompt }}</md-table-cell>
+          <md-table-cell md-label="Prompt" md-sort-by="question.prompt">{{ question.prompt }}
+          </md-table-cell>
           <md-table-cell md-label="Type" md-sort-by="question.type">{{ question.type }}</md-table-cell>
           <md-table-cell md-label="Categories" md-sort-by="question.categories">{{ prettify(question.categories) }}
           </md-table-cell>
           <md-table-cell md-label="Selected">
             <md-checkbox v-model="selectedQuestions" :value="question">
               <!--table needs v-model both places DON'T delete one-->
-
             </md-checkbox>
           </md-table-cell>
-
         </md-table-row>
       </md-table>
     </div>
