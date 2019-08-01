@@ -36,8 +36,8 @@
 
 
     <div class="col-12 d-flex flex-column">
-      <component :is="selected" v-on:createQuestion="createQuestion($event)" :selected="selected"
-        :categories="categories"></component>
+      <component v-if="categories.length > 0" :is="selected" v-on:createQuestion="createQuestion($event)"
+        :selected="selected"></component>
     </div>
   </div>
 </template>
@@ -66,18 +66,28 @@
       }
     },
     computed: {},
+    watch: {
+      selected: function () {
+        if (this.categories.length == 0) {
+          this.categoryAlert()
+        }
+      }
+    },
     methods: {
       createQuestion(question) {
-        if (this.categories.length == 0) {
-          question.categories = ''
-        } else {
-          question.categories = this.categories
-        }
+        question.categories = this.categories
         this.$store.dispatch('createQuestion', question)
       },
 
       updateCategories(payload) {
         this.categories = payload
+      },
+      categoryAlert() {
+        this.$swal({
+          title: 'Required Category',
+          text: 'Please Select A Category',
+          showCloseButton: true
+        });
       }
     },
     components: {
