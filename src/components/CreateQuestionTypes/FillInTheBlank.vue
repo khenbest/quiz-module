@@ -16,17 +16,20 @@
                 </md-field>
 
               </div>
-              <div class="md-layout-item md-small-size-100 md-size-33">
+              <div class="md-layout-item md-small-size-100 md-size-100" id="numberOfWords">
                 <md-field class="has-danger">
                   <label>Number of words to be removed</label>
                   <md-input v-model="numOfBlanks" type="number"></md-input>
                 </md-field>
               </div>
-              <div class="md-layout-item md-small-size-100 md-size-33" v-for="word in correct">
-                <md-field class="has-danger">
-                  <label>Word to remove: </label>
-                  <md-input type="text" v-model="word.value"></md-input>
-                </md-field>
+              <div class="md-layout-item md-small-size-100 md-size-50">
+                <span v-for="(word, index) in correct" class="d-flex flex-row">
+                  <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center" @click="removeWord(word)"></i>
+                  <md-field class="has-danger">
+                    <label>Word {{index}}: </label>
+                    <md-input type="text" v-model="word.value"></md-input>
+                  </md-field>
+                </span>
               </div>
               <div v-if="numOfBlanks > 0" class="md-layout-item md-small-size-100 md-size-33">
                 <md-field class="has-danger">
@@ -34,13 +37,15 @@
                   <md-input v-model="numOfOptions" type="number"></md-input>
                 </md-field>
               </div>
-              <div class="md-layout-item md-small-size-100 md-size-33" v-for="(option, index) in options">
-                <md-field class="has-danger">
-                  <label>Option in word bank: </label>
+              <div class="md-layout-item md-small-size-100 md-size-33">
+                <span v-for="(option, index) in options" class="d-flex flex-row">
                   <i class="fas fa-ban fa-sm inline-form d-flex align-self-center mr-2"
                     @click="removeOption(option)"></i>
-                  <md-input v-model="option.value" type="text"></md-input>
-                </md-field>
+                  <md-field class="has-danger">
+                    <label>Option {{index}} in word bank: </label>
+                    <md-input v-model="option.value" type="text"></md-input>
+                  </md-field>
+                </span>
               </div>
               <div class="md-layout-item md-size-100 text-center">
                 <button type="submit" class="md-button md-raised md-info md-theme-default">
@@ -125,9 +130,13 @@
         let index = this.newQuestion.options.indexOf(option)
         this.newQuestion.options.splice(index, 1)
       },
+      removeWord(word) {
+        let index = this.newQuestion.correct.indexOf(word)
+        this.newQuestion.correct.splice(index, 1)
+
+      },
       //removes words from the sentence and replaces it with underscores. it is called from the @click event, not from another method.
       format() {
-
         let out = ''
         let prompt = this.newQuestion.prompt
         for (let i = 0; i < this.newQuestion.correct.length; i++) {
@@ -174,3 +183,10 @@
     components: {}
   }
 </script>
+
+<style>
+  #numberOfWords {
+    display: flex;
+    justify-content: center;
+  }
+</style>

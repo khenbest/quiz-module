@@ -1,5 +1,5 @@
 <template>
-  <div class="TrueFalse">
+  <div class="TrueFalse row justify-content-center">
     <!-- <div class="d-flex row justify-content-center">
       <div class="col-12 mt-3 flex-column d-flex">
         <label for="prompt" class="my-2">Question Prompt</label>
