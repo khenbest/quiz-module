@@ -18,7 +18,7 @@
     <div class="row justify-content-center mt-3">
       <div class="col-8">
 
-
+        <searchQuestion></searchQuestion>
       </div>
     </div>
     <div class="row justify-content-center mb-0">
