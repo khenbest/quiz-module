@@ -1,6 +1,6 @@
 <template>
   <div class="TrueFalse">
-    <div class="d-flex row justify-content-center">
+    <!-- <div class="d-flex row justify-content-center">
       <div class="col-12 mt-3 flex-column d-flex">
         <label for="prompt" class="my-2">Question Prompt</label>
         <textarea required placeholder="Question prompt..." v-model="newQuestion.prompt" id="prompt"
@@ -20,10 +20,10 @@
             </label>
 
           </div>
-          <div class="col-12 d-flex flex-column">
-            <!-- <input class="form-control col-6 mx-auto" type="text" v-model="newQuestion.rationale"
+          <div class="col-12 d-flex flex-column"> -->
+    <!-- <input class="form-control col-6 mx-auto" type="text" v-model="newQuestion.rationale"
               placeholder="Explanation..." id="rationale"> -->
-            <label for="rationale">Explanation</label>
+    <!-- <label for="rationale">Explanation</label>
             <textarea required placeholder="Explanation..." v-model="newQuestion.rationale" id="rationale"
               class-="form-control mx-auto" spellcheck="true"></textarea>
           </div>
@@ -32,7 +32,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
 
     <div class="md-layout-item md-medium-size-100 md-size-66">
@@ -43,24 +43,29 @@
           </div>
           <div class="md-card-content">
             <div class="md-layout">
-              <div class="md-layout-item md-small-size-100 md-size-66">
+              <div class="md-layout-item md-small-size-100 md-size-100">
                 <!-- <div class="md-field md-theme-default md-disabled has-danger"> -->
                 <md-field class="has-danger md-theme-defult">
                   <label>Question Prompt: </label>
                   <md-input v-model="newQuestion.prompt"></md-input>
                 </md-field>
               </div>
-              <div class="md-layout-item md-small-size-100 md-size-33" v-if="numberOfMatches == 0">
-                <md-field class="has-danger">
-                  <h4>Is The Answer True or False?</h4>
-                  <label for="true">True</label>
-                  <md-input type="radio" v-model="checked" value="true" id="true"></md-input>
+              <div class="md-layout-item md-small-size-100 md-size-33">
+                <!-- <md-field class=" has-danger"> -->
+                <!-- <h4>Is The Answer True or False?</h4> -->
+                <label for="true">True</label>
+                <md-input type="radio" v-model="checked" value="true" id="true"></md-input>
+                <!-- </md-field> -->
+              </div>
+              <div class="md-layout-item md-small-size-100 md-size-33">
+                <md-field class=" has-danger">
+                  <!-- <h4>Is The Answer True or False?</h4> -->
                   <label for="False">False</label>
                   <md-input type="radio" v-model="checked" value="false" id="false">
                   </md-input>
                 </md-field>
               </div>
-              <div class="md-layout-item md-small-size-100 md-size-100" v-if="numberOfMatches > 0">
+              <div class="md-layout-item md-small-size-100 md-size-100">
                 <md-field class="has-danger">
                   <md-textarea v-model="newQuestion.rationale">
                   </md-textarea>
@@ -86,7 +91,7 @@
 <script>
   export default {
     name: "TrueFalse",
-    props: ['selected', 'categories'],
+    props: ['selected'],
 
     data() {
       return {
@@ -100,12 +105,12 @@
         }
       }
     },
-    computed: {
-      correct() {
+    watch: {
+      checked: function () {
         this.newQuestion.correct = []
-        if (this.checked == 'a') {
+        if (this.checked == 'true') {
           this.newQuestion.correct.push({ value: true })
-        } else if (this.checked == 'b') {
+        } else if (this.checked == 'false') {
           this.newQuestion.correct.push({ value: false })
         }
       }
