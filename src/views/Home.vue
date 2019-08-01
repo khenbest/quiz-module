@@ -15,39 +15,33 @@
         <div class="md-button-content">Create A Quiz</div>
       </div>
     </button>
-    <div class="row justify-content-center mt-3">
-      <div class="col-8">
-        <md-toolbar class="md-warning" md-elevation="1">
-          <h3 class="md-title" style="flex: 1">SearchBar</h3>
-          <md-field md-clearable class="md-toolbar-section-end">
-            <md-input placeholder="Search by name..." v-model="search" @input="searchOnTable" />
-          </md-field>
-        </md-toolbar>
-        <searchQuestion></searchQuestion>
-      </div>
-    </div>
+
+    <searchQuestion></searchQuestion>
+
+
 
     <!-- create quiz section by tags -->
 
     <div class="row justify-content-center mb-0">
       <!--table needs v-model both places DON'T delete one-->
-      <md-table class="col-8" v-model="selectedQuestions" md-card md-fixed-header>
+      <md-table class="col-8" v-model="selectedQuestions" md-card>
         <md-table-toolbar class="md-header my-3" data-background-color="blue">
           <h1 class="md-title" style="color:white !important; text-shadow: gray 0 1px; font-weight: 500;">Questions</h1>
         </md-table-toolbar>
-
-        <md-table-row v-for="question in results">
-          <md-table-cell md-label="Prompt">{{ question.prompt }}
-          </md-table-cell>
-          <md-table-cell md-label="Type">{{ question.type }}</md-table-cell>
-          <md-table-cell md-label="Categories">{{ prettify(question.categories) }}
-          </md-table-cell>
-          <md-table-cell md-label="Selected">
-            <md-checkbox v-model="selectedQuestions" :value="question">
-              <!--table needs v-model both places DON'T delete one-->
-            </md-checkbox>
-          </md-table-cell>
-        </md-table-row>
+        <md-content class="md-scrollbar">
+          <md-table-row v-for="question in results">
+            <md-table-cell md-label="Prompt">{{ question.prompt }}
+            </md-table-cell>
+            <md-table-cell md-label="Type">{{ question.type }}</md-table-cell>
+            <md-table-cell md-label="Categories">{{ prettify(question.categories) }}
+            </md-table-cell>
+            <md-table-cell md-label="Selected">
+              <md-checkbox v-model="selectedQuestions" :value="question">
+                <!--table needs v-model both places DON'T delete one-->
+              </md-checkbox>
+            </md-table-cell>
+          </md-table-row>
+        </md-content>
       </md-table>
     </div>
     <div class="row mt-0 mb-2 justify-content-center">

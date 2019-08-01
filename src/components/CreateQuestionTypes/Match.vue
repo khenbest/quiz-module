@@ -30,22 +30,30 @@
                 </button>
               </div>
               <div class="md-layout-item md-small-size-100 md-size-33">
-                <md-field class="has-danger" v-for="option in terms">
-                  <label>Term: </label>
-                  <i class="fas fa-ban fa-lg inline-form mr-2" @click="removeMatch(option)"></i>
-                  <md-input v-model="option.term" type="text"></md-input>
-                </md-field>
+                <span v-for="(option, index) in terms" class="d-flex flex-row">
+                  <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center" @click="removeMatch(option)"></i>
+                  <md-field class="has-danger">
+                    <label> Term
+                      {{index + 1}}: </label>
+                    <md-input v-model="option.term" type="text"></md-input>
+                  </md-field>
+                </span>
               </div>
               <div class="md-layout-item md-small-size-100 md-size-66">
-                <md-field class="has-danger" v-for="option in definitions">
-                  <label>Number of Options </label>
+                <md-field class="has-danger" v-for="(option, index) in definitions">
+                  <label>Definition {{index + 1}}: </label>
                   <md-input v-model="option.term" type="text"></md-input>
                 </md-field>
               </div>
-              <div class="md-layout-item md-size-100 text-right"><button type="submit"
+              <div class="md-layout-item md-size-100 text-center"><button type="submit"
                   class="md-button md-raised md-info md-theme-default">
                   <div class="md-ripple">
                     <div class="md-button-content">Submit</div>
+                  </div>
+                </button>
+                <button type="button" class="md-button md-raised md-info md-theme-default" @click="reset">
+                  <div class="md-ripple">
+                    <div class="md-button-content">Cancel</div>
                   </div>
                 </button></div>
             </div>
@@ -109,7 +117,13 @@
         }
       },
       createQuestion() {
-        this.$emit("createQuestion", this.newQuestion)
+        let question = JSON.parse(JSON.stringify(this.newQuestion))
+        this.$emit("createQuestion", question)
+        this.reset()
+      },
+      reset() {
+        this.numberOfMatches = 0
+        this.newQuestion.prompt = ''
       }
     },
     components: {}

@@ -1,7 +1,7 @@
 <template>
   <div class="FillInTheBlank row justify-content-center">
     <div class="md-layout-item md-medium-size-100 md-size-66">
-      <form @submit.prevent="createQuestion">
+      <form @submit.prevent="format">
         <div class="md-card md-theme-default">
           <div class="md-card-header" data-background-color="blue">
             <h4 class="title">Fill In The Blank</h4>
@@ -42,12 +42,18 @@
                   <md-input v-model="option.value" type="text"></md-input>
                 </md-field>
               </div>
-              <div class="md-layout-item md-size-100 text-right"><button type="submit"
-                  class="md-button md-raised md-info md-theme-default">
+              <div class="md-layout-item md-size-100 text-center">
+                <button type="submit" class="md-button md-raised md-info md-theme-default">
                   <div class="md-ripple">
                     <div class="md-button-content">Submit</div>
                   </div>
-                </button></div>
+                </button>
+                <button type="button" class="md-button md-raised md-info md-theme-default" @click="reset">
+                  <div class="md-ripple">
+                    <div class="md-button-content">Cancel</div>
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -139,12 +145,13 @@
         }
         this.newQuestion.prompt = prompt
         console.log(prompt)
-        this.$emit("createQuestion", this.newQuestion)
+        this.createQuestion()
       },
 
       createQuestion() {
-        this.format()
-        // this.$emit("createQuestion", this.newQuestion)
+        let question = JSON.parse(JSON.stringify(this.newQuestion))
+        this.$emit("createQuestion", question)
+        this.reset()
       },
       //alerts which word is not in the sentence
       invalidAlert(value) {
@@ -155,7 +162,7 @@
         });
       },
       //resets everything
-      cancel() {
+      reset() {
         this.newQuestion.prompt = ''
         this.numOfBlanks = 0
         this.numOfOptions = 0

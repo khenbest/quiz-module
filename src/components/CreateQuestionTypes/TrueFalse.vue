@@ -36,7 +36,7 @@
 
 
     <div class="md-layout-item md-medium-size-100 md-size-66">
-      <form @submit.prevent="setCorrect">
+      <form @submit.prevent="createQuestion">
         <div class="md-card md-theme-default">
           <div class="md-card-header" data-background-color="blue">
             <h4 class="title">True of False</h4>
@@ -50,24 +50,24 @@
                   <md-input v-model="newQuestion.prompt"></md-input>
                 </md-field>
               </div>
-              <div class="md-layout-item md-small-size-100 md-size-33">
-                <!-- <md-field class=" has-danger"> -->
-                <!-- <h4>Is The Answer True or False?</h4> -->
-                <label for="true">True</label>
-                <md-input type="radio" v-model="checked" value="true" id="true"></md-input>
-                <!-- </md-field> -->
-              </div>
-              <div class="md-layout-item md-small-size-100 md-size-33">
-                <md-field class=" has-danger">
+              <div class="md-layout-item md-small-size-100 md-size-100">
+                <div class=" has-danger md-alignment-center d-flex flex-row justify-content-center">
                   <!-- <h4>Is The Answer True or False?</h4> -->
-                  <label for="False">False</label>
-                  <md-input type="radio" v-model="checked" value="false" id="false">
-                  </md-input>
-                </md-field>
+                  <div>
+                    <label class="mr-2" for="true">True</label>
+                    <md-radio type="radio" v-model="checked" value="true" id="true"></md-radio>
+                  </div>
+                  <div>
+                    <label class="mr-2" for="False">False</label>
+                    <md-radio type="radio" v-model="checked" value="false" id="false">
+                    </md-radio>
+                  </div>
+                </div>
               </div>
               <div class="md-layout-item md-small-size-100 md-size-100">
                 <md-field class="has-danger">
-                  <md-textarea v-model="newQuestion.rationale">
+                  <label for="">Rationale</label>
+                  <md-textarea spellcheck=true v-model="newQuestion.rationale">
                   </md-textarea>
                 </md-field>
               </div>
@@ -76,6 +76,11 @@
                   class="md-button md-raised md-info md-theme-default">
                   <div class="md-ripple">
                     <div class="md-button-content">Submit</div>
+                  </div>
+                </button>
+                <button type="button" class="md-button md-raised md-info md-theme-default" @click="reset">
+                  <div class="md-ripple">
+                    <div class="md-button-content">Cancel</div>
                   </div>
                 </button></div>
             </div>
@@ -117,7 +122,15 @@
     },
     methods: {
       createQuestion() {
-        this.$emit("createQuestion", this.newQuestion)
+        let question = JSON.parse(JSON.stringify(this.newQuestion))
+        this.$emit("createQuestion", question)
+        this.reset()
+      },
+      reset() {
+        this.checked = ''
+        this.newQuestion.prompt = ''
+        this.newQuestion.correct = []
+        this.newQuestion.rationale = ''
       }
     },
     components: {}
