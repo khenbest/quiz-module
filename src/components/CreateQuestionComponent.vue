@@ -68,7 +68,11 @@
     computed: {},
     methods: {
       createQuestion(question) {
-        question.categories = this.categories
+        if (this.categories.length == 0) {
+          question.categories = ''
+        } else {
+          question.categories = this.categories
+        }
         this.$store.dispatch('createQuestion', question)
       },
 
