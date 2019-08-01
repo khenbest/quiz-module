@@ -1,22 +1,43 @@
 <template>
-  <div class="CreateQuestion row">
-    <div class="col-12 d-flex flex-column">
-      <button class="btn btn-info mx-auto" @click="makeQuestion = !makeQuestion">Create a Question</button>
-      <div v-if="makeQuestion">
-        <div class="form-group d-flex justify-content-center flex-column justify-content-center">
-          <strong> <label for="questionType" class="mt-2">Select Type of Question</label></strong>
-          <select class="form-control mx-auto" id="questionType" v-model="selected">
-            <option v-for="type in types" :value="type.value">{{type.text}}</option>
-          </select>
-        </div>
+  <div class="CreateQuestion row d-flex justify-content-center">
+    <div class="col-sm-12">
+      <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-50">
+        <div class="md-card md-theme-default">
+          <div class="md-card-header" data-background-color="orange">
+            <h4 class="title"><strong>Select Category Type</strong>
+              <i class="ml-1 text-white fas " :class="[selectTypeOpen ? 'fa-minus' : 'fa-plus']"
+                @click="selectTypeOpen = !selectTypeOpen"></i></h4>
+          </div>
+          <div v-if="selectTypeOpen" class="md-card-content">
+            <div>
+              <div class="md-content md-table md-theme-default" table-header-color="orange"
+                value="[object Object],[object Object],[object Object],[object Object]">
+                <div class="md-content md-table-content md-scrollbar md-theme-default">
+                  <div class="md-layout md-gutter">
+                    <div class="md-layout-item">
+                      <md-field>
+                        <label for="questionType">Question Type</label>
+                        <md-select v-model="selected" name="movie" id="questionType">
+                          <md-option v-for="type in types" :value="type.value">{{type.text}}</md-option>
+                        </md-select>
+                      </md-field>
+                    </div>
+                  </div>
 
-        <CategoriesComponent v-on:change-categories='updateCategories($event)'></CategoriesComponent>
-
-        <div class="col-12 d-flex flex-column">
-          <component :is="selected" v-on:createQuestion="createQuestion($event)" :selected="selected"
-            :categories="categories"></component>
+                  <CategoriesComponent v-on:change-categories='updateCategories($event)'></CategoriesComponent>
+                </div>
+                <!---->
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+
+
+    <div class="col-12 d-flex flex-column">
+      <component :is="selected" v-on:createQuestion="createQuestion($event)" :selected="selected"
+        :categories="categories"></component>
     </div>
   </div>
 </template>
@@ -33,7 +54,7 @@
       return {
         selected: '',
         categories: [],
-        makeQuestion: false,
+        selectTypeOpen: true,
         types: [
           { text: 'Matching', value: 'Match' },
           { text: 'True False', value: 'TrueFalse' },

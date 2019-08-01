@@ -1,9 +1,9 @@
 <template>
-  <!-- <div class=" "> -->
-  <div class="col-sm-12 col-md-6 offset-md-3 d-flex justify-content-between flex-wrap">
+
+  <div>
     <md-checkbox v-for="category in categoriesArray" v-model="categories" :value="category">{{category}}
     </md-checkbox>
-  </div>
+
   </div>
 </template>
 

@@ -1,8 +1,6 @@
 <template>
   <div class="CreateQuestion container-fluid">
-    <h1>create question page</h1>
     <CreateQuestionComponent></CreateQuestionComponent>
-
   </div>
 </template>
 
