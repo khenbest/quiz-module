@@ -33,6 +33,53 @@
         </div>
       </div>
     </div>
+
+
+    <div class="md-layout-item md-medium-size-100 md-size-66">
+      <form @submit.prevent="setCorrect">
+        <div class="md-card md-theme-default">
+          <div class="md-card-header" data-background-color="blue">
+            <h4 class="title">True of False</h4>
+          </div>
+          <div class="md-card-content">
+            <div class="md-layout">
+              <div class="md-layout-item md-small-size-100 md-size-66">
+                <!-- <div class="md-field md-theme-default md-disabled has-danger"> -->
+                <md-field class="has-danger md-theme-defult">
+                  <label>Question Prompt: </label>
+                  <md-input v-model="newQuestion.prompt"></md-input>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-small-size-100 md-size-33" v-if="numberOfMatches == 0">
+                <md-field class="has-danger">
+                  <h4>Is The Answer True or False?</h4>
+                  <label for="true">True</label>
+                  <md-input type="radio" v-model="checked" value="true" id="true"></md-input>
+                  <label for="False">False</label>
+                  <md-input type="radio" v-model="checked" value="false" id="false">
+                  </md-input>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-small-size-100 md-size-100" v-if="numberOfMatches > 0">
+                <md-field class="has-danger">
+                  <md-textarea v-model="newQuestion.rationale">
+                  </md-textarea>
+                </md-field>
+              </div>
+
+              <div class="md-layout-item md-size-100 text-right"><button type="submit"
+                  class="md-button md-raised md-info md-theme-default">
+                  <div class="md-ripple">
+                    <div class="md-button-content">Submit</div>
+                  </div>
+                </button></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
   </div>
 </template>
 

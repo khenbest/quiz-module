@@ -1,32 +1,59 @@
 <template>
-  <div class="Match row">
-    <div class="col-10 offset-lg-1 d-flex flex-column">
-      <label for="prompt" class="my-2">Question Prompt</label>
-      <textarea required placeholder="Question prompt..." v-model="newQuestion.prompt" id="prompt"
-        class-="form-control mx-auto" spellcheck="true"></textarea>
-      <label for="howManyMatching" class="my-2">How many matching pairs would you like?</label>
-      <button v-if="numberOfMatches > 0" class="btn btn-info col-2 mx-auto" @click="addMatch">Add a Pair</button>
-      <input v-if="numberOfMatches == 0" class="form-control col-1 mx-auto" type="number" min="0" id="howManyMatching"
-        v-model="numberOfMatches">
-    </div>
-    <div v-if="newQuestion.options.length > 0" class="col">
-      <div class="row d-flex justify-content-center">
-        <div class="col-5 d-flex flex-column justify-content-center">
-          <h3>Terms</h3>
-          <span v-for="(option, index) in terms">
-            <i class="fas fa-ban fa-lg inline-form mr-2" @click="removeMatch(option)"></i>
-            <input class="inline-form my-1 col-6 mx-auto f-control" v-model="option.term" type="text">
-          </span>
+  <div class="Match row justify-content-center">
+    <div class="md-layout-item md-medium-size-100 md-size-66">
+      <form @submit.prevent="setCorrect">
+        <div class="md-card md-theme-default">
+          <div class="md-card-header" data-background-color="blue">
+            <h4 class="title">Matching Terms and Definitions</h4>
+          </div>
+          <div class="md-card-content">
+            <div class="md-layout">
+              <div class="md-layout-item md-small-size-100 md-size-66">
+                <!-- <div class="md-field md-theme-default md-disabled has-danger"> -->
+                <md-field class="has-danger md-theme-defult">
+                  <label>Question Prompt: </label>
+                  <md-input v-model="newQuestion.prompt"></md-input>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-small-size-100 md-size-33" v-if="numberOfMatches == 0">
+                <md-field class="has-danger">
+                  <label>Number of Matches</label>
+                  <md-input v-model="numberOfMatches" type="number"></md-input>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-small-size-100 md-size-100" v-if="numberOfMatches > 0">
+                <button v-if="numberOfMatches > 0" type="button" class="md-button md-raised md-info md-theme-default"
+                  @click="addMatch">
+                  <div class="md-ripple">
+                    <div class="md-button-content">Add<i class="fas fa-plus ml-2"></i></div>
+                  </div>
+                </button>
+              </div>
+              <div class="md-layout-item md-small-size-100 md-size-33">
+                <md-field class="has-danger" v-for="option in terms">
+                  <label>Term: </label>
+                  <i class="fas fa-ban fa-lg inline-form mr-2" @click="removeMatch(option)"></i>
+                  <md-input v-model="option.term" type="text"></md-input>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-small-size-100 md-size-66">
+                <md-field class="has-danger" v-for="option in definitions">
+                  <label>Number of Options </label>
+                  <md-input v-model="option.term" type="text"></md-input>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-size-100 text-right"><button type="submit"
+                  class="md-button md-raised md-info md-theme-default">
+                  <div class="md-ripple">
+                    <div class="md-button-content">Submit</div>
+                  </div>
+                </button></div>
+            </div>
+          </div>
         </div>
-        <div class="col-5 d-flex flex-column justify-content-center">
-          <h3>definitions</h3>
-          <span v-for="option in definitions">
-            <input class="form-control my-1" v-model="option.term" type="text">
-          </span>
-        </div>
-      </div>
-      <button class="btn btn-info" @click="setCorrect">submit</button>
+      </form>
     </div>
+
   </div>
 </template>
 

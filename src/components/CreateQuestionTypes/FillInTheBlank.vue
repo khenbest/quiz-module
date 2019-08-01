@@ -1,9 +1,9 @@
 <template>
-  <div class="FillInTheBlank row">
+  <div class="FillInTheBlank row justify-content-center">
     <div class="md-layout-item md-medium-size-100 md-size-66">
       <form @submit.prevent="createQuestion">
         <div class="md-card md-theme-default">
-          <div class="md-card-header yellowBtn">
+          <div class="md-card-header" data-background-color="blue">
             <h4 class="title">Fill In The Blank</h4>
           </div>
           <div class="md-card-content">
@@ -25,7 +25,7 @@
               <div class="md-layout-item md-small-size-100 md-size-33" v-for="word in correct">
                 <md-field class="has-danger">
                   <label>Word to remove: </label>
-                  <md-input v-for="word in correct" type="text" v-model="word.value"></md-input>
+                  <md-input type="text" v-model="word.value"></md-input>
                 </md-field>
               </div>
               <div v-if="numOfBlanks > 0" class="md-layout-item md-small-size-100 md-size-33">
@@ -43,7 +43,7 @@
                 </md-field>
               </div>
               <div class="md-layout-item md-size-100 text-right"><button type="submit"
-                  class="md-button md-raised md-success md-theme-default">
+                  class="md-button md-raised md-info md-theme-default">
                   <div class="md-ripple">
                     <div class="md-button-content">Submit</div>
                   </div>
@@ -121,7 +121,7 @@
       },
       //removes words from the sentence and replaces it with underscores. it is called from the @click event, not from another method.
       format() {
-        debugger
+
         let out = ''
         let prompt = this.newQuestion.prompt
         for (let i = 0; i < this.newQuestion.correct.length; i++) {
