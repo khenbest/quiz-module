@@ -7,6 +7,12 @@ const questionApi = axios.create({
   baseURL: '//localhost:3000/api/questions/',
   timeout: 5000
 })
+const quizApi = axios.create({
+  baseURL: '//localhost:3000/api/quizzes',
+  timeout: 5000
+})
+
+
 export default new Vuex.Store({
   state: {
     questions: [],
@@ -63,8 +69,18 @@ export default new Vuex.Store({
         questionApi.put('', payload)
           .then(res => {
             console.log(res.data)
-            debugger
             commit('setSearchResults', res.data)
+          })
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    createQuiz({ commit, dispatch }, payload) {
+      try {
+        quizApi.post('', payload)
+          .then(res => {
+            console.log("successss: ", res.data)
+            dispatch('getQuizzes')
           })
       } catch (error) {
         console.error(error)
