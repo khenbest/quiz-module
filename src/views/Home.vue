@@ -21,6 +21,9 @@
         <searchQuestion></searchQuestion>
       </div>
     </div>
+
+    <!-- create quiz section by tags -->
+
     <div class="row justify-content-center mb-0">
       <!--table needs v-model both places DON'T delete one-->
       <md-table class="col-8" v-model="selectedQuestions" md-sort="question" md-sort-order="asc" md-card
@@ -29,7 +32,7 @@
           <h1 class="md-title" style="color:white !important; text-shadow: gray 0 1px; font-weight: 500;">Questions</h1>
         </md-table-toolbar>
 
-        <md-table-row slot="md-table-row" v-for="question in questions">
+        <md-table-row slot="md-table-row" v-for="question in results">
           <md-table-cell md-label="Prompt" md-sort-by="question.prompt">{{ question.prompt }}
           </md-table-cell>
           <md-table-cell md-label="Type" md-sort-by="question.type">{{ question.type }}</md-table-cell>
@@ -50,6 +53,9 @@
         </md-button>
       </div>
     </div>
+    <!--  create quiz section by tags -->
+
+
   </div>
 </template>
 
@@ -74,11 +80,14 @@
       this.$store.dispatch("getQuestions");
     },
     computed: {
-      questions() {
-        return this.$store.state.questions;
-      },
+
       results() {
-        return this.$store.state.searchResults;
+        if (this.$store.state.searchResults.length === 0) {
+          return this.$store.state.questions;
+        }
+        else {
+          return this.$store.state.searchResults;
+        }
       }
     },
     methods: {
