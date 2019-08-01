@@ -81,6 +81,9 @@
     computed: {
       questions() {
         return this.$store.state.questions;
+      },
+      results() {
+        return this.$store.state.searchResults;
       }
     },
     methods: {
