@@ -4,6 +4,9 @@ import Home from './views/Home.vue'
 import CreateQuestion from './views/CreateQuestion.vue'
 import CreateTest from './views/CreateTest.vue'
 import QuestionView from './views/QuestionView.vue'
+import QuizView from './views/QuizView.vue'
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -27,6 +30,11 @@ export default new Router({
       path: '/questions-test',
       name: 'Questions',
       component: QuestionView
+    },
+    {
+      path: '/quiz-creator',
+      name: 'QuizCreator',
+      component: QuizView
     },
   ]
 })

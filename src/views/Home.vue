@@ -15,13 +15,25 @@
         <div class="md-button-content">Create A Quiz</div>
       </div>
     </button>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-3">
+      <div class="col-8">
+        <md-toolbar class="md-warning" md-elevation="1">
+          <h3 class="md-title" style="flex: 1">SearchBar</h3>
+          <md-field md-clearable class="md-toolbar-section-end">
+            <md-input placeholder="Search by name..." v-model="search" @input="searchOnTable" />
+          </md-field>
+        </md-toolbar>
+
+      </div>
+    </div>
+    <div class="row justify-content-center mb-0">
       <!--table needs v-model both places DON'T delete one-->
       <md-table class="col-8" v-model="selectedQuestions" md-sort="question" md-sort-order="asc" md-card
         md-fixed-header>
         <md-table-toolbar class="md-header my-3" data-background-color="blue">
           <h1 class="md-title" style="color:white !important; text-shadow: gray 0 1px; font-weight: 500;">Questions</h1>
         </md-table-toolbar>
+
         <md-table-row slot="md-table-row" v-for="question in questions">
           <md-table-cell md-label="Prompt" md-sort-by="question.prompt">{{ question.prompt }}
           </md-table-cell>
@@ -36,13 +48,22 @@
         </md-table-row>
       </md-table>
     </div>
-
+    <div class="row mt-0 mb-2 justify-content-center">
+      <div class="col-4">
+        <md-button @click="createQuiz" class="md-ripple md-info ">
+          Submit
+        </md-button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
   // @ is an alias to /src
+  import CategoriesComponent from '@/components/CategoriesComponent.vue'
+
   import Question from "@/components/Question.vue";
+  import SearchQuestion from '@/components/SearchQuestions.vue'
   import router from "../router.js";
   export default {
     name: "home",
@@ -69,7 +90,14 @@
       },
       go(pageName) {
         router.push({ name: pageName });
+      },
+      createQuiz() {
+        this.$store.dispatch("createQuiz", this.selectedQuestions)
       }
+    },
+    components: {
+      SearchQuestion,
+      CategoriesComponent
     }
   };
 </script>
