@@ -1,24 +1,6 @@
 <template>
   <div class="home">
-    <button @click="go('createQuestion')" type="button" class="md-button md-primary md-theme-default">
-      <div class="md-ripple">
-        <div class="md-button-content">Create A Question</div>
-      </div>
-    </button>
-    <button @click="go('Questions')" type="button" class="md-button  md-primary md-theme-default">
-      <div class="md-ripple">
-        <div class="md-button-content">Test Question(s)</div>
-      </div>
-    </button>
-    <button @click="go('createTest')" type="button" class="md-button md-primary md-theme-default">
-      <div class="md-ripple">
-        <div class="md-button-content">Create A Quiz</div>
-      </div>
-    </button>
-
     <searchQuestion></searchQuestion>
-
-
 
     <!-- create quiz section by tags -->
     <div class="row justify-content-center mb-0">
@@ -56,8 +38,7 @@
 
 <script>
   // @ is an alias to /src
-  import CategoriesComponent from '@/components/CategoriesComponent.vue'
-
+  import NavButtons from '@/components/NavButtons.vue'
   import Question from "@/components/Question.vue";
   import SearchQuestion from '@/components/SearchQuestions.vue'
   import router from "../router.js";
@@ -68,9 +49,7 @@
         selectedQuestions: []
       }
     },
-    components: {
-      Question
-    },
+
     mounted() {
       this.$store.dispatch("getQuestions");
     },
@@ -90,16 +69,16 @@
         let str = arr.join(" ");
         return str;
       },
-      go(pageName) {
-        router.push({ name: pageName });
-      },
+
       createQuiz() {
         this.$store.dispatch("createQuiz", this.selectedQuestions)
       }
     },
     components: {
       SearchQuestion,
-      CategoriesComponent
+      NavButtons,
+      Question
+
     }
   };
 </script>

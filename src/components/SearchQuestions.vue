@@ -38,7 +38,7 @@
     data() {
       return {
         categories: [],
-        allCategories: ["", "HTML", "CSS", "Style and Design", "Built In Methods", "SOLID", "OOP", "C#", "Scrum", "Javascript", "Design Patterns"]
+        allCategories: ["HTML", "CSS", "Style and Design", "Built In Methods", "SOLID", "OOP", "C#", "Scrum", "Javascript", "Design Patterns"]
 
       }
     },
@@ -55,7 +55,6 @@
         else {
           searchPayload = this.allCategories;
         }
-        debugger
         this.$store.dispatch('searchQuestions', searchPayload)
 
       }
