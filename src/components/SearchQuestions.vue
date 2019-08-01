@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="searchQuestions col-sm-12"> -->
-  <div class="searchQuestions">
+  <div class="searchQuestions row justify-content-center">
 
     <div class="md-layout-item md-medium-size-100 md-size-66">
       <div class="md-card md-theme-default">
