@@ -26,17 +26,16 @@
 
     <div class="row justify-content-center mb-0">
       <!--table needs v-model both places DON'T delete one-->
-      <md-table class="col-8" v-model="selectedQuestions" md-sort="question" md-sort-order="asc" md-card
-        md-fixed-header>
+      <md-table class="col-8" v-model="selectedQuestions" md-card md-fixed-header>
         <md-table-toolbar class="md-header my-3" data-background-color="blue">
           <h1 class="md-title" style="color:white !important; text-shadow: gray 0 1px; font-weight: 500;">Questions</h1>
         </md-table-toolbar>
 
-        <md-table-row slot="md-table-row" v-for="question in results">
-          <md-table-cell md-label="Prompt" md-sort-by="question.prompt">{{ question.prompt }}
+        <md-table-row v-for="question in results">
+          <md-table-cell md-label="Prompt">{{ question.prompt }}
           </md-table-cell>
-          <md-table-cell md-label="Type" md-sort-by="question.type">{{ question.type }}</md-table-cell>
-          <md-table-cell md-label="Categories" md-sort-by="question.categories">{{ prettify(question.categories) }}
+          <md-table-cell md-label="Type">{{ question.type }}</md-table-cell>
+          <md-table-cell md-label="Categories">{{ prettify(question.categories) }}
           </md-table-cell>
           <md-table-cell md-label="Selected">
             <md-checkbox v-model="selectedQuestions" :value="question">
