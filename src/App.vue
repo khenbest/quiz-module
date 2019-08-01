@@ -1,14 +1,18 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/questions-test">Test</router-link>|
-      <router-link to="/quiz-creator">Build A Quiz</router-link>
-    </div>
+    <NavButtons></NavButtons>
+
     <router-view />
   </div>
 </template>
-
+<script>
+  import NavButtons from '@/components/NavButtons.vue'
+  export default {
+    components: {
+      NavButtons
+    }
+  }
+</script>
 <style>
   #app {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -60,5 +64,21 @@
     background-color: #ffffe8 !important;
     color: #0896a6 !important;
     font-weight: bold;
+  }
+
+  .greenGradient {
+    background: linear-gradient(60deg, #66bb6a, #43a047) !important;
+  }
+
+  .purpleGradient {
+    background: linear-gradient(60deg, #ab47bc, #8e24aa) !important;
+  }
+
+  .blueGradient {
+    background: linear-gradient(60deg, #26c6da, #00acc1) !important;
+  }
+
+  .orangeGradient {
+    background: linear-gradient(60deg, #ffa726, #fb8c00) !important;
   }
 </style>
