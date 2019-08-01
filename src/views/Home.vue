@@ -21,7 +21,6 @@
 
 
     <!-- create quiz section by tags -->
-
     <div class="row justify-content-center mb-0">
       <!--table needs v-model both places DON'T delete one-->
       <md-table class="col-8" v-model="selectedQuestions" md-card>
@@ -52,8 +51,6 @@
       </div>
     </div>
     <!--  create quiz section by tags -->
-
-
   </div>
 </template>
 
