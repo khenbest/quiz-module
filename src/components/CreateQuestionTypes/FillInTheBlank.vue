@@ -7,7 +7,7 @@
             <h4 class="title">Fill In The Blank</h4>
           </div>
           <div class="md-card-content">
-            <div class="md-layout">
+            <div class="md-layout ">
               <div class="md-layout-item md-small-size-100 md-size-100">
                 <!-- <div class="md-field md-theme-default md-disabled has-danger"> -->
                 <md-field class="has-danger md-theme-defult">
@@ -16,37 +16,44 @@
                 </md-field>
 
               </div>
-              <div class="md-layout-item md-small-size-100 md-size-100" id="numberOfWords">
-                <md-field class="has-danger">
-                  <label>Number of words to be removed</label>
-                  <md-input v-model="numOfBlanks" type="number"></md-input>
-                </md-field>
-              </div>
-              <div class="md-layout-item md-small-size-100 md-size-50">
-                <span v-for="(word, index) in correct" class="d-flex flex-row">
-                  <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center" @click="removeWord(word)"></i>
+              <div class="border border-dark col-6">
+                <div class="md-layout-item md-small-size-100 md-size-100" id="numberOfWords">
                   <md-field class="has-danger">
-                    <label>Word {{index}}: </label>
-                    <md-input type="text" v-model="word.value"></md-input>
+                    <label>Number of words to be removed</label>
+                    <md-input v-model="numOfBlanks" type="number"></md-input>
                   </md-field>
-                </span>
+                </div>
+                <div class="md-layout-item md-small-size-100 md-size-100" id="linebreak">
+                  <span v-for="(word, index) in correct" class="d-flex flex-row">
+                    <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center" @click="removeWord(word)"></i>
+                    <md-field class="has-danger">
+                      <label>Word {{index}}: </label>
+                      <md-input type="text" v-model="word.value"></md-input>
+                    </md-field>
+                  </span>
+                </div>
               </div>
-              <div v-if="numOfBlanks > 0" class="md-layout-item md-small-size-100 md-size-33">
-                <md-field class="has-danger">
-                  <label>Number of Options </label>
-                  <md-input v-model="numOfOptions" type="number"></md-input>
-                </md-field>
-              </div>
-              <div class="md-layout-item md-small-size-100 md-size-33">
-                <span v-for="(option, index) in options" class="d-flex flex-row">
-                  <i class="fas fa-ban fa-sm inline-form d-flex align-self-center mr-2"
-                    @click="removeOption(option)"></i>
+              <div class="border border-dark col-6">
+
+                <div class="md-layout-item md-small-size-100 md-size-100">
                   <md-field class="has-danger">
-                    <label>Option {{index}} in word bank: </label>
-                    <md-input v-model="option.value" type="text"></md-input>
+                    <label>Number of Options </label>
+                    <md-input v-model="numOfOptions" type="number"></md-input>
                   </md-field>
-                </span>
+                </div>
+                <div class="md-layout-item md-small-size-100 md-size-100">
+                  <span v-for="(option, index) in options" class="d-flex flex-row">
+                    <i v-if="index > correct.length - 1"
+                      class="fas fa-ban fa-lg inline-form d-flex align-self-center mr-2"
+                      @click="removeOption(option)"></i>
+                    <md-field class="has-danger">
+                      <label>Option {{index}} in word bank: </label>
+                      <md-input v-model="option.value" type="text"></md-input>
+                    </md-field>
+                  </span>
+                </div>
               </div>
+
               <div class="md-layout-item md-size-100 text-center">
                 <button type="submit" class="md-button md-raised md-info md-theme-default">
                   <div class="md-ripple">
@@ -185,8 +192,8 @@
 </script>
 
 <style>
-  #numberOfWords {
+  /* #linebreak {
     display: flex;
     justify-content: center;
-  }
+  } */
 </style>
