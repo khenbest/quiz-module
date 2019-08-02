@@ -140,6 +140,7 @@
       removeWord(word) {
         let index = this.newQuestion.correct.indexOf(word)
         this.newQuestion.correct.splice(index, 1)
+        this.removeOption(word)
 
       },
       //removes words from the sentence and replaces it with underscores. it is called from the @click event, not from another method.
