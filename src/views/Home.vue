@@ -5,7 +5,7 @@
     <!-- create quiz section by tags -->
     <div class="row justify-content-center mb-0">
       <!--table needs v-model both places DON'T delete one-->
-      <md-table class="col-8" v-model="selectedQuestions" md-card>
+      <md-table class="col-8" v-model="newQuiz.questions" md-card>
         <md-table-toolbar class="md-header my-3" data-background-color="blue">
           <h1 class="md-title" style="color:white !important; text-shadow: gray 0 1px; font-weight: 500;">Questions</h1>
         </md-table-toolbar>
@@ -17,7 +17,7 @@
             <md-table-cell md-label="Categories">{{ prettify(question.categories) }}
             </md-table-cell>
             <md-table-cell md-label="Selected">
-              <md-checkbox v-model="selectedQuestions" :value="question">
+              <md-checkbox v-model="newQuiz.questions" :value="question">
                 <!--table needs v-model both places DON'T delete one-->
               </md-checkbox>
             </md-table-cell>
@@ -25,9 +25,13 @@
         </md-content>
       </md-table>
     </div>
-    <div class="row mt-0 mb-2 justify-content-center">
-      <div class="col-4">
-        <md-button @click="createQuiz" class="md-ripple md-info ">
+    <div class="row justify-content-center">
+      <div class="col-8 md-card">
+        <md-field md-clearable md-inline>
+          <label>Enter Quiz Name here</label>
+          <md-input v-model="newQuiz.name"></md-input>
+        </md-field>
+        <md-button @click="createQuiz" class="md-ripple md-info col-4">
           Submit
         </md-button>
       </div>
@@ -46,7 +50,10 @@
     name: "home",
     data() {
       return {
-        selectedQuestions: []
+        newQuiz: {
+          name: '',
+          questions: []
+        }
       }
     },
 
@@ -71,7 +78,7 @@
       },
 
       createQuiz() {
-        this.$store.dispatch("createQuiz", this.selectedQuestions)
+        this.$store.dispatch("createQuiz", this.newQuiz)
       }
     },
     components: {
@@ -82,3 +89,7 @@
     }
   };
 </script>
+
+<style scoped>
+
+</style>

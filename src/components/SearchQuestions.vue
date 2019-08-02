@@ -56,7 +56,6 @@
           searchPayload = this.allCategories;
         }
         this.$store.dispatch('searchQuestions', searchPayload)
-
       }
     },
     components: {
