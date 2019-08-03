@@ -9,25 +9,19 @@
               @click="selectTypeOpen = !selectTypeOpen"></i></h4>
         </div>
         <div v-if="selectTypeOpen" class="md-card-content">
-          <div>
-            <div class="md-content md-table md-theme-default" table-header-color="orange"
-              value="[object Object],[object Object],[object Object],[object Object]">
-              <div class="md-content md-table-content md-scrollbar md-theme-default">
-                <div class="md-layout md-gutter">
-                  <div class="md-layout-item">
-                    <md-field>
-                      <label for="questionType">Question Type</label>
-                      <md-select v-model="selected" name="movie" id="questionType">
-                        <md-option v-for="type in types" :value="type.value">{{type.text}}</md-option>
-                      </md-select>
-                    </md-field>
-                  </div>
-                </div>
-
+          <div class="md-content md-table md-theme-default" table-header-color="orange">
+            <div class="md-content md-table-content md-scrollbar md-theme-default">
+              <div class="md-layout-item md-size">
                 <CategoriesComponent v-on:change-categories='updateCategories($event)'></CategoriesComponent>
+                <md-field>
+                  <label for="questionType">Question Type</label>
+                  <md-select v-model="selected" id="questionType">
+                    <md-option v-for="type in types" :value="type.value">{{type.text}}</md-option>
+                  </md-select>
+                </md-field>
               </div>
-              <!---->
             </div>
+            <!---->
           </div>
         </div>
       </div>
@@ -86,7 +80,9 @@
         this.$swal({
           title: 'Required Category',
           text: 'Please Select A Category',
-          showCloseButton: true
+          showCloseButton: true,
+          confirmButtonColor: "#fb8c00"
+
         });
       }
     },

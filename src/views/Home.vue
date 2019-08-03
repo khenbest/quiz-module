@@ -31,7 +31,13 @@
           <label>Enter Quiz Name here</label>
           <md-input v-model="newQuiz.name"></md-input>
         </md-field>
-        <md-button @click="createQuiz" class="md-ripple md-info col-4">
+        <h3><u>Quiz Questions</u></h3>
+        <div class="row justify-content-center">
+          <div class="col-4" style="display: inline-block;" v-for="(question, index) in newQuiz.questions">
+            <h6 class="text-truncate">{{index + 1}}. {{question.prompt}}</h6>
+          </div>
+        </div>
+        <md-button @click="createQuiz" class="md-ripple md-primary col-4 my-2">
           Submit
         </md-button>
       </div>
@@ -76,20 +82,25 @@
         let str = arr.join(" ");
         return str;
       },
-
-      createQuiz() {
-        this.$store.dispatch("createQuiz", this.newQuiz)
+      async createQuiz() {
+        if (this.newQuiz.questions.length < 1) {
+          this.$swal({
+            title: "Please Select One Or More Questions",
+            showConfirmButton: true,
+            confirmButtonColor: "#fb8c00"
+          })
+        }
+        else {
+          await this.$store.dispatch("createQuiz", this.newQuiz)
+          this.newQuiz.name = ''
+          this.newQuiz.questions = []
+        }
       }
     },
     components: {
       SearchQuestion,
       NavButtons,
       Question
-
     }
   };
 </script>
-
-<style scoped>
-
-</style>

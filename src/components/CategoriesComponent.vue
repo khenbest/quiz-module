@@ -1,9 +1,9 @@
 <template>
-
-  <div>
-    <md-checkbox v-for="category in categoriesArray" v-model="categories" :value="category">{{category}}
-    </md-checkbox>
-
+  <div class="row justify-content-center mt-3">
+    <div class="col-8 justify-content-center">
+      <md-checkbox v-for="category in categoriesArray" v-model="categories" :value="category">{{category}}
+      </md-checkbox>
+    </div>
   </div>
 </template>
 

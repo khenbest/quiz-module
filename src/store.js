@@ -17,28 +17,41 @@ export default new Vuex.Store({
   state: {
     questions: [],
     question: {},
-    searchResults: []
+    searchResults: [],
+    quizzes: [],
+    currentQuiz: {}
   },
   mutations: {
-    setQuestions(state, val) {
-      state.questions = val
+    setQuestions(state, data) {
+      state.questions = data
     },
-    setQuestion(state, val) {
-      state.question = val
+    setQuestion(state, data) {
+      state.question = data
     },
     setSearchResults(state, data) {
       state.searchResults = data
+    },
+    setQuizzes(state, data) {
+      state.quizzes = data
+    },
+    setCurrentQuiz(state, data) {
+      state.currentQuiz = data
     }
   },
   actions: {
+    //#region Questions
     getQuestion({ commit, dispatch }, index) {
-      questionApi.get('').then(res => {
-        if (index < res.data.length) {
-          let question = res.data[index]
-          commit("setQuestions", res.data)
-          commit("setQuestion", question)
-        }
-      }).catch(err => console.error(err))
+      try {
+        questionApi.get('').then(res => {
+          if (index < res.data.length) {
+            let question = res.data[index]
+            commit("setQuestions", res.data)
+            commit("setQuestion", question)
+          }
+        })
+      } catch (error) {
+        console.error(error)
+      }
     },
     getQuestions({ commit, dispatch }) {
       try {
@@ -51,7 +64,11 @@ export default new Vuex.Store({
       }
     },
     gradeQuestion({ commit, dispatch }, payload) {
-      questionApi.post(`${payload.question._id}/answers`, payload).then().catch(err => console.error(err))
+      try {
+        questionApi.post(`${payload.question._id}/answers`, payload)
+      } catch (error) {
+        console.error(error)
+      }
     },
     createQuestion({ commit, dispatch }, payload) {
       try {
@@ -75,16 +92,25 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+    //#endregion 
+    //#region Quizzes
     createQuiz({ commit, dispatch }, payload) {
       try {
         quizApi.post('', payload)
           .then(res => {
             console.log("successss: ", res.data)
-            dispatch('getQuizzes')
           })
       } catch (error) {
         console.error(error)
       }
+    },
+    getCurrentQuiz({ commit, dispatch }, payload) {
+
+    },
+    getQuizzes({ commit, dispatch }) {
+
     }
+
+    //#endregion 
   }
 })
