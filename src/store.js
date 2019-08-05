@@ -16,18 +16,19 @@ const quizApi = axios.create({
 export default new Vuex.Store({
   state: {
     questions: [],
-    question: {},
+    // question: {},
     searchResults: [],
     quizzes: [],
-    activeQuiz: {}
+    activeQuiz: {},
+    grade: ''
   },
   mutations: {
     setQuestions(state, data) {
       state.questions = data
     },
-    setQuestion(state, data) {
-      state.question = data
-    },
+    // setQuestion(state, data) {
+    //   state.question = data
+    // },
     setSearchResults(state, data) {
       state.searchResults = data
     },
@@ -36,23 +37,26 @@ export default new Vuex.Store({
     },
     setActiveQuiz(state, data) {
       state.activeQuiz = data
+    },
+    setGrade(state, data) {
+      state.grade = data
     }
   },
   actions: {
     //#region Questions
-    getQuestion({ commit, dispatch }, index) {
-      try {
-        questionApi.get('').then(res => {
-          if (index < res.data.length) {
-            let question = res.data[index]
-            commit("setQuestions", res.data)
-            commit("setQuestion", question)
-          }
-        })
-      } catch (error) {
-        console.error(error)
-      }
-    },
+    // getQuestion({ commit, dispatch }, index) {
+    //   try {
+    //     questionApi.get('').then(res => {
+    //       if (index < res.data.length) {
+    //         let question = res.data[index]
+    //         commit("setQuestions", res.data)
+    //         commit("setQuestion", question)
+    //       }
+    //     })
+    //   } catch (error) {
+    //     console.error(error)
+    //   }
+    // },
     getQuestions({ commit, dispatch }) {
       try {
         questionApi.get('')
@@ -66,6 +70,9 @@ export default new Vuex.Store({
     gradeQuestion({ commit, dispatch }, payload) {
       try {
         questionApi.post(`${payload.question._id}/answers`, payload)
+          .then(res => {
+            commit('setGrade', res.data)
+          })
       } catch (error) {
         console.error(error)
       }

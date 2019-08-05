@@ -6,14 +6,14 @@
                     <div class="md-button-content">Create A Question</div>
                 </div>
             </button>
-            <button id="NavButtons" @click="go('Questions')" type="button" class="md-button md-raised mx-1">
-                <div class="md-ripple">
-                    <div class="md-button-content">Test Question(s)</div>
-                </div>
-            </button>
-            <button id="NavButtons" @click="go('home')" type="button" class="md-button md-raised mx-1">
+            <button id="NavButtons" @click="go('CreateQuizView')" type="button" class="md-button md-raised mx-1">
                 <div class="md-ripple">
                     <div class="md-button-content">Create A Quiz</div>
+                </div>
+            </button>
+            <button id="NavButtons" @click="go('QuizCreator')" type="button" class="md-button md-raised mx-1">
+                <div class="md-ripple">
+                    <div class="md-button-content">Select A Quiz</div>
                 </div>
             </button>
         </div>

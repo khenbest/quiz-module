@@ -2,8 +2,8 @@ import mongoose from 'mongoose'
 
 let schema = new mongoose.Schema({
     prompt: { type: String, required: true },
-    options: [{ type: Object, required: true }],
-    correct: [{ type: Object, required: true }],
+    options: [{ type: Object }],
+    correct: [{ type: Object }],
     type: { type: String, enum: ["TrueFalse", "Match", "OpenEnded", "FillInTheBlank", "MultipleChoice"], required: true },
     rationale: { type: String },
     categories: [{ type: String, enum: ["HTML", "CSS", "Style and Design", "Built In Methods", "SOLID", "OOP", "C#", "Scrum", "Javascript", "Design Patterns"] }]
@@ -39,18 +39,19 @@ export default class QuestionService {
 
     gradeTrueFalse(answer, question) {
         if (answer.submission == Object.keys(question.correct[0])) {
-            return "Correct!"
+            // { passed: true, correctAnswer: question.correct}
+            return
         } else {
-            return "So close"
+            return false
         }
     }
     gradeMultipleChoice(answer, question) {
         if (answer.submission.length != question.correct.length) {
-            return "You have incorrect answers"
+            return "Incorrect"
         }
         let correctStudentAnswers = answer.submission.filter(x => question.correct.find(y => y.value == x.value))
         if (correctStudentAnswers.length !== question.correct.length) {
-            return "WRONGO"
+            return "Incorrect"
         }
         else return "Correct!"
     }
@@ -76,7 +77,7 @@ export default class QuestionService {
     }
 
     gradeOpenEnded(answer, question) {
-
+        return question.rationale
     }
 
     get repository() {

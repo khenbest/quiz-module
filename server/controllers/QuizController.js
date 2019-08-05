@@ -13,7 +13,8 @@ export default class QuizController {
     }
     async getOneQuiz(req, res, next) {
         try {
-            let quiz = await quizRepo.findById(req.params.id)
+            let quiz = await quizRepo.findById(req.params.id).populate("questions")
+
             res.send(quiz)
         } catch (error) { next(error) }
     }

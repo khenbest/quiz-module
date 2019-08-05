@@ -41,6 +41,7 @@
   import TrueFalse from './CreateQuestionTypes/TrueFalse.vue'
   import FillInTheBlank from './CreateQuestionTypes/FillInTheBlank.vue'
   import CategoriesComponent from '@/components/CategoriesComponent.vue'
+  import OpenEnded from './CreateQuestionTypes/OpenEnded.vue'
   export default {
     name: "CreateQuestion",
     props: [],
@@ -90,7 +91,8 @@
       Match,
       TrueFalse,
       FillInTheBlank,
-      CategoriesComponent
+      CategoriesComponent,
+      OpenEnded
     }
   }
 </script>
