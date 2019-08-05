@@ -4,21 +4,23 @@
     <div class="md-layout-item md-medium-size-100 md-size-66">
       <div class="md-card md-theme-default">
         <div class="md-card-header" data-background-color="orange">
-          <h4 class="title"><strong>Select Category Type</strong>
+          <h3 class="title"><strong>Select Category Type</strong>
             <i class="ml-1 text-white fas " :class="[selectTypeOpen ? 'fa-minus' : 'fa-plus']"
-              @click="selectTypeOpen = !selectTypeOpen"></i></h4>
+              @click="selectTypeOpen = !selectTypeOpen"></i></h3>
         </div>
         <div v-if="selectTypeOpen" class="md-card-content">
           <div class="md-content md-table md-theme-default" table-header-color="orange">
             <div class="md-content md-table-content md-scrollbar md-theme-default">
-              <div class="md-layout-item md-size">
+              <div class="md-layout-item md-size ">
                 <CategoriesComponent v-on:change-categories='updateCategories($event)'></CategoriesComponent>
-                <md-field>
-                  <label for="questionType">Question Type</label>
-                  <md-select v-model="selected" id="questionType">
-                    <md-option v-for="type in types" :value="type.value">{{type.text}}</md-option>
-                  </md-select>
-                </md-field>
+                <div class="row justify-content-center">
+                  <md-field class="col-3">
+                    <label for="questionType">Question Type</label>
+                    <md-select v-model="selected" id="questionType">
+                      <md-option v-for="type in types" :value="type.value">{{type.text}}</md-option>
+                    </md-select>
+                  </md-field>
+                </div>
               </div>
             </div>
             <!---->
