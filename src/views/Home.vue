@@ -26,7 +26,6 @@
     },
     methods: {
 
-
     },
     components: {
       SearchQuestion,

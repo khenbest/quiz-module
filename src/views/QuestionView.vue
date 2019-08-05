@@ -1,5 +1,5 @@
 <template>
-  <div class="QView">
+  <div class="QuestionView">
     <Question />
   </div>
 </template>
@@ -9,7 +9,7 @@
 import Question from "@/components/Question.vue";
 import router from "../router.js";
 export default {
-  name: "QView",
+  name: "QuestionView",
   components: {
     Question
   },

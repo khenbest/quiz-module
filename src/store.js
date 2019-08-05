@@ -19,7 +19,7 @@ export default new Vuex.Store({
     question: {},
     searchResults: [],
     quizzes: [],
-    currentQuiz: {}
+    activeQuiz: {}
   },
   mutations: {
     setQuestions(state, data) {
@@ -34,8 +34,8 @@ export default new Vuex.Store({
     setQuizzes(state, data) {
       state.quizzes = data
     },
-    setCurrentQuiz(state, data) {
-      state.currentQuiz = data
+    setActiveQuiz(state, data) {
+      state.activeQuiz = data
     }
   },
   actions: {
@@ -104,11 +104,24 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    getCurrentQuiz({ commit, dispatch }, payload) {
-
+    getActiveQuiz({ commit, dispatch }, payload) {
+      try {
+        quizApi.get(`${payload}`).then(res => {
+          commit('setActiveQuiz', res.data)
+        })
+      } catch (error) {
+        console.error(error)
+      }
     },
     getQuizzes({ commit, dispatch }) {
-
+      try {
+        quizApi.get('')
+          .then(res => {
+            commit('setQuizzes', res.data)
+          })
+      } catch (error) {
+        console.error(error)
+      }
     }
 
     //#endregion 
