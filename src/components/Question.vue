@@ -2,17 +2,13 @@
   <div class="container-fluid">
     <div class="d-flex row justify-content-center">
       <div class="col-12 justify-content-center">
-        <button @click="getQuestion(1)" type="button" class="md-button md-lg">
-          <div class="md-ripple blackBtn">
+        <button @click="getQuestion(1)" type="button" class="md-button md-lg md-info">
+          <div class="md-ripple ">
             <div class="md-button-content">Next Question</div>
           </div>
         </button>
-        <div class="d-flex row justify-content-center">
-          <div class="col-12">
-            <component :is="questions[currentQuestion].type" :question="questions[currentQuestion]"
-              @submit="gradeQuestion" />
-          </div>
-        </div>
+        <component :is="questions[currentQuestion].type" :question="questions[currentQuestion]"
+          @submit="gradeQuestion" />
       </div>
     </div>
   </div>

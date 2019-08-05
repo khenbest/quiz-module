@@ -17,7 +17,7 @@ export default new Router({
     },
     {
       path: '/create-question',
-      name: 'createQuestion',
+      name: 'CreateQuestion',
       component: CreateQuestion
     },
     {
@@ -27,7 +27,7 @@ export default new Router({
     },
     {
       path: '/select-quiz',
-      name: 'QuizCreator',
+      name: 'SelectQuiz',
       component: SelectQuizView
     },
   ]

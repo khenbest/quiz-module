@@ -1,11 +1,6 @@
 <template>
   <div class="QuizView">
-    <md-field>
-      <label>Select A Quiz</label>
-      <md-select v-model="selectedQuiz">
-        <md-option v-for="quiz in quizzes" :value="quiz._id" :key="quiz._id">{{quiz.name}}</md-option>
-      </md-select>
-    </md-field>
+
     <div class="row justify-content-center">
       <div class="col-8 md-card">
         <div class="md-toolbar md-table-toolbar md-transparent md-header my-3 md-theme-default md-elevation-0"
@@ -13,18 +8,30 @@
           <h1 class="md-title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">Confirm
             Quiz Details</h1>
         </div>
-        <h2>{{activeQuiz.name}}</h2>
-        <h3>
-          <u>Quiz Questions</u>
-        </h3>
         <div class="row justify-content-center">
-          <div class="col-4" v-for="(question, index) in activeQuiz.questions">
-            <h6>{{index + 1}}. {{question.prompt}}</h6>
+          <div class="col-3">
+            <md-field>
+              <label>Select A Quiz</label>
+              <md-select v-model="selectedQuiz">
+                <md-option v-for="quiz in quizzes" :value="quiz._id" :key="quiz._id">{{quiz.name}}</md-option>
+              </md-select>
+            </md-field>
           </div>
+        </div>
+        <div v-if="selectedQuiz">
+          <h2>{{activeQuiz.name}}</h2>
+          <h3>
+            <u>Quiz Questions</u>
+          </h3>
+          <div class="row justify-content-center">
+            <div class="col-4" v-for="(question, index) in activeQuiz.questions">
+              <h6>{{index + 1}}. {{question.prompt}}</h6>
+            </div>
+          </div>
+          <md-button class="md-primary" @click="go('Questions')">Start Quiz</md-button>
         </div>
       </div>
     </div>
-    <md-button @click="go('Questions')">Start Quiz</md-button>
   </div>
 </template>
 

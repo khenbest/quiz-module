@@ -22,11 +22,11 @@
                 </drop>
             </div>
         </div>
-         <button type="submit" class="md-button md-sm">
-            <div class="md-ripple whiteBtn">
-              <div class="md-button-content">Submit</div>
+        <button type="submit" class="md-button md-sm md-info">
+            <div class="md-ripple">
+                <div class="md-button-content">Submit</div>
             </div>
-          </button>
+        </button>
     </div>
 </template>
 
