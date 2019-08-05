@@ -13,7 +13,7 @@ export default class QuizController {
     }
     async getOneQuiz(req, res, next) {
         try {
-            let quiz = await quizRepo.findById(req.params.id).populate("questions")
+            let quiz = await quizRepo.findById(req.params.id).populate({ path: "questions", select: { "correct": 0 } })
 
             res.send(quiz)
         } catch (error) { next(error) }

@@ -32,6 +32,7 @@
     },
     data() {
       return {
+        grade: {},
         currentQuestion: 0,
       };
     },
@@ -47,6 +48,7 @@
       },
       gradeQuestion({ question, submission }) {
         this.$store.dispatch("gradeQuestion", { question, submission });
+        this.grade = this.$store.state.grade
       }
     },
     components: {

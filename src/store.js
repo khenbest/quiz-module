@@ -20,7 +20,7 @@ export default new Vuex.Store({
     searchResults: [],
     quizzes: [],
     activeQuiz: {},
-    grade: ''
+    grade: {}
   },
   mutations: {
     setQuestions(state, data) {

@@ -37,15 +37,21 @@ export default class QuestionService {
         }
     }
 
+    grade(didPass, question) {
+        let grade = { passed: didPass, correct: question.correct, rationale: question.rationale }
+
+    }
+
     gradeTrueFalse(answer, question) {
         if (answer.submission == Object.keys(question.correct[0])) {
-            // { passed: true, correctAnswer: question.correct}
-            return
+
+            return this.grade(true, question)
         } else {
-            return false
+            return this.grade(false, question)
         }
     }
     gradeMultipleChoice(answer, question) {
+
         if (answer.submission.length != question.correct.length) {
             return "Incorrect"
         }
