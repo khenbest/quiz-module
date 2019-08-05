@@ -1,25 +1,20 @@
 <template>
-  <!-- <div class="searchQuestions col-sm-12"> -->
-  <div class="searchQuestions row justify-content-center">
+  <div class="searchQuestions md-layout justify-content-center">
 
     <div class="md-layout-item md-medium-size-100 md-size-66">
       <div class="md-card md-theme-default">
         <div class="md-card-header" data-background-color="orange">
-          <h4 class="title"><strong>Search By Category</strong>
-            <!-- <i class="ml-1 text-white fas " :class="[selectTypeOpen ? 'fa-minus' : 'fa-plus']"
-              @click="selectTypeOpen = !selectTypeOpen"></i> -->
-          </h4>
+          <h4 class="md-title" style="text-shadow: darkgray -1px -1px;">Search By Category</h4>
         </div>
         <div>
-          <div class="md-content md-table md-theme-default" table-header-color="orange">
-            <div class="md-content md-table-content md-scrollbar md-theme-default">
-              <CategoriesComponent v-on:change-categories='updateCategories($event)' :categoriesFromParent="categories">
-              </CategoriesComponent>
+          <div class="md-content md-theme-default" table-header-color="orange">
+            <div class="md-content md-theme-default">
+              <CategoriesComponent v-on:change-categories='updateCategories($event)'></CategoriesComponent>
             </div>
-            <div class="md-layout-item md-size-100 justify-content-center"><button type="button" @click="search"
+            <div class="md-layout-item md-size-100 justify-content-center my-2"><button type="button" @click="search"
                 class="md-button md-raised md-warning md-theme-default">
                 <div class="md-ripple">
-                  <div class="md-button-content">Search</div>
+                  <div class="md-button-content ">Search</div>
                 </div>
               </button></div>
             <!---->

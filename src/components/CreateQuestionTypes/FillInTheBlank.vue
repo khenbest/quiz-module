@@ -175,7 +175,9 @@
         this.$swal({
           title: 'Invalid Entry: ' + value,
           text: 'That word does not seem to be in the sentence',
-          showCloseButton: true
+          showCloseButton: true,
+          confirmButtonColor: "#fb8c00"
+
         });
       },
       //resets everything
