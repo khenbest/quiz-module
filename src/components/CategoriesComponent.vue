@@ -10,7 +10,7 @@
 <script>
   export default {
     name: "",
-    props: [],
+    props: ['categoriesFromParent'],
     data() {
       return {
         categories: [],
@@ -19,6 +19,7 @@
     },
     watch: {
       categories: function () {
+
         this.updateCategories()
       }
     },

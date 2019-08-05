@@ -13,7 +13,8 @@
         <div>
           <div class="md-content md-table md-theme-default" table-header-color="orange">
             <div class="md-content md-table-content md-scrollbar md-theme-default">
-              <CategoriesComponent v-on:change-categories='updateCategories($event)'></CategoriesComponent>
+              <CategoriesComponent v-on:change-categories='updateCategories($event)' :categoriesFromParent="categories">
+              </CategoriesComponent>
             </div>
             <div class="md-layout-item md-size-100 justify-content-center"><button type="button" @click="search"
                 class="md-button md-raised md-warning md-theme-default">
@@ -56,7 +57,12 @@
           searchPayload = this.allCategories;
         }
         this.$store.dispatch('searchQuestions', searchPayload)
+        this.resetCategories()
+      },
+      resetCategories() {
+        this.categories = []
       }
+
     },
     components: {
       CategoriesComponent
