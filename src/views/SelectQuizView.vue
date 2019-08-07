@@ -56,7 +56,7 @@
     },
     methods: {
       go(pageName) {
-        router.push({ name: pageName });
+        router.push({ name: pageName, params: { id: this.activeQuiz._id } });
       },
       setActiveQuiz() {
         this.$store.dispatch("getActiveQuiz", this.selectedQuiz);

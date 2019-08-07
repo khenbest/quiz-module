@@ -17,12 +17,11 @@ export default class QuestionService {
     gradeQuestion(answer, question) {
         let out = {}
         switch (question.type) {
-
             case "TrueFalse":
-                out = this.gradeTrueFalse(answer, question)
-                break;
             case "MultipleChoice":
-                out = this.gradeMultipleChoice(answer, question)
+                out = this.gradeTrueFalseAndMC(answer, question)
+                // break;
+                // out = this.gradeMultipleChoice(answer, question)
                 break;
             case "FillInTheBlank":
                 out = this.gradeFillInTheBlank(answer, question)
@@ -44,29 +43,15 @@ export default class QuestionService {
         return grade
     }
 
-    gradeTrueFalse(answer, question) {
+    gradeTrueFalseAndMC(answer, question) {
         let correct = question.correct[0]
-
         if (answer.submission.value == correct.value) {
-            // grade = this.grade(true, question)
             return this.grade(true, question)
         } else {
-
             return this.grade(false, question)
         }
     }
-    gradeMultipleChoice(answer, question) {
 
-        if (answer.submission.length != question.correct.length) {
-            return this.grade(false, question)
-        }
-        let correctStudentAnswers = answer.submission.filter(x => question.correct.find(y => y.value == x.value))
-        if (correctStudentAnswers.length !== question.correct.length) {
-            return this.grade(false, question)
-
-        }
-        else return this.grade(false, question)
-    }
     gradeFillInTheBlank(answer, question) {
         question.correct.forEach(x => {
             let y = answer.submission.find(z => z.value == x.value)
@@ -76,8 +61,6 @@ export default class QuestionService {
         return this.grade(true, question)
     }
     gradeMatch(answer, question) {
-
-
         for (let x = 0; x < question.correct.length; x++) {
             let correct = question.correct[x]
             let y = answer.submission.find(z => z.value == correct.value)
@@ -89,7 +72,7 @@ export default class QuestionService {
     }
 
     gradeOpenEnded(answer, question) {
-        return question.rationale
+        return this.grade(true, question)
     }
 
     get repository() {

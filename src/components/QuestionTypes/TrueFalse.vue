@@ -1,18 +1,14 @@
 <template>
-  <div class="d-flex row justify-content-center">
+  <div class="md-layout-item md-small-size-100 md-size-100">
     <div class="col-12 mt-3">
       <h3>{{question.prompt}}</h3>
       <form @submit.prevent="submit" class="form-row justify-content-center">
-        <div class="form-check justify-space-between m-2">
-          <input class="form-check-input" v-model="checked" type="radio" name="option" id="a" value="true" checked />
-          <label class="form-check-label" for="a">True</label>
+        <div v-for="option in question.options" class="form-check justify-space-between m-2">
+          <input class="form-check-input" type="radio" name="option" v-model="checked" :value="option.value" />
+          <label class="form-check-label">{{option.value}}</label>
         </div>
-        <div class="form-check justify-space-between m-2">
-          <input class="form-check-input" v-model="checked" type="radio" name="option" id="b" value="false" checked />
-          <label class="form-check-label" for="b">False</label>
-        </div>
-        <div class="col-12">
-          <button type="submit" class="md-button md-sm md-info">
+        <div class="md-layout-item md-size-100 text-center">
+          <button type="submit" class="md-button md-raised md-info md-theme-default">
             <div class="md-ripple">
               <div class="md-button-content">Submit</div>
             </div>
@@ -21,6 +17,7 @@
       </form>
     </div>
   </div>
+
 </template>
 
 <script>

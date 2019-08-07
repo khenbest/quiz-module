@@ -10,6 +10,12 @@
   import router from "../router.js";
   export default {
     name: "QuestionView",
+    props: ["id"],
+    mounted() {
+      if (!this.activeQuiz._id) {
+        this.$store.dispatch('getActiveQuiz', this.id)
+      }
+    },
     components: {
       Question
     },

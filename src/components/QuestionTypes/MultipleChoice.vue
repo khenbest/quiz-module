@@ -1,14 +1,14 @@
 <template>
-  <div class="d-flex row justify-content-center">
+  <div class="md-layout-item md-small-size-100 md-size-100">
     <div class="col-12 mt-3">
       <h3>{{question.prompt}}</h3>
       <form @submit.prevent="submit" class="form-row justify-content-center">
         <div v-for="option in question.options" class="form-check justify-space-between m-2">
-          <input class="form-check-input" type="checkbox" name="option" @change="toggleChecked(option)" />
-          <label class="form-check-label">{{displayQuestion(option)}}</label>
+          <input class="form-check-input" type="radio" name="option" v-model="checked" :value="option.value" />
+          <label class="form-check-label">{{option.value}}</label>
         </div>
-        <div class="col-12">
-          <button type="submit" class="md-button md-sm md-info">
+        <div class="md-layout-item md-size-100 text-center">
+          <button type="submit" class="md-button md-raised md-info md-theme-default">
             <div class="md-ripple">
               <div class="md-button-content">Submit</div>
             </div>
@@ -27,33 +27,17 @@
     },
     data() {
       return {
-        checked: {
-          a: "",
-          b: "",
-          c: "",
-          d: ""
-        }
+        checked: ''
       };
     },
     methods: {
       submit() {
         this.$emit("submit", {
           question: this.question,
-          submission: this.checked
+          submission: { value: this.checked }
         });
       },
-      displayQuestion(q) {
-        return `${Object.values(q)[0]}`;
-      },
-      toggleChecked(option) {
-        let [prop, val] = Object.entries(option)[0];
-        console.log(val);
-        if (this.checked[prop]) {
-          this.checked[prop] = false;
-        } else {
-          this.checked[prop] = val;
-        }
-      }
+
     }
   };
 </script>

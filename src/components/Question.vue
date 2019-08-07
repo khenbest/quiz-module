@@ -1,15 +1,26 @@
 <template>
   <div class="container-fluid">
-    <div class="d-flex row justify-content-center">
-      <div class="col-12 justify-content-center">
-        <button @click="getQuestion(1)" type="button" class="md-button md-lg md-info">
-          <div class="md-ripple ">
-            <div class="md-button-content">Next Question</div>
+
+    <button @click="alert">test</button>
+
+    <div class="md-card md-theme-default">
+      <div class="md-card-header" data-background-color="blue">
+        <h4 class="title">Question {{currentQuestion + 1}} out of {{questions.length}}</h4>
+      </div>
+      <div class="md-card-content">
+        <div class="md-layout ">
+
+          <component v-if="questions" :is="questions[currentQuestion].type" :question="questions[currentQuestion]"
+            @submit="gradeQuestion" />
+
+          <div class="md-layout-item md-size-100 text-center">
+            <button type="button" class="md-button md-raised md-info md-theme-default" @click="nextQuestion">
+              <div class="md-ripple">
+                <div class="md-button-content">Next Question</div>
+              </div>
+            </button>
           </div>
-        </button>
-        <button @click="alert">test</button>
-        <component v-if="questions" :is="questions[currentQuestion].type" :question="questions[currentQuestion]"
-          @submit="gradeQuestion" />
+        </div>
       </div>
     </div>
   </div>
@@ -32,46 +43,31 @@
         currentQuestion: 0,
       };
     },
-    // watch: {
-    //   this.grade: function () {
-    //     this.alert()
-    //   }
-    // },
+
     computed: {
       questions() {
         let quiz = this.$store.state.activeQuiz
         return quiz.questions
       },
       grade() {
-        debugger
         return this.$store.state.grade
-
       }
     },
     methods: {
       alert() {
         this.$swal({
-          // title: 'Required Category',
+          title: gradeAlert.isCorrect(this.grade),
           html: gradeAlert.determineAlert(this.grade),
-          type: 'success',
+          type: gradeAlert.isSuccess(this.grade),
           showCloseButton: true,
           confirmButtonColor: "#fb8c00"
 
         });
       },
-      // matchText() {
-      //   let out = ''
-      //   this.grade.correct.forEach(elem => {
-      //     out += "<p>" + elem.value + ": " + elem.definition + "</p>"
-      //   })
-      //   console.log(out)
-      //   return out
-      // },
-
-      getQuestion(num) {
-        this.currentQuestion += num;
+      nextQuestion() {
+        this.currentQuestion += 1;
       },
-      async gradeQuestion({ question, submission }) {
+      gradeQuestion({ question, submission }) {
         this.$store.dispatch("gradeQuestion", { question, submission });
       }
     },

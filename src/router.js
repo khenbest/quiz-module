@@ -21,8 +21,9 @@ export default new Router({
       component: CreateQuestion
     },
     {
-      path: '/questions',
+      path: '/questions/:id',
       name: 'Questions',
+      props: true,
       component: QuestionView
     },
     {

@@ -17,7 +17,7 @@
               <div class="md-layout-item md-small-size-100 md-size-100">
                 <md-field class="has-danger md-theme-defult">
                   <label>Rationale: </label>
-                  <md-input v-model="newQuestion.rationale"></md-input>
+                  <md-textarea v-model="newQuestion.rationale"></md-textarea>
                 </md-field>
               </div>
               <div class="md-layout-item md-size-100 text-right"><button type="submit"
@@ -48,7 +48,7 @@
         newQuestion: {
           prompt: '',
           options: [],
-          correct: [],
+          correct: [{ value: '' }],
           rationale: '',
         }
       }
@@ -56,6 +56,7 @@
     computed: {},
     methods: {
       createQuestion() {
+        this.newQuestion.correct[0].value = this.newQuestion.rationale
         let question = JSON.parse(JSON.stringify(this.newQuestion))
         this.$emit("createQuestion", question)
         this.reset()
