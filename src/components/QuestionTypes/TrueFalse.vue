@@ -4,11 +4,11 @@
       <h3>{{question.prompt}}</h3>
       <form @submit.prevent="submit" class="form-row justify-content-center">
         <div class="form-check justify-space-between m-2">
-          <input class="form-check-input" v-model="checked" type="radio" name="option" id="a" value="a" checked />
+          <input class="form-check-input" v-model="checked" type="radio" name="option" id="a" value="true" checked />
           <label class="form-check-label" for="a">True</label>
         </div>
         <div class="form-check justify-space-between m-2">
-          <input class="form-check-input" v-model="checked" type="radio" name="option" id="b" value="b" checked />
+          <input class="form-check-input" v-model="checked" type="radio" name="option" id="b" value="false" checked />
           <label class="form-check-label" for="b">False</label>
         </div>
         <div class="col-12">
@@ -36,9 +36,10 @@
     },
     methods: {
       submit() {
+        let bool = this.checked == 'true' ? true : false
         this.$emit("submit", {
           question: this.question,
-          submission: this.checked
+          submission: { value: bool }
         });
       }
     }

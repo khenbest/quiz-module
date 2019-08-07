@@ -68,7 +68,7 @@
 <script>
   export default {
     name: "Match",
-    props: ["selected"],
+    props: [],
     data() {
       return {
         numberOfMatches: 0,
@@ -76,7 +76,6 @@
           prompt: '',
           options: [],
           correct: [],
-          type: this.selected,
         }
       }
     },

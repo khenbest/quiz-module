@@ -62,7 +62,7 @@
 <script>
   export default {
     name: "TrueFalse",
-    props: ['selected'],
+    props: [],
 
     data() {
       return {
@@ -71,7 +71,6 @@
           prompt: '',
           options: [{ value: true }, { value: false }],
           correct: [],
-          type: this.selected,
           rationale: ''
         }
       }

@@ -22,7 +22,7 @@
                 </drop>
             </div>
         </div>
-        <button type="submit" class="md-button md-sm md-info">
+        <button type="button" @click="submit" class="md-button md-sm md-info">
             <div class="md-ripple">
                 <div class="md-button-content">Submit</div>
             </div>
@@ -80,6 +80,7 @@
                     i = this.submission.length
                     this.submissionCat[droppedOn.term] = i
                 }
+
                 vue.set(this.submission, i, { value: dragged.term, definition: droppedOn.term })
                 vue.set(this.submissionCat, droppedOn.term, i)
             },

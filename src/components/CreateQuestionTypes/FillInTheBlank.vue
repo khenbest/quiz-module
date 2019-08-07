@@ -77,7 +77,7 @@
 <script>
   export default {
     name: "FillInTheBlank",
-    props: ["selected"],
+    props: [],
     data() {
       return {
         numOfBlanks: 0,
@@ -87,7 +87,6 @@
           prompt: '',
           options: [],
           correct: [],
-          type: this.selected,
           rationale: ''
         }
       }

@@ -33,7 +33,7 @@
 
     <div class="col-12 d-flex flex-column">
       <component v-if="categories.length > 0" :is="selected" v-on:createQuestion="createQuestion($event)"
-        :selected="selected"></component>
+        :type="selected"></component>
     </div>
   </div>
 </template>
@@ -44,6 +44,7 @@
   import FillInTheBlank from './CreateQuestionTypes/FillInTheBlank.vue'
   import CategoriesComponent from '@/components/CategoriesComponent.vue'
   import OpenEnded from './CreateQuestionTypes/OpenEnded.vue'
+  import MultipleChoice from './CreateQuestionTypes/MultipleChoice.vue'
   export default {
     name: "CreateQuestion",
     props: [],
@@ -73,6 +74,7 @@
     methods: {
       createQuestion(question) {
         question.categories = this.categories
+        question.type = this.selected
         this.$store.dispatch('createQuestion', question)
       },
 
@@ -94,7 +96,8 @@
       TrueFalse,
       FillInTheBlank,
       CategoriesComponent,
-      OpenEnded
+      OpenEnded,
+      MultipleChoice
     }
   }
 </script>

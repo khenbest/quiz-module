@@ -69,8 +69,11 @@ export default new Vuex.Store({
     },
     gradeQuestion({ commit, dispatch }, payload) {
       try {
+        // debugger
         questionApi.post(`${payload.question._id}/answers`, payload)
           .then(res => {
+            // debugger
+            console.log(res.data)
             commit('setGrade', res.data)
           })
       } catch (error) {

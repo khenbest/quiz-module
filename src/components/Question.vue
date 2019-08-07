@@ -7,7 +7,8 @@
             <div class="md-button-content">Next Question</div>
           </div>
         </button>
-        <component :is="questions[currentQuestion].type" :question="questions[currentQuestion]"
+        <button @click="alert">test</button>
+        <component v-if="questions" :is="questions[currentQuestion].type" :question="questions[currentQuestion]"
           @submit="gradeQuestion" />
       </div>
     </div>
@@ -20,31 +21,58 @@
   import OpenEnded from "./QuestionTypes/OpenEnded";
   import MultipleChoice from "./QuestionTypes/MultipleChoice";
   import FillInTheBlank from "./QuestionTypes/FillInTheBlank";
+  import gradeAlert from "../gradeAlerts.js"
 
   export default {
     name: "Question",
     created() {
-      // this.$store.dispatch("getQuestion", 0);
     },
     data() {
       return {
-        grade: {},
         currentQuestion: 0,
       };
     },
+    // watch: {
+    //   this.grade: function () {
+    //     this.alert()
+    //   }
+    // },
     computed: {
       questions() {
         let quiz = this.$store.state.activeQuiz
         return quiz.questions
+      },
+      grade() {
+        debugger
+        return this.$store.state.grade
+
       }
     },
     methods: {
+      alert() {
+        this.$swal({
+          // title: 'Required Category',
+          html: gradeAlert.determineAlert(this.grade),
+          type: 'success',
+          showCloseButton: true,
+          confirmButtonColor: "#fb8c00"
+
+        });
+      },
+      // matchText() {
+      //   let out = ''
+      //   this.grade.correct.forEach(elem => {
+      //     out += "<p>" + elem.value + ": " + elem.definition + "</p>"
+      //   })
+      //   console.log(out)
+      //   return out
+      // },
+
       getQuestion(num) {
         this.currentQuestion += num;
       },
-      gradeQuestion({ question, submission }) {
+      async gradeQuestion({ question, submission }) {
         this.$store.dispatch("gradeQuestion", { question, submission });
-        this.grade = this.$store.state.grade
       }
     },
     components: {
@@ -52,7 +80,7 @@
       TrueFalse,
       MultipleChoice,
       OpenEnded,
-      FillInTheBlank
+      FillInTheBlank,
     }
   };
 </script>

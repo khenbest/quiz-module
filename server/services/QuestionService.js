@@ -15,71 +15,77 @@ let schema = new mongoose.Schema({
 export default class QuestionService {
 
     gradeQuestion(answer, question) {
-
+        let out = {}
         switch (question.type) {
+
             case "TrueFalse":
-                this.gradeTrueFalse(answer, question)
+                out = this.gradeTrueFalse(answer, question)
                 break;
             case "MultipleChoice":
-                this.gradeMultipleChoice(answer, question)
+                out = this.gradeMultipleChoice(answer, question)
                 break;
             case "FillInTheBlank":
-                this.gradeFillInTheBlank(answer, question)
+                out = this.gradeFillInTheBlank(answer, question)
                 break;
             case "Match":
-                this.gradeMatch(answer, question)
+                out = this.gradeMatch(answer, question)
                 break;
             case "OpenEnded":
-                this.gradeOpenEnded(answer, question)
+                out = this.gradeOpenEnded(answer, question)
                 break;
             default: "No Function Here"
                 break;
         }
+        return out
     }
 
     grade(didPass, question) {
-        let grade = { passed: didPass, correct: question.correct, rationale: question.rationale }
-
+        let grade = { passed: didPass, correct: question.correct, rationale: question.rationale, type: question.type }
+        return grade
     }
 
     gradeTrueFalse(answer, question) {
-        if (answer.submission == Object.keys(question.correct[0])) {
+        let correct = question.correct[0]
 
+        if (answer.submission.value == correct.value) {
+            // grade = this.grade(true, question)
             return this.grade(true, question)
         } else {
+
             return this.grade(false, question)
         }
     }
     gradeMultipleChoice(answer, question) {
 
         if (answer.submission.length != question.correct.length) {
-            return "Incorrect"
+            return this.grade(false, question)
         }
         let correctStudentAnswers = answer.submission.filter(x => question.correct.find(y => y.value == x.value))
         if (correctStudentAnswers.length !== question.correct.length) {
-            return "Incorrect"
+            return this.grade(false, question)
+
         }
-        else return "Correct!"
+        else return this.grade(false, question)
     }
     gradeFillInTheBlank(answer, question) {
-        let correct = true
         question.correct.forEach(x => {
             let y = answer.submission.find(z => z.value == x.value)
-            if (!y) { correct = false; return }
-            if (y.definition !== x.definition) { correct = false }
+            if (!y) { return this.grade(false, question) }
+            if (y.definition !== x.definition) { return this.grade(false, question) }
         })
-        console.log(correct)
-        return correct
+        return this.grade(true, question)
     }
     gradeMatch(answer, question) {
-        let correct = true
-        question.correct.forEach(x => {
-            let y = answer.submission.find(z => z.value == x.value)
-            if (!y) { correct = false; return }
-            if (y.definition !== x.definition) { correct = false }
-        })
-        console.log(correct)
-        return correct
+
+
+        for (let x = 0; x < question.correct.length; x++) {
+            let correct = question.correct[x]
+            let y = answer.submission.find(z => z.value == correct.value)
+            if (!y) { return this.grade(false, question) }
+            if (y.definition !== correct.definition) { return this.grade(false, question) }
+        }
+
+        return this.grade(true, question)
     }
 
     gradeOpenEnded(answer, question) {

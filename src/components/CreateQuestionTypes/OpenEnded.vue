@@ -42,7 +42,7 @@
 <script>
   export default {
     name: "openEnded",
-    props: ["selected"],
+    props: [],
     data() {
       return {
         newQuestion: {
@@ -50,7 +50,6 @@
           options: [],
           correct: [],
           rationale: '',
-          type: this.selected,
         }
       }
     },
@@ -63,7 +62,7 @@
       },
       reset() {
         this.newQuestion = {
-          type: this.selected,
+          type: this.type,
           prompt: '',
           rationale: ''
         }
