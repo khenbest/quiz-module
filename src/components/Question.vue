@@ -40,7 +40,7 @@
     data() {
       return {
         currentQuestion: 0,
-        isSubmitted: false
+        isSubmitted: false,
       };
     },
 
@@ -68,9 +68,8 @@
         this.currentQuestion += 1
         this.isSubmitted = false
       },
-      async gradeQuestion({ question, submission }) {
-        this.$store.dispatch("gradeQuestion", { question, submission });
-        await this.alert()
+      gradeQuestion({ question, submission }) {
+        this.$store.dispatch("gradeQuestion", { question, submission, alert: this.alert });
         this.isSubmitted = true
       }
     },

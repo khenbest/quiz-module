@@ -15,20 +15,18 @@ const quizApi = axios.create({
 
 export default new Vuex.Store({
   state: {
-    questions: [],
-    // question: {},
     searchResults: [],
     quizzes: [],
     activeQuiz: {},
     grade: {}
   },
   mutations: {
-    setQuestions(state, data) {
-      state.questions = data
+
+    removeQuestion(state, id) {
+      let deleted = state.searchResults.find(q => q._id == id)
+      let index = state.searchResults.indexOf(deleted)
+      state.searchResults.splice(index, 1)
     },
-    // setQuestion(state, data) {
-    //   state.question = data
-    // },
     setSearchResults(state, data) {
       state.searchResults = data
     },
@@ -43,25 +41,12 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    //#region Questions
-    // getQuestion({ commit, dispatch }, index) {
-    //   try {
-    //     questionApi.get('').then(res => {
-    //       if (index < res.data.length) {
-    //         let question = res.data[index]
-    //         commit("setQuestions", res.data)
-    //         commit("setQuestion", question)
-    //       }
-    //     })
-    //   } catch (error) {
-    //     console.error(error)
-    //   }
-    // },
+
     getQuestions({ commit, dispatch }) {
       try {
         questionApi.get('')
           .then(res => {
-            commit("setQuestions", res.data)
+            commit("setSearchResults", res.data)
           })
       } catch (error) {
         console.error(error)
@@ -75,6 +60,7 @@ export default new Vuex.Store({
             // debugger
             console.log(res.data)
             commit('setGrade', res.data)
+            payload.alert()
           })
       } catch (error) {
         console.error(error)
@@ -97,6 +83,17 @@ export default new Vuex.Store({
           .then(res => {
             console.log(res.data)
             commit('setSearchResults', res.data)
+          })
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    deleteQuestion({ commit, dispatch }, payload) {
+      try {
+        questionApi.put(payload)
+          .then(res => {
+            console.log('delorted!')
+            commit('removeQuestion', payload)
           })
       } catch (error) {
         console.error(error)
