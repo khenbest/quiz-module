@@ -10,7 +10,8 @@
           <component v-if="questions" :is="questions[currentQuestion].type" :question="questions[currentQuestion]"
             @submit="gradeQuestion" />
 
-          <div v-if="isSubmitted" class="md-layout-item md-size-100 text-center">
+          <div v-if="isSubmitted && this.currentQuestion != questions.length - 1"
+            class="md-layout-item md-size-100 text-center">
             <button type="button" class="md-button md-raised md-info md-theme-default mt-3" @click="nextQuestion">
               <div class="md-ripple">
                 <div class="md-button-content">Next Question</div>
