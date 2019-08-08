@@ -1,24 +1,29 @@
 <template>
-    <div>
-        {{question.prompt}}
+    <div class="md-layout-item  md-size-100 text-center">
+        <h2>{{question.prompt}}</h2>
         <div class="d-flex row justify-content-center">
-            <div class="col-5">
-                <div v-for="drag in drags">
-                    <drag @dragstart="setDrag(drag)">
-                        {{displayQuestion(drag)}}
+            <div class="col-4">
+                <div class="row justify-content-center" v-for="drag in drags">
+                    <drag @dragstart="setDrag(drag)" class="drag-item  col-4 p-2">
+                        <h4>
+                            {{displayQuestion(drag)}}
+                        </h4>
                     </drag>
                 </div>
             </div>
-            <div class="col-5">
-                <drop v-for="drop in drops" class="d-flex align-items-center" @drop="handleDrop(drop, dragging)">
-                    <div class="mr-1" :class="submission[submissionCat[drop.term]] ? 'text-info' : 'text-danger'">
+            <div class="col-6 offset-1 justify-content-flex-end ">
+                <drop v-for="drop in drops" class="d-flex justify-content-flex-end" @drop="handleDrop(drop, dragging)">
+                    <div class="align-self-center"
+                        :class="submission[submissionCat[drop.term]] ? 'text-info' : 'text-warning'">
                         {{
                                             submission[submissionCat[drop.term]] ? 
                                             submission[submissionCat[drop.term]].value : 
                                             "___________"
                                         }}:
                     </div>
-                    {{displayQuestion(drop)}}
+                    <h5 class="drop-item">
+                        {{displayQuestion(drop)}}
+                    </h5>
                 </drop>
             </div>
         </div>
@@ -42,7 +47,7 @@
             return {
                 submission: [],
                 dragging: {},
-                submissionCat: {}
+                submissionCat: {},
             }
         },
         computed: {
@@ -88,3 +93,25 @@
         components: { Drag, Drop },
     }
 </script>
+<style>
+    .drag-item {
+        background: #fb8c00;
+        color: #fff;
+        text-shadow: gray -1px 1px;
+        border-radius: 3px;
+        margin: 1rem;
+
+    }
+
+    .drag-item :hover {
+        cursor: grab;
+    }
+
+
+    .drop-item {
+        margin: 1rem;
+        text-align: left;
+        display: flex;
+        justify-content: flex-end;
+    }
+</style>

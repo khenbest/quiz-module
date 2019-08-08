@@ -1,11 +1,8 @@
 <template>
   <div class="container-fluid">
-
-    <button @click="alert">test</button>
-
     <div class="md-card md-theme-default">
       <div class="md-card-header" data-background-color="blue">
-        <h4 class="title">Question {{currentQuestion + 1}} out of {{questions.length}}</h4>
+        <h3 class="title">Question {{currentQuestion + 1}} out of {{questions.length}}</h3>
       </div>
       <div class="md-card-content">
         <div class="md-layout ">
@@ -13,13 +10,14 @@
           <component v-if="questions" :is="questions[currentQuestion].type" :question="questions[currentQuestion]"
             @submit="gradeQuestion" />
 
-          <div class="md-layout-item md-size-100 text-center">
-            <button type="button" class="md-button md-raised md-info md-theme-default" @click="nextQuestion">
+          <div v-if="isSubmitted" class="md-layout-item md-size-100 text-center">
+            <button type="button" class="md-button md-raised md-info md-theme-default mt-3" @click="nextQuestion">
               <div class="md-ripple">
                 <div class="md-button-content">Next Question</div>
               </div>
             </button>
           </div>
+
         </div>
       </div>
     </div>
@@ -41,6 +39,7 @@
     data() {
       return {
         currentQuestion: 0,
+        isSubmitted: false
       };
     },
 
@@ -65,10 +64,13 @@
         });
       },
       nextQuestion() {
-        this.currentQuestion += 1;
+        this.currentQuestion += 1
+        this.isSubmitted = false
       },
-      gradeQuestion({ question, submission }) {
+      async gradeQuestion({ question, submission }) {
         this.$store.dispatch("gradeQuestion", { question, submission });
+        await this.alert()
+        this.isSubmitted = true
       }
     },
     components: {
