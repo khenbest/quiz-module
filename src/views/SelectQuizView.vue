@@ -32,6 +32,29 @@
         </div>
       </div>
     </div>
+
+    <md-table md-card>
+      <md-table-toolbar>
+        <h1 class="md-title">Quiz Central</h1>
+      </md-table-toolbar>
+
+      <md-table-row>
+        <md-table-head>Title</md-table-head>
+        <md-table-head>Topic</md-table-head>
+        <md-table-head>Difficulty</md-table-head>
+        <md-table-head>Delete</md-table-head>
+      </md-table-row>
+
+      <md-table-row v-for="quiz in quizzes">
+        <md-table-cell>{{ quiz.name }}</md-table-cell>
+        <md-table-cell>{{ quiz.topic }}</md-table-cell>
+        <md-table-cell>{{ quiz.difficulty }}</md-table-cell>
+        <md-table-cell>
+          <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center" @click="deleteQuiz(quiz._id)"></i>
+        </md-table-cell>
+      </md-table-row>
+    </md-table>
+
   </div>
 </template>
 
@@ -60,6 +83,9 @@
       },
       setActiveQuiz() {
         this.$store.dispatch("getActiveQuiz", this.selectedQuiz);
+      },
+      deleteQuiz(id) {
+        this.$store.dispatch("deleteQuiz", id)
       }
     },
     computed: {

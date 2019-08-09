@@ -38,6 +38,11 @@ export default new Vuex.Store({
     },
     setGrade(state, data) {
       state.grade = data
+    },
+    removeQuiz(state, id) {
+      let deleted = state.quizzes.find(q => q._id == id)
+      let index = state.quizzes.indexOf(deleted)
+      state.quizzes.splice(index, 1)
     }
   },
   actions: {
@@ -90,7 +95,7 @@ export default new Vuex.Store({
     },
     deleteQuestion({ commit, dispatch }, payload) {
       try {
-        questionApi.put(payload)
+        questionApi.delete(payload)
           .then(res => {
             console.log('delorted!')
             commit('removeQuestion', payload)
@@ -103,9 +108,10 @@ export default new Vuex.Store({
     //#region Quizzes
     createQuiz({ commit, dispatch }, payload) {
       try {
-        quizApi.post('', payload)
+        quizApi.post('', payload.quiz)
           .then(res => {
             console.log("successss: ", res.data)
+            payload.alert()
           })
       } catch (error) {
         console.error(error)
@@ -125,6 +131,17 @@ export default new Vuex.Store({
         quizApi.get('')
           .then(res => {
             commit('setQuizzes', res.data)
+          })
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    deleteQuiz({ commit, dispatch }, payload) {
+      try {
+        quizApi.delete(payload)
+          .then(res => {
+            console.log('delorted quiz!')
+            commit('removeQuiz', payload)
           })
       } catch (error) {
         console.error(error)
