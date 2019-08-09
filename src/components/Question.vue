@@ -5,7 +5,7 @@
         <h3 class="title">Question {{currentQuestion + 1}} out of {{questions.length}}</h3>
       </div>
       <div class="md-card-content">
-        <div class="md-layout ">
+        <div class="md-layout">
 
           <component v-if="questions" :is="questions[currentQuestion].type" :question="questions[currentQuestion]"
             @submit="gradeQuestion" />

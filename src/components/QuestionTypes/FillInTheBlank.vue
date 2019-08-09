@@ -1,23 +1,28 @@
 <template>
-  <div>
+  <div class="md-layout-item  my-2 md-size-100 text-center">
+
     <div class="d-flex row justify-content-center">
-      {{ question.prompt.slice(0, 15) }}
-      <drop v-for="(drop,i) in drops" class="d-flex align-items-center ml-1" @drop="handleDrop(i, dragging)">
-        <div class="underline" :class="{'text-danger fill-in-blank': !submission[i], 'text-info': submission[i]}">
-          {{submission[i] ? submission[i].value : ''}}</div>
-      </drop>
+      <span v-for="(word, i) in words">
+
+        <drop v-if="word == '___________'" class="d-flex align-items-center mr-1" @drop="handleDrop(i, dragging)">
+          <div class="" :class="submission[i] == '___________' ? 'text-danger' : 'text-info underline'">
+            {{submission[i]}}</div>
+        </drop>
+        <span v-else>{{word}}&nbsp;</span>
+      </span>
 
       <div class="col-12">
         <div v-for="drag in drags">
           <drag @dragstart="setDrag(drag)">{{displayQuestion(drag)}}</drag>
         </div>
       </div>
+      <button type="submit" class="md-button md-sm md-info">
+        <div class="md-ripple">
+          <div class="md-button-content">Submit</div>
+        </div>
+      </button>
     </div>
-    <button type="submit" class="md-button md-sm md-info">
-      <div class="md-ripple">
-        <div class="md-button-content">Submit</div>
-      </div>
-    </button>
+  </div>
   </div>
 </template>
 
@@ -35,13 +40,19 @@
         dragging: {}
       };
     },
+    mounted() {
+      this.submission = this.question.prompt.split(" ")
+    },
     computed: {
       drags() {
         let arr = this.question.options;
         return this.shuffle(arr);
       },
-      drops() {
-        return this.makeDropZones(this.question.prompt);
+      // drops() {
+      //   return this.makeDropZones(this.question.prompt);
+      // },
+      words() {
+        return this.question.prompt.split(" ")
       }
     },
     methods: {
@@ -58,19 +69,18 @@
         }
         return a;
       },
+      fixQuestionPromptDisplay() {
+        return question.prompt.replace()
+      },
       displayQuestion(q) {
         return `${Object.values(q)[0]}`;
       },
-      makeDropZones(str) {
-        let arr = str.split(" ");
-        let filtered = arr.filter(s => s == "___________");
-        return filtered;
-      },
+
       setDrag(drag) {
         this.dragging = drag;
       },
       handleDrop(i, dragged) {
-        vue.set(this.submission, i, dragged);
+        vue.set(this.submission, i, dragged.value);
       }
     },
     components: { Drag, Drop }
