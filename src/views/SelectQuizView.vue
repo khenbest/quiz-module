@@ -1,11 +1,36 @@
 <template>
   <div class="QuizView">
+    <div v-if="selectedQuiz" class="row justify-content-center">
+      <div class="col-8 md-card">
+        <div class="md-toolbar md-table-toolbar md-transparent md-header my-3 md-theme-default md-elevation-0"
+          data-background-color="blue">
+          <h1 class="md-title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">Confirm
+            Quiz Details</h1>
+        </div>
+        <div>
+          <h2>{{activeQuiz.name}}</h2>
+          <h3>
+            <u>Quiz Questions</u>
+          </h3>
+          <div class="row justify-content-center">
+            <div class="col-4" v-for="(question, index) in activeQuiz.questions">
+              <h6>{{index + 1}}. {{question.prompt}}</h6>
+            </div>
+          </div>
+          <md-button class="md-info" @click="go('Questions')">Start Quiz</md-button>
+        </div>
+      </div>
+    </div>
     <div class="row justify-content-center">
-      <md-table md-card class="col-10">
-        <md-table-toolbar data-background-color="purple">
-          <h1 class="md-title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">Quiz
-            Central</h1>
+      <md-table md-card class="col-10 my-3">
+        <md-table-toolbar class=" my-3" data-background-color="purple">
+          <h3 class="title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">Quiz
+            Central</h3>
         </md-table-toolbar>
+        <md-table-row>
+          <h4 class="ml-5 text-left">Select A Quiz</h4>
+        </md-table-row>
+
         <md-table-row>
           <md-table-head>Title</md-table-head>
           <md-table-head>Topic</md-table-head>
@@ -23,27 +48,7 @@
       </md-table>
     </div>
 
-    <div v-if="selectedQuiz" class="row justify-content-center">
-      <div class="col-8 md-card">
-        <div class="md-toolbar md-table-toolbar md-transparent md-header my-3 md-theme-default md-elevation-0"
-          data-background-color="purple">
-          <h1 class="md-title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">Confirm
-            Quiz Details</h1>
-        </div>
-        <div>
-          <h2>{{activeQuiz.name}}</h2>
-          <h3>
-            <u>Quiz Questions</u>
-          </h3>
-          <div class="row justify-content-center">
-            <div class="col-4" v-for="(question, index) in activeQuiz.questions">
-              <h6>{{index + 1}}. {{question.prompt}}</h6>
-            </div>
-          </div>
-          <md-button class="md-primary" @click="go('Questions')">Start Quiz</md-button>
-        </div>
-      </div>
-    </div>
+
   </div>
 </template>
 
