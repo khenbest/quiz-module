@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <!-- table needs v-model both places DON'T delete one -->
 
-      <md-table md-card class="col-10">
+      <md-table md-card class="col-11">
         <md-table-toolbar data-background-color="blue">
           <h1 class="md-title" style="color:white !important; text-shadow: gray 0 1px; font-weight: 500;">Available
             Questions</h1>
@@ -36,7 +36,7 @@
     <div class="md-layout-item md-medium-size-100 md-size-66">
       <form @submit.prevent="createQuiz">
         <div class="md-card md-theme-default">
-          <div class="md-card-header" data-background-color="blue">
+          <div class="md-card-header" data-background-color="purple">
             <h4 class="title">Create Quiz</h4>
           </div>
           <div class="md-card-content">

@@ -144,6 +144,7 @@
       },
       //removes words from the sentence and replaces it with underscores. it is called from the @click event, not from another method.
       format() {
+        let toBeCorrect = this.newQuestion.prompt
         let out = ''
         let prompt = this.newQuestion.prompt
         for (let i = 0; i < this.newQuestion.correct.length; i++) {
@@ -160,6 +161,8 @@
           prompt = out
         }
         this.newQuestion.prompt = prompt
+        this.newQuestion.correct = [{ value: toBeCorrect }]
+
         console.log(prompt)
         this.createQuestion()
       },

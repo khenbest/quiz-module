@@ -4,10 +4,8 @@ function determineAlert(grade) {
   switch (grade.type) {
     case "TrueFalse":
     case "MultipleChoice":
-      out = trueFalseAndMCAlert(grade)
-      break;
     case "FillInTheBlank":
-      out = fillInTheBlankAlert(grade)
+      out = singleCorrectValue(grade)
       break;
     case "Match":
       out = matchAlert(grade)
@@ -31,7 +29,7 @@ function matchAlert(grade) {
 }
 
 
-function trueFalseAndMCAlert(grade) {
+function singleCorrectValue(grade) {
   let out = 'The answer was: ' + grade.correct[0].value
   return out
 
@@ -42,9 +40,9 @@ function openEndedAlert(grade) {
   return out
 }
 
-function fillInTheBlankAlert(grade) {
-  return 'coming soon'
-}
+// function fillInTheBlankAlert(grade) {
+
+// }
 
 function isSuccess(grade) {
   if (grade.type == 'OpenEnded') { return 'question' }
