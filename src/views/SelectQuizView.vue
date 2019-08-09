@@ -1,24 +1,36 @@
 <template>
   <div class="QuizView">
-
     <div class="row justify-content-center">
+      <md-table md-card class="col-10">
+        <md-table-toolbar data-background-color="purple">
+          <h1 class="md-title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">Quiz
+            Central</h1>
+        </md-table-toolbar>
+        <md-table-row>
+          <md-table-head>Title</md-table-head>
+          <md-table-head>Topic</md-table-head>
+          <md-table-head>Difficulty</md-table-head>
+          <md-table-head>Delete</md-table-head>
+        </md-table-row>
+        <md-table-row v-for="quiz in quizzes" class='text-left hover' @click='selectedQuiz = quiz._id'>
+          <md-table-cell>{{ quiz.name }}</md-table-cell>
+          <md-table-cell>{{ quiz.topic }}</md-table-cell>
+          <md-table-cell>{{ quiz.difficulty }}</md-table-cell>
+          <md-table-cell>
+            <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center" @click="deleteQuiz(quiz._id)"></i>
+          </md-table-cell>
+        </md-table-row>
+      </md-table>
+    </div>
+
+    <div v-if="selectedQuiz" class="row justify-content-center">
       <div class="col-8 md-card">
         <div class="md-toolbar md-table-toolbar md-transparent md-header my-3 md-theme-default md-elevation-0"
           data-background-color="purple">
           <h1 class="md-title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">Confirm
             Quiz Details</h1>
         </div>
-        <div class="row justify-content-center">
-          <div class="col-3">
-            <md-field>
-              <label>Select A Quiz</label>
-              <md-select v-model="selectedQuiz">
-                <md-option v-for="quiz in quizzes" :value="quiz._id" :key="quiz._id">{{quiz.name}}</md-option>
-              </md-select>
-            </md-field>
-          </div>
-        </div>
-        <div v-if="selectedQuiz">
+        <div>
           <h2>{{activeQuiz.name}}</h2>
           <h3>
             <u>Quiz Questions</u>
@@ -32,29 +44,6 @@
         </div>
       </div>
     </div>
-
-    <md-table md-card>
-      <md-table-toolbar>
-        <h1 class="md-title">Quiz Central</h1>
-      </md-table-toolbar>
-
-      <md-table-row>
-        <md-table-head>Title</md-table-head>
-        <md-table-head>Topic</md-table-head>
-        <md-table-head>Difficulty</md-table-head>
-        <md-table-head>Delete</md-table-head>
-      </md-table-row>
-
-      <md-table-row v-for="quiz in quizzes">
-        <md-table-cell>{{ quiz.name }}</md-table-cell>
-        <md-table-cell>{{ quiz.topic }}</md-table-cell>
-        <md-table-cell>{{ quiz.difficulty }}</md-table-cell>
-        <md-table-cell>
-          <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center" @click="deleteQuiz(quiz._id)"></i>
-        </md-table-cell>
-      </md-table-row>
-    </md-table>
-
   </div>
 </template>
 
@@ -103,4 +92,7 @@
 </script>
 
 <style>
+  .hover {
+    cursor: pointer;
+  }
 </style>
