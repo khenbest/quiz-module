@@ -19,12 +19,8 @@ export default class QuestionService {
         switch (question.type) {
             case "TrueFalse":
             case "MultipleChoice":
-                out = this.gradeTrueFalseAndMC(answer, question)
-                // break;
-                // out = this.gradeMultipleChoice(answer, question)
-                break;
             case "FillInTheBlank":
-                out = this.gradeFillInTheBlank(answer, question)
+                out = this.gradeSingleValue(answer, question)
                 break;
             case "Match":
                 out = this.gradeMatch(answer, question)
@@ -43,7 +39,7 @@ export default class QuestionService {
         return grade
     }
 
-    gradeTrueFalseAndMC(answer, question) {
+    gradeSingleValue(answer, question) {
         let correct = question.correct[0]
         if (answer.submission.value == correct.value) {
             return this.grade(true, question)
@@ -60,16 +56,16 @@ export default class QuestionService {
         })
         return this.grade(true, question)
     }
-    gradeMatch(answer, question) {
-        for (let x = 0; x < question.correct.length; x++) {
-            let correct = question.correct[x]
-            let y = answer.submission.find(z => z.value == correct.value)
-            if (!y) { return this.grade(false, question) }
-            if (y.definition !== correct.definition) { return this.grade(false, question) }
-        }
+    // gradeMatch(answer, question) {
+    //     for (let x = 0; x < question.correct.length; x++) {
+    //         let correct = question.correct[x]
+    //         let y = answer.submission.find(z => z.value == correct.value)
+    //         if (!y) { return this.grade(false, question) }
+    //         if (y.definition !== correct.definition) { return this.grade(false, question) }
+    //     }
 
-        return this.grade(true, question)
-    }
+    //     return this.grade(true, question)
+    // }
 
     gradeOpenEnded(answer, question) {
         return this.grade(true, question)

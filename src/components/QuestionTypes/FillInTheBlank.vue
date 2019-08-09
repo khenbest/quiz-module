@@ -16,7 +16,7 @@
           <drag @dragstart="setDrag(drag)">{{displayQuestion(drag)}}</drag>
         </div>
       </div>
-      <button type="submit" class="md-button md-sm md-info">
+      <button type="submit" class="md-button md-sm md-info" @click="submit">
         <div class="md-ripple">
           <div class="md-button-content">Submit</div>
         </div>
@@ -48,18 +48,18 @@
         let arr = this.question.options;
         return this.shuffle(arr);
       },
-      // drops() {
-      //   return this.makeDropZones(this.question.prompt);
-      // },
+
       words() {
         return this.question.prompt.split(" ")
       }
     },
     methods: {
       submit() {
+        // debugger
+        this.submission = this.submission.join(" ")
         this.$emit("submit", {
           question: this.question,
-          submission: this.submission
+          submission: { value: this.submission }
         });
       },
       shuffle(a) {
