@@ -18,7 +18,7 @@
               </div>
               <div class="border border-dark col-6">
                 <div class="md-layout-item md-small-size-100 md-size-100" id="numberOfWords">
-                  <md-field class="has-danger">
+                  <md-field v-if="numOfBlanks == 0" class="has-danger">
                     <label>Number of words to be removed</label>
                     <md-input v-model="numOfBlanks" type="number"></md-input>
                   </md-field>
@@ -36,7 +36,7 @@
               <div class="border border-dark col-6">
 
                 <div class="md-layout-item md-small-size-100 md-size-100">
-                  <md-field class="has-danger">
+                  <md-field v-if="numOfOptions == 0" class="has-danger">
                     <label>Number of Options </label>
                     <md-input v-model="numOfOptions" type="number"></md-input>
                   </md-field>
@@ -62,7 +62,7 @@
                 </button>
                 <button type="button" class="md-button md-raised md-info md-theme-default" @click="reset">
                   <div class="md-ripple">
-                    <div class="md-button-content">Cancel</div>
+                    <div class="md-button-content">Reset</div>
                   </div>
                 </button>
               </div>
@@ -140,7 +140,6 @@
         let index = this.newQuestion.correct.indexOf(word)
         this.newQuestion.correct.splice(index, 1)
         this.removeOption(word)
-
       },
       //removes words from the sentence and replaces it with underscores. it is called from the @click event, not from another method.
       format() {
