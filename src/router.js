@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import CreateQuizView from './views/CreateQuizView.vue'
 import CreateQuestion from './views/CreateQuestion.vue'
-import QuestionView from './views/QuestionView.vue'
+import QuizView from './views/QuizView.vue'
 import SelectQuizView from './views/SelectQuizView.vue'
 
 
@@ -21,10 +21,10 @@ export default new Router({
       component: CreateQuestion
     },
     {
-      path: '/questions/:id',
-      name: 'Questions',
+      path: '/quiz/:id',
+      name: 'Quiz',
       props: true,
-      component: QuestionView
+      component: QuizView
     },
     {
       path: '/select-quiz',

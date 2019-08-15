@@ -9,7 +9,7 @@
   import Question from "@/components/Question.vue";
   import router from "../router.js";
   export default {
-    name: "QuestionView",
+    name: "QuizView",
     props: ["id"],
     mounted() {
       if (!this.activeQuiz._id) {

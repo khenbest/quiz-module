@@ -117,9 +117,9 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    getActiveQuiz({ commit, dispatch }, payload) {
+    getActiveQuiz({ commit, dispatch }, id) {
       try {
-        quizApi.get(`${payload}`).then(res => {
+        quizApi.get(id).then(res => {
           commit('setActiveQuiz', res.data)
         })
       } catch (error) {

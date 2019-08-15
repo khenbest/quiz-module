@@ -7,8 +7,9 @@
       <div class="md-card-content">
         <div class="md-layout">
 
-          <component v-if="questions" :is="questions[currentQuestion].type" :question="questions[currentQuestion]"
+          <component v-if="activeQuestion" :is="activeQuestion.type" :question="activeQuestion"
             @submit="gradeQuestion" />
+          <div v-else>UMMM WHAT???</div>
 
           <div v-if="isSubmitted && this.currentQuestion != questions.length - 1"
             class="md-layout-item md-size-100 text-center">
@@ -48,6 +49,9 @@
       questions() {
         let quiz = this.$store.state.activeQuiz
         return quiz.questions
+      },
+      activeQuestion() {
+        return this.questions[this.currentQuestion]
       },
       grade() {
         return this.$store.state.grade

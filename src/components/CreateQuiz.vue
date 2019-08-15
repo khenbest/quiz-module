@@ -140,6 +140,9 @@
       },
 
       createQuiz() {
+        // if(this.quiz._id){
+        //   //put 
+        // }
         if (this.newQuiz.questions.length < 1) {
           this.selectQuestionAlert()
         } else {
@@ -155,6 +158,11 @@
         this.newQuiz.topic = ''
         this.selected = 'beginner'
       }
+      // 
+
+
+
+
 
     },
     components: {}

@@ -13,11 +13,11 @@
             <u>Quiz Questions</u>
           </h3>
           <div class="row justify-content-center">
-            <div class="col-4" v-for="(question, index) in activeQuiz.questions">
+            <div class="col-4" v-for="(question, index) in activeQuiz.questions" :key="question._id">
               <h6>{{index + 1}}. {{question.prompt}}</h6>
             </div>
           </div>
-          <md-button class="md-info" @click="go('Questions')">Start Quiz</md-button>
+          <md-button class="md-info" @click="go('Quiz')">Start Quiz</md-button>
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@
           <md-table-head>Difficulty</md-table-head>
           <md-table-head>Delete</md-table-head>
         </md-table-row>
-        <md-table-row v-for="quiz in quizzes" class='text-left hover' @click='selectedQuiz = quiz._id'>
+        <md-table-row v-for="quiz in quizzes" :key="quiz._id" class='text-left hover' @click='selectedQuiz = quiz._id'>
           <md-table-cell>{{ quiz.name }}</md-table-cell>
           <md-table-cell>{{ quiz.topic }}</md-table-cell>
           <md-table-cell>{{ quiz.difficulty }}</md-table-cell>
