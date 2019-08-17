@@ -15,7 +15,7 @@
                 <CategoriesComponent v-on:change-categories='updateCategories($event)'></CategoriesComponent>
                 <div class="row justify-content-center">
                   <md-field class="col-3">
-                    <label for="questionType">Question Type</label>
+                    <label>Question Type</label>
                     <md-select v-model="selected" id="questionType">
                       <md-option v-for="type in types" :value="type.value">{{type.text}}</md-option>
                     </md-select>

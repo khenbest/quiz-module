@@ -136,6 +136,15 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+    editQuiz({ commit, dispatch }, payload) {
+      try {
+        quizApi.put(payload).then(res => {
+
+        })
+      } catch (error) {
+
+      }
+    },
     deleteQuiz({ commit, dispatch }, payload) {
       try {
         quizApi.delete(payload)

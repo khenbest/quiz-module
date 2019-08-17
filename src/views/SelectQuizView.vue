@@ -1,54 +1,81 @@
 <template>
   <div class="QuizView">
-    <div v-if="selectedQuiz" class="row justify-content-center">
-      <div class="col-8 md-card">
+    <div v-if="selectedQuiz" id="selected" class="row justify-content-center modal mt-5">
+      <div class="col-8 md-card ">
         <div class="md-toolbar md-table-toolbar md-transparent md-header my-3 md-theme-default md-elevation-0"
           data-background-color="blue">
           <h1 class="md-title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">Confirm
             Quiz Details</h1>
         </div>
         <div>
-          <h2>{{activeQuiz.name}}</h2>
-          <h3>
-            <u>Quiz Questions</u>
-          </h3>
           <div class="row justify-content-center">
-            <div class="col-4" v-for="(question, index) in activeQuiz.questions" :key="question._id">
-              <h6>{{index + 1}}. {{question.prompt}}</h6>
+            <div class="col-12 justify-content-center">
+              <h2>{{activeQuiz.name}}</h2>
+            </div>
+            <div class="col-12 justify-content-center">
+              <h3>Topic: {{activeQuiz.topic}}</h3>
             </div>
           </div>
-          <md-button class="md-info" @click="go('Quiz')">Start Quiz</md-button>
+          <div class="row justify-content-center">
+            <div class="col-12 justify-content-center">
+              <h4>
+                <u>Quiz Questions</u>
+              </h4>
+              <div class="row justify-content-center">
+                <div class="col-4" v-for="(question, index) in activeQuiz.questions" :key="question._id">
+                  <h6>{{index + 1}}. {{question.prompt}}</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="btn-bar" class="my-2">
+
+            <md-button class="md-info" data-dismiss="modal" @click="go('Quiz')" data-target="#selected">Start Quiz
+            </md-button>
+            <md-button class="md-warning" data-dismiss="modal" @click="editQuiz(quiz._id)" data-target="#selected">
+              Edit
+              Quiz</md-button>
+            <md-button class="md-danger" data-dismiss="modal" data-target="#selected">Close</md-button>
+          </div>
         </div>
       </div>
     </div>
+
+
     <div class="row justify-content-center">
       <md-table md-card class="col-10 my-3">
-        <md-table-toolbar class=" my-3" data-background-color="purple">
-          <h3 class="title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">Quiz
-            Central</h3>
+        <md-table-toolbar class="my-3" data-background-color="purple">
+          <h3 class="title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">
+            Quiz Central</h3>
+          <i class="text-white fas fa-lg fa-plus"></i>
+          <!-- <i class="ml-1 text-white fas  fa-minus"></i> -->
         </md-table-toolbar>
         <md-table-row>
           <h4 class="ml-5 text-left">Select A Quiz</h4>
         </md-table-row>
-
         <md-table-row>
           <md-table-head>Title</md-table-head>
           <md-table-head>Topic</md-table-head>
           <md-table-head>Difficulty</md-table-head>
           <md-table-head>Delete</md-table-head>
+          <md-table-head>Edit</md-table-head>
         </md-table-row>
-        <md-table-row v-for="quiz in quizzes" :key="quiz._id" class='text-left hover' @click='selectedQuiz = quiz._id'>
+        <md-table-row v-for="quiz in quizzes" data-toggle="modal" data-target="#selected" :key="quiz._id"
+          class='text-left hover' @click='selectedQuiz = quiz._id'>
+
           <md-table-cell>{{ quiz.name }}</md-table-cell>
           <md-table-cell>{{ quiz.topic }}</md-table-cell>
           <md-table-cell>{{ quiz.difficulty }}</md-table-cell>
           <md-table-cell>
             <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center" @click="deleteQuiz(quiz._id)"></i>
           </md-table-cell>
+          <md-table-cell>
+            <i class="btn fas fa-edit inline-form mr-2 align-self-center text-info" data-toggle="modal"
+              data-target="#selected" @click="editQuiz(quiz._id)"></i>
+          </md-table-cell>
         </md-table-row>
       </md-table>
     </div>
-
-
   </div>
 </template>
 
@@ -69,6 +96,7 @@
     watch: {
       selectedQuiz: function () {
         this.setActiveQuiz()
+
       }
     },
     methods: {
@@ -80,6 +108,9 @@
       },
       deleteQuiz(id) {
         this.$store.dispatch("deleteQuiz", id)
+      },
+      editQuiz(id) {
+        this.$store.dispatch("editQuiz", id)
       }
     },
     computed: {

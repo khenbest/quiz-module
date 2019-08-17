@@ -1,9 +1,75 @@
 <template>
   <div class="container-fluid">
-    <div class="row justify-content-center">
-      <!-- table needs v-model both places DON'T delete one -->
 
-      <md-table md-card class="col-11">
+    <div class="row justify-content-center">
+      <div class="md-layout-item md-medium-size-100 md-size-66">
+        <form @submit.prevent="createQuiz">
+          <div class="md-card md-theme-default">
+            <div class="md-card-header" data-background-color="purple">
+              <h4 class="title">Create Quiz</h4>
+            </div>
+            <div class="md-card-content">
+              <div class="md-layout">
+
+                <div class="md-layout-item md-small-size-100 md-size-100">
+
+                  <!-- <div class="md-field md-theme-default md-disabled has-danger"> -->
+                  <md-field class="has-danger md-theme-defult">
+                    <label>Quiz Title: </label>
+                    <md-input v-model="newQuiz.name" required></md-input>
+                  </md-field>
+                </div>
+                <div class="md-layout-item md-small-size-100 md-size-50">
+                  <md-field class="has-danger">
+                    <label for="">Topic</label>
+                    <md-input spellcheck=true v-model="newQuiz.topic" required>
+                    </md-input>
+                  </md-field>
+                </div>
+                <div class="md-layout-item md-small-size-100 md-size-50">
+                  <md-field class="col-5">
+                    <label>Difficulty Level</label>
+                    <md-select v-model="newQuiz.difficulty" required>
+                      <md-option value="Beginner">Beginner</md-option>
+                      <md-option value="Intermediate">Intermediate</md-option>
+                      <md-option value="Hard">Hard</md-option>
+                    </md-select>
+                  </md-field>
+                </div>
+                <div class="md-layout-item md-small-size-100 md-size-100">
+                  <button data-toggle="modal" data-target="#available-questions"
+                    class="md-button md-raised md-info md-theme-default">
+                    <div class="md-ripple">
+                      <div class="md-button-content">View Available Questions</div>
+                    </div>
+                  </button>
+                  <h3>
+                    <u>Quiz Questions</u>
+                  </h3>
+                  <div class="row justify-content-center">
+                    <div class="col-4" style="display: inline-block;" v-for="(question, index) in newQuiz.questions">
+                      <h6 class="text-truncate">{{index + 1}}. {{question.prompt}}</h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="md-layout-item md-size-100 text-right"><button type="submit"
+                    class="md-button md-raised md-info md-theme-default">
+                    <div class="md-ripple">
+                      <div class="md-button-content">Submit</div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="available-questions" class="row justify-content-center modal">
+      <!-- table needs v-model both places DON'T delete one -->
+      <md-table md-card class="col-10">
         <md-table-toolbar data-background-color="blue">
           <h1 class="md-title" style="color:white !important; text-shadow: gray 0 1px; font-weight: 500;">Available
             Questions</h1>
@@ -15,7 +81,6 @@
           <md-table-head>Add</md-table-head>
           <md-table-head>Delete</md-table-head>
         </md-table-row>
-        <!-- <md-content> -->
         <md-table-row v-for="question in results">
           <md-table-cell>{{ question.prompt }}</md-table-cell>
           <md-table-cell>{{ question.type }}</md-table-cell>
@@ -29,64 +94,10 @@
             <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center" @click="deleteQuestion(question._id)"></i>
           </md-table-cell>
         </md-table-row>
-        <!-- </md-content> -->
       </md-table>
     </div>
 
-    <div class="md-layout-item md-medium-size-100 md-size-66">
-      <form @submit.prevent="createQuiz">
-        <div class="md-card md-theme-default">
-          <div class="md-card-header" data-background-color="purple">
-            <h4 class="title">Create Quiz</h4>
-          </div>
-          <div class="md-card-content">
-            <div class="md-layout">
-              <div class="md-layout-item md-small-size-100 md-size-100">
-                <!-- <div class="md-field md-theme-default md-disabled has-danger"> -->
-                <md-field class="has-danger md-theme-defult">
-                  <label>Quiz Title: </label>
-                  <md-input v-model="newQuiz.name" required></md-input>
-                </md-field>
-              </div>
-              <div class="md-layout-item md-small-size-100 md-size-50">
-                <md-field class="has-danger">
-                  <label for="">Topic</label>
-                  <md-input spellcheck=true v-model="newQuiz.topic" required>
-                  </md-input>
-                </md-field>
-              </div>
-              <div class="md-layout-item md-small-size-100 md-size-50">
-                <md-field class="col-5">
-                  <label>Difficulty Level</label>
-                  <md-select v-model="newQuiz.difficulty" required>
-                    <md-option value="Beginner">Beginner</md-option>
-                    <md-option value="Intermediate">Intermediate</md-option>
-                    <md-option value="Hard">Hard</md-option>
-                  </md-select>
-                </md-field>
-              </div>
-              <div class="md-layout-item md-small-size-100 md-size-100">
-                <h3>
-                  <u>Quiz Questions</u>
-                </h3>
-                <div class="row justify-content-center">
-                  <div class="col-4" style="display: inline-block;" v-for="(question, index) in newQuiz.questions">
-                    <h6 class="text-truncate">{{index + 1}}. {{question.prompt}}</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="md-layout-item md-size-100 text-right"><button type="submit"
-                  class="md-button md-raised md-info md-theme-default">
-                  <div class="md-ripple">
-                    <div class="md-button-content">Submit</div>
-                  </div>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
+
   </div>
 </template>
 
@@ -160,11 +171,13 @@
       }
       // 
 
-
-
-
-
     },
     components: {}
   };
 </script>
+
+<style>
+  #available-questions {
+    margin: 10vw;
+  }
+</style>
