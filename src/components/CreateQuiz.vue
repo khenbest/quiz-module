@@ -10,10 +10,7 @@
             </div>
             <div class="md-card-content">
               <div class="md-layout">
-
                 <div class="md-layout-item md-small-size-100 md-size-100">
-
-                  <!-- <div class="md-field md-theme-default md-disabled has-danger"> -->
                   <md-field class="has-danger md-theme-defult">
                     <label>Quiz Title: </label>
                     <md-input v-model="newQuiz.name" required></md-input>
@@ -75,6 +72,10 @@
             Questions</h1>
         </md-table-toolbar>
         <md-table-row>
+          <SearchQuestions></SearchQuestions>
+
+        </md-table-row>
+        <md-table-row>
           <md-table-head>Prompt</md-table-head>
           <md-table-head>Type</md-table-head>
           <md-table-head>Category</md-table-head>
@@ -102,6 +103,7 @@
 </template>
 
 <script>
+  import SearchQuestions from '@/components/SearchQuestions.vue'
   export default {
     name: "CreateQuiz",
     props: [],
@@ -172,7 +174,9 @@
       // 
 
     },
-    components: {}
+    components: {
+      SearchQuestions
+    }
   };
 </script>
 
