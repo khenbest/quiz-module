@@ -9,7 +9,7 @@ export default class QuestionController {
 
     async getAllQuestions(req, res, next) {
         try {
-            let questions = await questionRepo.find({})
+            let questions = await questionRepo.find({}).populate('categories')
             res.send(questions)
         } catch (error) { next(error) }
     }
@@ -35,7 +35,7 @@ export default class QuestionController {
 
     async searchQuestions(req, res, next) {
         try {
-            let questions = await questionRepo.find({ categories: { $in: [...req.body] } })
+            let questions = await questionRepo.find({ categories: { $in: [...req.body] } }).populate('categories')
             res.send(questions)
         } catch (error) { next(error) }
     }

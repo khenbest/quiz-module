@@ -5,6 +5,7 @@ import "./db/dbconfig"
 
 import QuestionController from './controllers/QuestionController'
 import QuizController from "./controllers/QuizController";
+import Categorycontroller from './controllers/CategoryController';
 
 let port = 3000
 
@@ -27,6 +28,7 @@ server.use(cors(corsOptions))
 
 server.use('/api/questions', new QuestionController().router)
 server.use('/api/quizzes', new QuizController().router)
+server.use('/api/categories', new Categorycontroller().router)
 
 server.use((error, req, res, next) => {
     res.status(error.status || 400).send({ error: { message: error.message } })

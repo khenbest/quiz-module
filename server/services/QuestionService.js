@@ -1,4 +1,5 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
+let ObjectId = Schema.Types.ObjectId
 
 let schema = new mongoose.Schema({
     prompt: { type: String, required: true },
@@ -6,7 +7,7 @@ let schema = new mongoose.Schema({
     correct: [{ type: Object }],
     type: { type: String, enum: ["TrueFalse", "Match", "OpenEnded", "FillInTheBlank", "MultipleChoice"], required: true },
     rationale: { type: String },
-    categories: [{ type: String, enum: ["HTML", "CSS", "Style and Design", "Built In Methods", "SOLID", "OOP", "C#", "Scrum", "Javascript", "Design Patterns"] }]
+    categories: [{ type: ObjectId, ref: 'Category' }]
     // categories: [{type: ObjectId, ref: "Category"}] needs to be populated everytime
 }, { timestamps: true })
 
@@ -57,16 +58,16 @@ export default class QuestionService {
         })
         return this.grade(true, question)
     }
-    // gradeMatch(answer, question) {
-    //     for (let x = 0; x < question.correct.length; x++) {
-    //         let correct = question.correct[x]
-    //         let y = answer.submission.find(z => z.value == correct.value)
-    //         if (!y) { return this.grade(false, question) }
-    //         if (y.definition !== correct.definition) { return this.grade(false, question) }
-    //     }
+    gradeMatch(answer, question) {
+        for (let x = 0; x < question.correct.length; x++) {
+            let correct = question.correct[x]
+            let y = answer.submission.find(z => z.value == correct.value)
+            if (!y) { return this.grade(false, question) }
+            if (y.definition !== correct.definition) { return this.grade(false, question) }
+        }
 
-    //     return this.grade(true, question)
-    // }
+        return this.grade(true, question)
+    }
 
     gradeOpenEnded(answer, question) {
         return this.grade(true, question)
