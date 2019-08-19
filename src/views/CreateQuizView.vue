@@ -1,11 +1,15 @@
 <template>
   <div class="home">
-    <searchQuestion></searchQuestion>
-    <create-quiz></create-quiz>
+    <create-quiz>
+    </create-quiz>
+
+
   </div>
 </template>
 
 <script>
+  import CreateQuestionComponent from '@/components/CreateQuestionComponent.vue'
+
   // @ is an alias to /src
   import NavButtons from '@/components/NavButtons.vue'
   import Question from "@/components/Question.vue";
@@ -28,6 +32,7 @@
 
     },
     components: {
+      CreateQuestionComponent,
       SearchQuestion,
       NavButtons,
       Question,

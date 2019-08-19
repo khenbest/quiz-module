@@ -17,13 +17,11 @@
                   <div class="md-button-content ">Search</div>
                 </div>
               </button></div>
-            <!---->
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- </div> -->
 </template>
 
 <script>
