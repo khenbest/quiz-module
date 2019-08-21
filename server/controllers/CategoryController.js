@@ -1,6 +1,5 @@
 import express from 'express'
 import CategoryService from '../services/CategoryService';
-import { nextTick } from 'q';
 
 let categoryService = new CategoryService()
 let categoryRepo = categoryService.repository
