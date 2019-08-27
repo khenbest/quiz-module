@@ -1,5 +1,5 @@
 <template>
-  <div class="md-layout-item md-alignment-center-center md-size-100">
+  <div class="md-layout-item md-alignment-center-center md-size-50">
 
     <md-field>
       <label>Search By Category</label>
@@ -22,7 +22,6 @@
     data() {
       return {
         categories: [],
-        // categoriesArray: ["HTML", "CSS", "Style and Design", "Built In Methods", "SOLID", "OOP", "C#", "Scrum", "Javascript", "Design Patterns"]
       }
     },
     watch: {

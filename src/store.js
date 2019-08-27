@@ -175,6 +175,18 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error)
       }
+    },
+
+    async createCategory({ commit, dispatch }, payload) {
+      try {
+        categoryApi.post('', payload.newCategory)
+          .then(res => {
+            payload.alert()
+          })
+
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 })
