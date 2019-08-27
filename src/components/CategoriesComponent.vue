@@ -4,7 +4,12 @@
       <label>Search By Category</label>
       <md-select md-dense v-model="categories" multiple>
         <md-option md-dense v-for="category in categoriesArray" :value="category._id" :key="category._id">
-          {{category.name}}
+          <div class="d-flex justify-content-flex-end">
+
+            <p>
+              {{category.name}}
+            </p>
+          </div>
         </md-option>
       </md-select>
     </md-field>
@@ -47,5 +52,10 @@
   #category-names {
     text-align: center;
     margin-top: 1em;
+  }
+
+  p {
+    margin-top: 1em !important;
+    margin-left: 4em !important;
   }
 </style>
