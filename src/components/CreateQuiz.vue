@@ -72,7 +72,10 @@
               Questions</h1>
           </md-table-toolbar>
           <SearchQuestions></SearchQuestions>
+<<<<<<< HEAD
 
+=======
+>>>>>>> dccca4b5c15f2a91b274009c74a2034d28edf645
           <md-table>
             <md-table-row>
               <md-table-head>Prompt</md-table-head>
