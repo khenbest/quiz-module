@@ -11,7 +11,7 @@
     </div>
     <div class="md-layout-item md-size-33
        md-small-size-50 md-xsmall-size-100 d-flex align-items-center justify-content-center">
-      <div id="add-question" class="d-flex align-items-center ml-1">
+      <div id="add-question" class="d-flex align-items-center">
         <span class="description text-left">
           <h6>Add A Category</h6>
         </span>
