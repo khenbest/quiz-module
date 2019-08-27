@@ -29,13 +29,14 @@
       </div>
     </div>
     <div v-show="showInput" class="md-layout-item md-alignment-center-center md-size-100">
-
+      <CreateCategory></CreateCategory>
     </div>
   </div>
 </template>
 
 <script>
   import CategoriesComponent from '@/components/CategoriesComponent.vue'
+  import CreateCategory from '@/components/CreateCategory.vue'
   export default {
     name: "searchQuestions",
     props: [],
@@ -68,7 +69,8 @@
 
     },
     components: {
-      CategoriesComponent
+      CategoriesComponent,
+      CreateCategory
     }
   }
 </script>

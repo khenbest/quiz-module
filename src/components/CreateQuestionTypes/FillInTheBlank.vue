@@ -9,7 +9,6 @@
           <div class="md-card-content">
             <div class="md-layout ">
               <div class="md-layout-item md-small-size-100 md-size-100">
-                <!-- <div class="md-field md-theme-default md-disabled has-danger"> -->
                 <md-field class="has-danger md-theme-defult">
                   <label>Complete Sentence</label>
                   <md-input v-model="newQuestion.prompt"></md-input>
