@@ -10,18 +10,22 @@
       </md-field>
     </div>
     <div class="md-layout-item md-size-33 d-flex align-items-center justify-content-center">
-      <button class="md-button md-raised md-info md-theme-default ">
+      <button class="md-button md-raised md-info md-theme-default">
         <div class="md-ripple">
           <div class="md-button-content">Search</div>
         </div>
       </button>
-      <button class="md-button md-raised md-info md-theme-default ">
+      <button class="md-button md-raised md-info md-theme-default">
         <div class="md-ripple">
           <div class="md-button-content">Clear</div>
         </div>
       </button>
       <div id="add-question" class="d-flex align-items-center ml-1">
-        <i class="fas fa-lg fa-plus text-info" @click="showInput = !showInput"></i>
+        <i class="fas fa-lg fa-plus text-info" @click="showInput = !showInput">
+        </i>
+        <span class="description">
+          <h6>Add A Category</h6>
+        </span>
       </div>
     </div>
     <div v-show="showInput" class="md-layout-item md-alignment-center-center md-size-100">
@@ -71,7 +75,17 @@
   }
 </script>
 <style>
-  #add-question:hover {
+  .description {
+    visibility: hidden;
+
+  }
+
+  i:hover {
     cursor: pointer;
+  }
+
+  #add-question:hover .description {
+    cursor: pointer;
+    visibility: visible;
   }
 </style>
