@@ -43,38 +43,49 @@
 
 
     <div class="row justify-content-center">
-      <md-table md-card class="col-10 my-3">
-        <md-table-toolbar class="my-3" data-background-color="purple">
-          <h3 class="title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">
-            Quiz Central</h3>
-          <i class="text-white fas fa-lg fa-plus"></i>
-          <!-- <i class="ml-1 text-white fas  fa-minus"></i> -->
-        </md-table-toolbar>
-        <md-table-row>
-          <h4 class="ml-5 text-left">Select A Quiz</h4>
-        </md-table-row>
-        <md-table-row>
-          <md-table-head>Title</md-table-head>
-          <md-table-head>Topic</md-table-head>
-          <md-table-head>Difficulty</md-table-head>
-          <md-table-head>Delete</md-table-head>
-          <md-table-head>Edit</md-table-head>
-        </md-table-row>
-        <md-table-row v-for="quiz in quizzes" data-toggle="modal" data-target="#selected" :key="quiz._id"
-          class='text-left hover' @click='selectedQuiz = quiz._id'>
+      <div class="col-10 my-3">
 
-          <md-table-cell>{{ quiz.name }}</md-table-cell>
-          <md-table-cell>{{ quiz.topic }}</md-table-cell>
-          <md-table-cell>{{ quiz.difficulty }}</md-table-cell>
-          <md-table-cell>
-            <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center" @click="deleteQuiz(quiz._id)"></i>
-          </md-table-cell>
-          <md-table-cell>
-            <i class="btn fas fa-edit inline-form mr-2 align-self-center text-info" data-toggle="modal"
-              data-target="#selected" @click="editQuiz(quiz._id)"></i>
-          </md-table-cell>
-        </md-table-row>
-      </md-table>
+        <md-table md-card>
+          <md-table-toolbar data-background-color="purple">
+            <div class="col-11 text-left my-3">
+              <h2 class="title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">
+                Quiz Central</h2>
+            </div>
+            <div class="col-1 justify-content-center align-items-center addQuiz hover">
+              <span>
+                <i id="addQuizIcon" class="text-white fas fa-lg fa-plus" @click="go('CreateQuizView')"></i>
+                <h6 id="quizText">
+                  Add A Quiz
+                </h6>
+              </span>
+            </div>
+          </md-table-toolbar>
+          <md-table-row>
+            <h4 class="ml-5 text-left">Select A Quiz</h4>
+          </md-table-row>
+          <md-table-row>
+            <md-table-head>Title</md-table-head>
+            <md-table-head>Topic</md-table-head>
+            <md-table-head>Difficulty</md-table-head>
+            <md-table-head>Delete</md-table-head>
+            <md-table-head>Edit</md-table-head>
+          </md-table-row>
+          <md-table-row v-for="quiz in quizzes" data-toggle="modal" data-target="#selected" :key="quiz._id"
+            class='text-left hover' @click='selectedQuiz = quiz._id'>
+
+            <md-table-cell>{{ quiz.name }}</md-table-cell>
+            <md-table-cell>{{ quiz.topic }}</md-table-cell>
+            <md-table-cell>{{ quiz.difficulty }}</md-table-cell>
+            <md-table-cell>
+              <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center hover" @click="deleteQuiz(quiz._id)"></i>
+            </md-table-cell>
+            <md-table-cell>
+              <i class="btn fas fa-edit inline-form mr-2 align-self-center text-info" data-toggle="modal"
+                data-target="#selected" @click="editQuiz(quiz._id)"></i>
+            </md-table-cell>
+          </md-table-row>
+        </md-table>
+      </div>
     </div>
   </div>
 </template>
@@ -127,8 +138,27 @@
   };
 </script>
 
-<style>
+<style scoped>
   .hover {
+    cursor: pointer;
+  }
+
+  #addQuizIcon {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 50%;
+    color: white;
+    visibility: visible !important;
+
+  }
+
+  .addQuiz {
+    visibility: hidden;
+    color: white;
+  }
+
+  .addQuiz:hover #quizText {
+    visibility: visible;
     cursor: pointer;
   }
 </style>
