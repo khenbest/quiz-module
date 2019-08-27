@@ -6,7 +6,8 @@
         <form @submit.prevent="createQuiz">
           <div class="md-card md-theme-default">
             <div class="md-card-header" data-background-color="purple">
-              <h4 class="title">Create Quiz</h4>
+              <h3 class="title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">Create
+                Quiz</h3>
             </div>
             <div class="md-card-content">
               <div class="md-layout">
@@ -34,7 +35,7 @@
                   </md-field>
                 </div>
                 <div class="md-layout-item md-small-size-100 md-size-100">
-                  <button @click="selectQuestions = true" class="md-button md-raised md-info md-theme-default">
+                  <button @click="selectQuestions = true" class="md-button md-raised md-primary md-theme-default">
                     <div class="md-ripple">
                       <div class="md-button-content">View Available Questions</div>
                     </div>
@@ -42,14 +43,14 @@
                   <h3>
                     <u>Quiz Questions</u>
                   </h3>
-                  <div class="row justify-content-center">
+                  <div class="md-layout-item md-small-size-100 md-size-100 justify-content-center">
                     <div class="col-4" style="display: inline-block;" v-for="(question, index) in newQuiz.questions">
                       <h6 class="text-truncate">{{index + 1}}. {{question.prompt}}</h6>
                     </div>
                   </div>
                 </div>
-                <div class="md-layout-item md-size-100 text-right"><button type="submit"
-                    class="md-button md-raised md-info md-theme-default">
+                <div class="md-layout-item md-size-100 justify-content-center "><button type="submit"
+                    class="md-button md-raised md-primary md-theme-default">
                     <div class="md-ripple">
                       <div class="md-button-content">Submit</div>
                     </div>
@@ -62,15 +63,14 @@
       </div>
     </div>
 
-
     <div v-show="selectQuestions" class="row justify-content-center">
       <!-- table needs v-model both places DON'T delete one -->
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <div class="md-card">
-          <md-table-toolbar data-background-color="blue">
+          <div class="md-card-header" data-background-color="blue">
             <h1 class="md-title" style="color:white !important; text-shadow: gray 0 1px; font-weight: 500;">Available
               Questions</h1>
-          </md-table-toolbar>
+          </div>
           <SearchQuestions></SearchQuestions>
           <md-table>
             <md-table-row>
