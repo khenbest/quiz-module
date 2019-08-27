@@ -5,7 +5,6 @@
       <md-select md-dense v-model="categories" multiple>
         <md-option md-dense v-for="category in categoriesArray" :value="category._id" :key="category._id">
           <div class="d-flex justify-content-flex-end">
-
             <p>
               {{category.name}}
             </p>

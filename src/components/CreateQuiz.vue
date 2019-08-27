@@ -68,8 +68,8 @@
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <div class="md-card">
           <div class="md-card-header" data-background-color="blue">
-            <h1 class="md-title" style="color:white !important; text-shadow: gray 0 1px; font-weight: 500;">Available
-              Questions</h1>
+            <h1 class="md-title" style="color:white !important; text-shadow: gray 0 1px; font-weight: 500;">
+              Available Questions</h1>
           </div>
           <SearchQuestions></SearchQuestions>
           <md-table>
