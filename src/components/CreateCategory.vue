@@ -1,12 +1,21 @@
 <template>
-  <div class="CreateCategory md-layout md-theme-default">
-    <div class="md-layout-item md-small-size-100 md-size-50">
-      <md-field class="has-danger md-theme-default">
-        <label>Name of New Category</label>
-        <md-input v-model=newCategory></md-input>
-      </md-field>
+  <form @submit.prevent="createCategory">
+    <div class="CreateCategory md-layout md-theme-default">
+      <div class="md-layout-item md-small-size-100 md-size-50">
+        <md-field class="has-danger md-theme-default">
+          <label>Name of New Category</label>
+          <md-input v-model="newCategory.name"></md-input>
+        </md-field>
+      </div>
+      <div class="md-layout-item md-size-50 text-center">
+        <button type="submit" class="md-button md-raised md-info md-theme-default">
+          <div class="md-ripple">
+            <div class="md-button-content">Submit</div>
+          </div>
+        </button>
+      </div>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -15,7 +24,9 @@
     props: [],
     data() {
       return {
-        newCategory: ''
+        newCategory: {
+          name: ''
+        }
       }
     },
     computed: {
@@ -24,10 +35,11 @@
       }
     },
     methods: {
-      CreateCategory() {
-        let newCategory = this.newCategory.toUpperCase()
+      createCategory() {
+        let newCategory = {}
+        newCategory.name = this.newCategory.name.toUpperCase()
         if (this.categories.includes(newCategory)) {
-          this.categoryAlreadyExists()
+          return this.categoryAlreadyExists()
         }
         this.$store.dispatch('createCategory', { newCategory, alert: this.success })
       },
