@@ -34,8 +34,7 @@
                   </md-field>
                 </div>
                 <div class="md-layout-item md-small-size-100 md-size-100">
-                  <button data-toggle="modal" data-target="#available-questions"
-                    class="md-button md-raised md-info md-theme-default">
+                  <button @click="selectQuestions = true" class="md-button md-raised md-info md-theme-default">
                     <div class="md-ripple">
                       <div class="md-button-content">View Available Questions</div>
                     </div>
@@ -64,38 +63,39 @@
     </div>
 
 
-    <div id="available-questions" class="row justify-content-center modal">
+    <div v-show="selectQuestions" class="row justify-content-center">
       <!-- table needs v-model both places DON'T delete one -->
-      <md-table md-card class="col-10">
-        <md-table-toolbar data-background-color="blue">
-          <h1 class="md-title" style="color:white !important; text-shadow: gray 0 1px; font-weight: 500;">Available
-            Questions</h1>
-        </md-table-toolbar>
-        <md-table-row>
-          <SearchQuestions></SearchQuestions>
-
-        </md-table-row>
-        <md-table-row>
-          <md-table-head>Prompt</md-table-head>
-          <md-table-head>Type</md-table-head>
-          <md-table-head>Category</md-table-head>
-          <md-table-head>Add</md-table-head>
-          <md-table-head>Delete</md-table-head>
-        </md-table-row>
-        <md-table-row v-for="question in results">
-          <md-table-cell>{{ question.prompt }}</md-table-cell>
-          <md-table-cell>{{ question.type }}</md-table-cell>
-          <md-table-cell>{{ prettify(question.categories) }}</md-table-cell>
-          <md-table-cell>
-            <md-checkbox v-model="newQuiz.questions" :value="question">
-              <!--table needs v-model both places DON'T delete one-->
-            </md-checkbox>
-          </md-table-cell>
-          <md-table-cell>
-            <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center" @click="deleteQuestion(question._id)"></i>
-          </md-table-cell>
-        </md-table-row>
-      </md-table>
+      <div class="md-layout-item md-medium-size-100 md-size-66">
+        <md-table md-card>
+          <md-table-toolbar data-background-color="blue">
+            <h1 class="md-title" style="color:white !important; text-shadow: gray 0 1px; font-weight: 500;">Available
+              Questions</h1>
+          </md-table-toolbar>
+        </md-table>
+        <SearchQuestions></SearchQuestions>
+        <md-table>
+          <md-table-row>
+            <md-table-head>Prompt</md-table-head>
+            <md-table-head>Type</md-table-head>
+            <md-table-head>Category</md-table-head>
+            <md-table-head>Add</md-table-head>
+            <md-table-head>Delete</md-table-head>
+          </md-table-row>
+          <md-table-row v-for="question in results">
+            <md-table-cell>{{ question.prompt }}</md-table-cell>
+            <md-table-cell>{{ question.type }}</md-table-cell>
+            <md-table-cell>{{ prettify(question.categories) }}</md-table-cell>
+            <md-table-cell>
+              <md-checkbox v-model="newQuiz.questions" :value="question">
+                <!--table needs v-model both places DON'T delete one-->
+              </md-checkbox>
+            </md-table-cell>
+            <md-table-cell>
+              <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center" @click="deleteQuestion(question._id)"></i>
+            </md-table-cell>
+          </md-table-row>
+        </md-table>
+      </div>
     </div>
 
 
@@ -104,6 +104,7 @@
 
 <script>
   import SearchQuestions from '@/components/SearchQuestions.vue'
+  import CategoriesComponent from '@/components/CategoriesComponent.vue'
   export default {
     name: "CreateQuiz",
     props: [],
@@ -112,6 +113,7 @@
     },
     data() {
       return {
+        selectQuestions: false,
         newQuiz: {
           name: "",
           questions: [],
@@ -171,11 +173,12 @@
         this.newQuiz.topic = ''
         this.selected = 'beginner'
       }
-      // 
+
 
     },
     components: {
-      SearchQuestions
+      SearchQuestions,
+      CategoriesComponent
     }
   };
 </script>

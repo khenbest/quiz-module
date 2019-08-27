@@ -12,13 +12,19 @@ const quizApi = axios.create({
   timeout: 5000
 })
 
+const categoryApi = axios.create({
+  baseURL: '//localhost:3000/api/categories',
+  timeout: 5000
+})
+
 
 export default new Vuex.Store({
   state: {
     searchResults: [],
     quizzes: [],
     activeQuiz: {},
-    grade: {}
+    grade: {},
+    categories: []
   },
   mutations: {
 
@@ -43,6 +49,9 @@ export default new Vuex.Store({
       let deleted = state.quizzes.find(q => q._id == id)
       let index = state.quizzes.indexOf(deleted)
       state.quizzes.splice(index, 1)
+    },
+    setCategories(state, categories) {
+      state.categories = categories
     }
   },
   actions: {
@@ -155,8 +164,17 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error)
       }
-    }
+    },
 
     //#endregion 
+    //#region Categories
+    async getCategories({ commit, dispatch }) {
+      try {
+        let res = await categoryApi.get('')
+        commit('setCategories', res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    }
   }
 })
