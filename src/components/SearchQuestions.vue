@@ -43,7 +43,6 @@
       return {
         showInput: false,
         categories: [],
-        // allCategories: ["HTML", "CSS", "Style and Design", "Built In Methods", "SOLID", "OOP", "C#", "Scrum", "Javascript", "Design Patterns"]
         prompt: ''
       }
     },

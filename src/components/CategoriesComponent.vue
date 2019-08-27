@@ -26,7 +26,6 @@
     data() {
       return {
         categories: [],
-        // categoriesArray: ["HTML", "CSS", "Style and Design", "Built In Methods", "SOLID", "OOP", "C#", "Scrum", "Javascript", "Design Patterns"]
       }
     },
     watch: {
