@@ -3,14 +3,12 @@
     <md-field>
       <label>Search By Category</label>
       <md-select md-dense v-model="categories" multiple>
-        <md-option md-dense v-for="category in categoriesArray" :value="category._id" :key="category._id">
-          <div class="d-flex justify-content-flex-end">
-
-            <p>
-              {{category.name}}
-            </p>
-          </div>
-        </md-option>
+        <div v-for="category in categoriesArray" class="d-flex">
+          <md-option :md-ripple="false" class="smaller" md-dense :value="category._id" :key="category._id">
+            {{category.name}}
+          </md-option>
+          <i class="fas fa-ban float-right align-self-center" @click="deleteCategory(category._id)"></i>
+        </div>
       </md-select>
     </md-field>
   </div>
@@ -22,6 +20,7 @@
     props: ['categoriesFromParent'],
     mounted() {
       this.$store.dispatch('getCategories')
+      this.$material.ripple = false
     },
     data() {
       return {
@@ -41,7 +40,27 @@
     methods: {
       updateCategories() {
         this.$emit('change-categories', this.categories)
+      },
+      deleteCategory(id) {
+        console.log('hit delete button')
+        // if (confirmDelete()) {
+        //   console.log('delete method here', id)
+        // }
+      },
+      async confirm(message) {
+        return swal({
+          text: message,
+          buttons: true
+        });
       }
+      // confirmDelete() {
+      //   this.$swal({
+      //     title: "Confirm",
+      //     text: 'Are you sure you want to delete this?',
+      //     showCloseButton: true,
+
+      //   })
+      // }
     },
     components: {}
   }
@@ -53,8 +72,36 @@
     margin-top: 1em;
   }
 
-  p {
+  h6 {
     margin-top: 1em !important;
     margin-left: 4em !important;
+    min-width: 100%;
+  }
+
+  .md-list-item .md-list-item-container .md-ripple>span {
+    position: relative;
+    width: 100%;
+    padding-top: .2em;
+  }
+
+  i {
+    /* display: inline-block; */
+    width: fit-content !important;
+    float: right;
+    z-index: 1;
+  }
+
+  .smaller {
+    display: inline-block;
+    width: 90%;
+  }
+
+  .md-ripple {
+    width: inherit;
+    height: inherit;
+    position: inherit;
+    z-index: inherit;
+    overflow: inherit;
+    -webkit-mask-image: radial-gradient(circle, #fff 100%, #000 0);
   }
 </style>
