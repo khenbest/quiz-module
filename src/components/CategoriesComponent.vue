@@ -71,7 +71,7 @@
     padding-top: .2em;
   }
 
-  i {
+  .fa-ban {
     /* display: inline-block; */
     width: fit-content !important;
     float: right;
