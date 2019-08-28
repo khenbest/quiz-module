@@ -15,6 +15,7 @@
 </template>
 
 <script>
+  import delortAlert from '../delortAlert.js'
   export default {
     name: "Categories",
     props: ['categoriesFromParent'],
@@ -41,28 +42,14 @@
       updateCategories() {
         this.$emit('change-categories', this.categories)
       },
-      deleteCategory(id) {
-        console.log('hit delete button')
-        // if (confirmDelete()) {
-        //   console.log('delete method here', id)
-        // }
-      },
-      async confirm(message) {
-        return swal({
-          text: message,
-          buttons: true
-        });
+      async deleteCategory(id) {
+        if (await delortAlert.confirm('category')) {
+          console.log('delete method here', id)
+        }
       }
-      // confirmDelete() {
-      //   this.$swal({
-      //     title: "Confirm",
-      //     text: 'Are you sure you want to delete this?',
-      //     showCloseButton: true,
-
-      //   })
-      // }
     },
-    components: {}
+    components: {
+    }
   }
 </script>
 

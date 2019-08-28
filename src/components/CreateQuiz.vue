@@ -87,7 +87,7 @@
               <md-table-head>Add</md-table-head>
               <md-table-head>Delete</md-table-head>
             </md-table-row>
-            <md-table-row v-for="question in results">
+            <md-table-row v-for="question in results" :key="question._id">
               <md-table-cell>{{ question.prompt }}</md-table-cell>
               <md-table-cell>{{ question.type }}</md-table-cell>
               <md-table-cell>{{ prettify(question.categories) }}</md-table-cell>
@@ -114,6 +114,7 @@
 <script>
   import SearchQuestions from '@/components/SearchQuestions.vue'
   import CategoriesComponent from '@/components/CategoriesComponent.vue'
+  import delortAlert from '../delortAlert.js'
   export default {
     name: "CreateQuiz",
     props: [],
@@ -158,8 +159,10 @@
         let str = arr.join(" ");
         return str;
       },
-      deleteQuestion(id) {
-        this.$store.dispatch('deleteQuestion', id)
+      async deleteQuestion(id) {
+        if (await delortAlert.confirm("Question")) {
+          this.$store.dispatch('deleteQuestion', id)
+        }
       },
       selectQuestionAlert() {
         this.$swal({
