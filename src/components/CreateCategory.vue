@@ -1,16 +1,16 @@
 <template>
   <form @submit.prevent="createCategory">
-    <div class="CreateCategory md-layout md-theme-default">
-      <div class="md-layout-item md-small-size-100 md-size-50">
+    <div class="CreateCategory md-layout md-theme-default md-alignment-center-center ">
+      <div class="md-layout-item md-size-66 md-small-size-100">
         <md-field class="has-danger md-theme-default">
           <label>Name of New Category</label>
           <md-input v-model="newCategory.name"></md-input>
         </md-field>
       </div>
-      <div class="md-layout-item md-size-50 text-center">
+      <div class="md-layout-item md-size-33 md-small-size-100  md-alignment-center-center">
         <button type="submit" class="md-button md-raised md-info md-theme-default">
-          <div class="md-ripple">
-            <div class="md-button-content">Submit</div>
+          <div class="md-ripple ">
+            <div class="md-button-content ">Submit</div>
           </div>
         </button>
       </div>

@@ -1,34 +1,36 @@
 <template>
   <div class="searchQuestions md-theme-default md-layout">
-    <div class="md-layout-item md-alignment-center-center md-size-33">
+    <div class="md-layout-item md-alignment-center-center md-size-33  md-small-size-50 md-xsmall-size-100">
       <CategoriesComponent></CategoriesComponent>
     </div>
-    <div class="md-layout-item md-size-33">
+    <div class="md-layout-item md-size-33  md-small-size-50 md-xsmall-size-100">
       <md-field class="has-danger md-theme-default">
         <label>Search By Prompt</label>
         <md-input></md-input>
       </md-field>
     </div>
-    <div class="md-layout-item md-size-33 d-flex align-items-center justify-content-center">
+    <div class="md-layout-item md-size-33
+       md-small-size-50 md-xsmall-size-100 d-flex align-items-center justify-content-center">
+      <div id="add-question" class="d-flex align-items-center">
+        <span class="description text-left">
+          <h6>Add A Category</h6>
+        </span>
+        <i class="fas fa-lg fa-plus text-info" @click="showInput = !showInput">
+        </i>
+      </div>
       <button class="md-button md-raised md-info md-theme-default">
         <div class="md-ripple">
           <div class="md-button-content">Search</div>
         </div>
       </button>
-      <button class="md-button md-raised md-info md-theme-default">
+      <button id="right-button" class="md-button md-raised md-info md-theme-default">
         <div class="md-ripple">
           <div class="md-button-content">Clear</div>
         </div>
       </button>
-      <div id="add-question" class="d-flex align-items-center ml-1">
-        <i class="fas fa-lg fa-plus text-info" @click="showInput = !showInput">
-        </i>
-        <span class="description">
-          <h6>Add A Category</h6>
-        </span>
-      </div>
     </div>
-    <div v-show="showInput" class="md-layout-item md-alignment-center-center md-size-100">
+    <div v-show="showInput"
+      class="md-layout-item md-alignment-center-center md-size-66  md-small-size-50 md-xsmall-size-100">
       <CreateCategory></CreateCategory>
     </div>
   </div>
@@ -74,10 +76,18 @@
     }
   }
 </script>
-<style>
+<style scoped>
+  h6 {
+    margin-top: 1rem;
+  }
+
+  #right-button {
+    margin-right: 1rem;
+  }
+
   .description {
     visibility: hidden;
-
+    max-width: 4rem;
   }
 
   i:hover {

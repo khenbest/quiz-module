@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import QuizView from './views/QuizView.vue'
 import CreateQuizView from './views/CreateQuizView.vue'
 import CreateQuestion from './views/CreateQuestion.vue'
-import QuizView from './views/QuizView.vue'
 import SelectQuizView from './views/SelectQuizView.vue'
 
 
