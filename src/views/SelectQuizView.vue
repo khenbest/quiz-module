@@ -32,7 +32,7 @@
 
             <md-button class="md-info" data-dismiss="modal" @click="go('Quiz')" data-target="#selected">Start Quiz
             </md-button>
-            <md-button class="md-warning" data-dismiss="modal" @click="editQuiz(quiz._id)" data-target="#selected">
+            <md-button class="md-warning" data-dismiss="modal" @click="go('CreateQuizView')" data-target="#selected">
               Edit
               Quiz</md-button>
             <md-button class="md-danger" data-dismiss="modal" data-target="#selected">Close</md-button>
@@ -80,8 +80,7 @@
               <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center hover" @click="deleteQuiz(quiz._id)"></i>
             </md-table-cell>
             <md-table-cell>
-              <i class="btn fas fa-edit inline-form mr-2 align-self-center text-info" data-toggle="modal"
-                data-target="#selected" @click="editQuiz(quiz._id)"></i>
+              <i class="btn fas fa-edit inline-form mr-2 align-self-center text-info" @click="editQuiz(quiz._id)"></i>
             </md-table-cell>
           </md-table-row>
         </md-table>
@@ -107,7 +106,6 @@
     watch: {
       selectedQuiz: function () {
         this.setActiveQuiz()
-
       }
     },
     methods: {
@@ -120,8 +118,8 @@
       deleteQuiz(id) {
         this.$store.dispatch("deleteQuiz", id)
       },
-      editQuiz(id) {
-        this.$store.dispatch("editQuiz", id)
+      editQuiz(quizId) {
+        router.push({ name: pageName, params: { id: quizId } });
       }
     },
     computed: {
