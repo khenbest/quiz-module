@@ -94,6 +94,7 @@
   // @ is an alias to /src
   import Question from "@/components/Question.vue";
   import router from "../router.js";
+  import delortAlert from '../delortAlert.js'
   export default {
     name: "QuizView",
     data() {
@@ -117,8 +118,10 @@
       setActiveQuiz() {
         this.$store.dispatch("getActiveQuiz", this.selectedQuiz);
       },
-      deleteQuiz(id) {
-        this.$store.dispatch("deleteQuiz", id)
+      async deleteQuiz(id) {
+        if (await delortAlert.confirm('Quiz')) {
+          this.$store.dispatch("deleteQuiz", id)
+        }
       },
       editQuiz(id) {
         this.$store.dispatch("editQuiz", id)
