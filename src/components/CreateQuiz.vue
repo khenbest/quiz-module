@@ -155,7 +155,9 @@
     },
     methods: {
       prettify(arr) {
-        let str = arr.join(" ");
+        let out = []
+        arr.forEach(c => out.push(c.name))
+        let str = out.join(" ");
         return str;
       },
       async deleteQuestion(id) {
