@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import swal from 'sweetalert2'
+
 Vue.use(Vuex)
 
 const questionApi = axios.create({
@@ -160,6 +162,7 @@ export default new Vuex.Store({
           .then(res => {
             console.log('delorted quiz!')
             commit('removeQuiz', payload)
+            dispatch('deleteAlert')
           })
       } catch (error) {
         console.error(error)
@@ -187,6 +190,15 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error)
       }
+    },
+
+    deleteAlert() {
+      swal.fire(
+        'Deleted!',
+        'Successfully Deleted!',
+        'success'
+      )
     }
   }
+
 })

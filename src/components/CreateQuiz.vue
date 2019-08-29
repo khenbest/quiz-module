@@ -91,7 +91,7 @@
               </md-table-cell>
               <md-table-cell>
                 <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center"
-                  @click="deleteQuestion(question._id)"></i>
+                  @click.stopPropogation="deleteQuestion(question._id)"></i>
               </md-table-cell>
             </md-table-row>
           </md-table>
@@ -136,7 +136,9 @@
     },
     methods: {
       prettify(arr) {
-        let str = arr.join(" ");
+        let out = []
+        arr.forEach(cat => out.push(cat.name))
+        let str = out.join(" ");
         return str;
       },
       async deleteQuestion(id) {

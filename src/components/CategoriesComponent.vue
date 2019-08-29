@@ -1,9 +1,9 @@
 <template>
   <div class="md-layout-item md-alignment-center-center md-size-100">
     <md-field>
-      <label>Search By Category</label>
+      <label>Select Category</label>
       <md-select md-dense v-model="categories" multiple>
-        <div v-for="category in categoriesArray" class="d-flex">
+        <div v-for="category in categoriesArray" :key="category.name" class="d-flex">
           <md-option :md-ripple="false" class="smaller" md-dense :value="category._id" :key="category._id">
             {{category.name}}
           </md-option>

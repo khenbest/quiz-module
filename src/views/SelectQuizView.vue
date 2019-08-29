@@ -77,7 +77,8 @@
             <md-table-cell>{{ quiz.topic }}</md-table-cell>
             <md-table-cell>{{ quiz.difficulty }}</md-table-cell>
             <md-table-cell>
-              <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center hover" @click="deleteQuiz(quiz._id)"></i>
+              <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center hover"
+                @click.stop="deleteQuiz(quiz._id)"></i>
             </md-table-cell>
             <md-table-cell>
               <i class="btn fas fa-edit inline-form mr-2 align-self-center text-info" data-toggle="modal"
@@ -120,6 +121,7 @@
       },
       async deleteQuiz(id) {
         if (await delortAlert.confirm('Quiz')) {
+          debugger
           this.$store.dispatch("deleteQuiz", id)
         }
       },

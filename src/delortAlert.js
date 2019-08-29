@@ -10,13 +10,14 @@ async function confirm(content) {
     cancelButtonColor: '#ffc107',
     confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
-    if (result.value) {
-      swal.fire(
-        'Deleted!',
-        'Successfully Deleted!',
-        'success'
-      )
-    }
+    return result.value
+    // if (result.value) {
+    //   swal.fire(
+    //     'Deleted!',
+    //     'Successfully Deleted!',
+    //     'success'
+    //   )
+    // }
   });
 }
 

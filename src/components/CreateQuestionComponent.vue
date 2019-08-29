@@ -17,7 +17,7 @@
                   <md-field class="col-3">
                     <label>Question Type</label>
                     <md-select v-model="selected" id="questionType">
-                      <md-option v-for="type in types" :value="type.value" :key="type">{{type.text}}</md-option>
+                      <md-option v-for="type in types" :value="type.value" :key="type.text">{{type.text}}</md-option>
                     </md-select>
                   </md-field>
                 </div>
