@@ -72,7 +72,7 @@
             <i class="fas fa-times fa-lg ml-2" @click.stop="deleteQuiz(quiz._id)"></i>
           </md-table-cell>
           <md-table-cell>
-            <i class="fas fa-edit text-info" @click="editQuiz(quiz._id)"></i>
+            <i class="fas fa-edit text-info"></i>
           </md-table-cell>
         </md-table-row>
       </md-table>
@@ -112,9 +112,6 @@
         if (await delortAlert.confirm('Quiz')) {
           this.$store.dispatch("deleteQuiz", id)
         }
-      },
-      editQuiz(quizId) {
-        router.push({ name: "CreateQuizView", params: { id: quizId } });
       }
     },
     computed: {
