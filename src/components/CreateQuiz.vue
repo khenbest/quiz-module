@@ -13,21 +13,22 @@
               <div class="md-layout">
                 <div class="md-layout-item md-small-size-100 md-size-100">
                   <md-field class="has-danger md-theme-defult">
-                    <label>Quiz Title: </label>
-                    <md-input v-model="newQuiz.name" required></md-input>
+                    <label>Quiz Title:</label>
+                    <md-input v-model="this.$route.params.id ? editableQuiz.name : newQuiz.name"></md-input>
                   </md-field>
                 </div>
                 <div class="md-layout-item md-small-size-100 md-size-50">
                   <md-field class="has-danger">
-                    <label for="">Topic</label>
-                    <md-input spellcheck=true v-model="newQuiz.topic" required>
+                    <label>Topic</label>
+                    <md-input v-model="this.$route.params.id ? editableQuiz.topic : newQuiz.topic" spellcheck=true
+                      required>
                     </md-input>
                   </md-field>
                 </div>
                 <div class="md-layout-item md-small-size-100 md-size-50">
                   <md-field class="col-5">
                     <label>Difficulty Level</label>
-                    <md-select v-model="newQuiz.difficulty" required>
+                    <md-select v-model="editableQuiz ? editableQuiz.difficulty : newQuiz.difficulty" required>
                       <md-option value="Beginner">Beginner</md-option>
                       <md-option value="Intermediate">Intermediate</md-option>
                       <md-option value="Hard">Hard</md-option>
@@ -43,7 +44,13 @@
                   <h3>
                     <u>Quiz Questions</u>
                   </h3>
-                  <div class="md-layout-item md-small-size-100 md-size-100 justify-content-center">
+                  <div v-if="this.$route.params.id"
+                    class="md-layout-item md-small-size-100 md-size-100 justify-content-center">
+                    <div class="col-4" style="display: inline-block;" v-for="(question, index) in editedQuiz.questions">
+                      <h6 class="text-truncate">{{index + 1}}. {{question.prompt}}</h6>
+                    </div>
+                  </div>
+                  <div v-else class="md-layout-item md-small-size-100 md-size-100 justify-content-center">
                     <div class="col-4" style="display: inline-block;" v-for="(question, index) in newQuiz.questions">
                       <h6 class="text-truncate">{{index + 1}}. {{question.prompt}}</h6>
                     </div>
@@ -112,6 +119,10 @@
     name: "CreateQuiz",
     props: [],
     mounted() {
+      if (this.$route.params.id) {
+        let editableQuiz = this.$store.state.quizzes.find(q => q._id == this.$route.params.id)
+        this.$store.dispatch("getActiveQuiz", editableQuiz)
+      }
       this.$store.dispatch("getQuestions");
     },
     data() {
@@ -120,6 +131,12 @@
         newQuiz: {
           name: "",
           questions: [],
+          difficulty: '',
+          topic: ''
+        },
+        editedQuiz: {
+          name: "",
+          questions: this.editableQuiz ? this.editableQuiz.questions : [],
           difficulty: '',
           topic: ''
         }
@@ -132,6 +149,9 @@
         } else {
           return this.$store.state.searchResults;
         }
+      },
+      editableQuiz() {
+        return this.$store.state.activeQuiz
       }
     },
     methods: {
@@ -162,16 +182,15 @@
       },
 
       createQuiz() {
-        // if(this.quiz._id){
-        //   //put 
-        // }
+        if (this.editableQuiz._id) {
+          this.$store.dispatch("editQuiz", this.editedQuiz)
+        }
         if (this.newQuiz.questions.length < 1) {
           this.selectQuestionAlert()
         } else {
           let quiz = JSON.parse(JSON.stringify(this.newQuiz))
           this.$store.dispatch("createQuiz", { quiz, alert: this.quizCreated });
           this.reset()
-
         }
       },
       reset() {

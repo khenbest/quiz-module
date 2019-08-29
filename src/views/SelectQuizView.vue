@@ -1,7 +1,7 @@
 <template>
   <div class="QuizView">
     <div v-if="selectedQuiz" id="selected" class="row justify-content-center modal mt-5">
-      <div class="col-8 md-card ">
+      <div class="col-8 md-card">
         <div class="md-toolbar md-table-toolbar md-transparent md-header my-3 md-theme-default md-elevation-0"
           data-background-color="blue">
           <h1 class="md-title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">Confirm
@@ -32,7 +32,7 @@
 
             <md-button class="md-info" data-dismiss="modal" @click="go('Quiz')" data-target="#selected">Start Quiz
             </md-button>
-            <md-button class="md-warning" data-dismiss="modal" @click="editQuiz(quiz._id)" data-target="#selected">
+            <md-button class="md-warning" data-dismiss="modal" @click="go('CreateQuizView')" data-target="#selected">
               Edit
               Quiz</md-button>
             <md-button class="md-danger" data-dismiss="modal" data-target="#selected">Close</md-button>
@@ -44,20 +44,17 @@
 
     <div class="row justify-content-center">
       <div class="col-10 my-3">
-
         <md-table md-card>
           <md-table-toolbar data-background-color="purple">
-            <div class="col-11 text-left my-3">
+            <div class="col-10 text-left my-3">
               <h2 class="title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">
                 Quiz Central</h2>
             </div>
-            <div class="col-1 justify-content-center align-items-center addQuiz hover">
-              <span>
-                <i id="addQuizIcon" class="text-white fas fa-lg fa-plus" @click="go('CreateQuizView')"></i>
-                <h6 id="quizText">
-                  Add A Quiz
-                </h6>
-              </span>
+            <div class="col-2 addQuiz hover">
+              <i id="addQuizIcon" class="text-white fas fa-lg fa-plus" @click="go('CreateQuizView')"></i>
+              <div id="quizText">
+                Add A Quiz
+              </div>
             </div>
           </md-table-toolbar>
           <md-table-row>
@@ -81,8 +78,7 @@
                 @click.stop="deleteQuiz(quiz._id)"></i>
             </md-table-cell>
             <md-table-cell>
-              <i class="btn fas fa-edit inline-form mr-2 align-self-center text-info" data-toggle="modal"
-                data-target="#selected" @click="editQuiz(quiz._id)"></i>
+              <i class="btn fas fa-edit text-info" @click="editQuiz(quiz._id)"></i>
             </md-table-cell>
           </md-table-row>
         </md-table>
@@ -109,7 +105,6 @@
     watch: {
       selectedQuiz: function () {
         this.setActiveQuiz()
-
       }
     },
     methods: {
@@ -125,8 +120,8 @@
           this.$store.dispatch("deleteQuiz", id)
         }
       },
-      editQuiz(id) {
-        this.$store.dispatch("editQuiz", id)
+      editQuiz(quizId) {
+        router.push({ name: pageName, params: { id: quizId } });
       }
     },
     computed: {
@@ -151,9 +146,16 @@
   #addQuizIcon {
     margin-left: auto;
     margin-right: auto;
-    padding-top: 50%;
+    padding-top: 1em;
+    padding-left: 4.15rem;
     color: white;
     visibility: visible !important;
+  }
+
+  #quizText {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: end;
 
   }
 
