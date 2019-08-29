@@ -11,9 +11,9 @@
     </div>
     <div class="md-layout-item md-size-33
        md-small-size-50 md-xsmall-size-100 d-flex align-items-center justify-content-center">
-      <div id="add-question" class="d-flex align-items-center">
+      <div id="add-question" class="d-flex align-items-center justify-content-flex-start">
         <span class="description text-left">
-          <h6>Add A Category</h6>
+          Add A Category
         </span>
         <i class="fas fa-lg fa-plus text-info" @click="showInput = !showInput">
         </i>
@@ -69,8 +69,6 @@
       resetCategories() {
         this.categories = []
       }
-
-
     },
     components: {
       CategoriesComponent,
@@ -79,17 +77,15 @@
   }
 </script>
 <style scoped>
-  h6 {
-    margin-top: 1rem;
-  }
-
   #right-button {
     margin-right: 1rem;
   }
 
   .description {
     visibility: hidden;
-    max-width: 4rem;
+    max-width: 3rem;
+    justify-self: flex-start;
+    margin-right: 2rem;
   }
 
   i:hover {
