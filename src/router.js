@@ -11,6 +11,11 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '/',
+      name: 'SelectQuiz',
+      component: SelectQuizView
+    },
+    {
       path: '/create-quiz',
       name: 'CreateQuizView',
       component: CreateQuizView
@@ -27,9 +32,8 @@ export default new Router({
       component: QuizView
     },
     {
-      path: '/select-quiz',
-      name: 'SelectQuiz',
-      component: SelectQuizView
-    },
+      path: '*',
+      redirect: '/'
+    }
   ]
 })

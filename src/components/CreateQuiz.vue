@@ -14,14 +14,13 @@
                 <div class="md-layout-item md-small-size-100 md-size-100">
                   <md-field class="has-danger md-theme-defult">
                     <label>Quiz Title:</label>
-                    <md-input v-model="this.$route.params.id ? editableQuiz.name : newQuiz.name"></md-input>
+                    <md-input v-model="$route.params.id ? editableQuiz.name : newQuiz.name"></md-input>
                   </md-field>
                 </div>
                 <div class="md-layout-item md-small-size-100 md-size-50">
                   <md-field class="has-danger">
                     <label>Topic</label>
-                    <md-input v-model="this.$route.params.id ? editableQuiz.topic : newQuiz.topic" spellcheck=true
-                      required>
+                    <md-input v-model="$route.params.id ? editableQuiz.topic : newQuiz.topic" spellcheck=true required>
                     </md-input>
                   </md-field>
                 </div>
@@ -44,7 +43,7 @@
                   <h3>
                     <u>Quiz Questions</u>
                   </h3>
-                  <div v-if="this.$route.params.id"
+                  <div v-if="$route.params.id"
                     class="md-layout-item md-small-size-100 md-size-100 justify-content-center">
                     <div class="col-4" style="display: inline-block;" v-for="(question, index) in editedQuiz.questions">
                       <h6 class="text-truncate">{{index + 1}}. {{question.prompt}}</h6>
@@ -98,7 +97,7 @@
               </md-table-cell>
               <md-table-cell>
                 <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center"
-                  @click.stopPropogation="deleteQuestion(question._id)"></i>
+                  @click="deleteQuestion(question._id)"></i>
               </md-table-cell>
             </md-table-row>
           </md-table>
@@ -156,9 +155,7 @@
     },
     methods: {
       prettify(arr) {
-        let out = []
-        arr.forEach(cat => out.push(cat.name))
-        let str = out.join(" ");
+        let str = arr.join(" ");
         return str;
       },
       async deleteQuestion(id) {
