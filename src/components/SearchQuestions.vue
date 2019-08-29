@@ -1,7 +1,7 @@
 <template>
   <div class="searchQuestions md-theme-default md-layout">
     <div class="md-layout-item md-alignment-center-center md-size-33  md-small-size-50 md-xsmall-size-100">
-      <CategoriesComponent></CategoriesComponent>
+      <CategoriesComponent v-on:change-categories='updateCategories($event)'></CategoriesComponent>
     </div>
     <div class="md-layout-item md-size-33  md-small-size-50 md-xsmall-size-100">
       <md-field class="has-danger md-theme-default">
@@ -18,7 +18,7 @@
         <i class="fas fa-lg fa-plus text-info" @click="showInput = !showInput">
         </i>
       </div>
-      <button class="md-button md-raised md-info md-theme-default">
+      <button @click="search" class="md-button md-raised md-info md-theme-default">
         <div class="md-ripple">
           <div class="md-button-content">Search</div>
         </div>
@@ -55,6 +55,7 @@
         this.categories = payload
       },
       search() {
+        debugger
         let searchPayload = ''
         if (this.categories.length > 0) {
           searchPayload = this.categories;
