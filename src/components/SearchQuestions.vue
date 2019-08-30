@@ -55,16 +55,13 @@
         this.categories = payload
       },
       search() {
-        debugger
-        let searchPayload = ''
         if (this.categories.length > 0) {
-          searchPayload = this.categories;
+          this.$store.dispatch('searchQuestions', this.categories)
+          this.resetCategories()
         }
         else {
-          searchPayload = this.allCategories;
+          return this.$store.state.searchResults
         }
-        this.$store.dispatch('searchQuestions', searchPayload)
-        this.resetCategories()
       },
       resetCategories() {
         this.categories = []
