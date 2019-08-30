@@ -93,25 +93,18 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    searchQuestions({ commit, dispatch, state }, arrayOfCatIds) {
-      debugger
-      let results = []
-      arrayOfCatIds.forEach(catId => {
-        results = results.concat(state.categories.filter(c => c._id == catId))
-      })
-      console.log(results)
+
+    searchQuestions({ commit, dispatch }, payload) {
+      try {
+        questionApi.put('', payload)
+          .then(res => {
+            console.log(res.data)
+            commit('setSearchResults', res.data)
+          })
+      } catch (error) {
+        console.error(error)
+      }
     },
-    // searchQuestions({ commit, dispatch }, payload) {
-    //   try {
-    //     questionApi.put('', payload)
-    //       .then(res => {
-    //         console.log(res.data)
-    //         commit('setSearchResults', res.data)
-    //       })
-    //   } catch (error) {
-    //     console.error(error)
-    //   }
-    // },
     deleteQuestion({ commit, dispatch }, payload) {
       try {
         questionApi.delete(payload)
