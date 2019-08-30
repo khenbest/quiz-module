@@ -42,11 +42,11 @@
     <div class="md-layout-item md-size-66 md-xsmall-size-100">
       <md-table md-card>
         <md-table-toolbar data-background-color="purple">
-          <div class="col-10 text-left my-3">
+          <div class="md-layout-item md-size-66 md-xsmall-size-66 text-left my-3">
             <h2 class="title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">
               Quiz Central</h2>
           </div>
-          <div class="col-2 addQuiz hover">
+          <div class="md-layout-item md-size-33 md-xsmall-size-33 mt-3 text-right addQuiz hover">
             <i id="addQuizIcon" class="text-white fas fa-lg fa-plus" @click="go('CreateQuizView')"></i>
             <div id="quizText">
               Add A Quiz
@@ -134,21 +134,13 @@
   }
 
   #addQuizIcon {
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 1em;
-    padding-left: 4.15rem;
     color: white;
     visibility: visible !important;
   }
 
-  #quizText {
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 4.5rem;
-  }
-
   .addQuiz {
+    align-items: center;
+    justify-content: flex-end;
     visibility: hidden;
     color: white;
   }

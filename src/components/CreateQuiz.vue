@@ -1,6 +1,5 @@
 <template>
   <div class="container-fluid">
-
     <div class="row justify-content-center">
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <form @submit.prevent="createQuiz">
@@ -24,18 +23,19 @@
                     </md-input>
                   </md-field>
                 </div>
-                <div class="md-layout-item md-small-size-100 md-size-50">
-                  <md-field class="col-5">
+                <div class="md-layout-item md-xsmall-size-100 md-size-33">
+                  <md-field>
                     <label>Difficulty Level</label>
-                    <md-select v-model="editableQuiz ? editableQuiz.difficulty : newQuiz.difficulty" required>
+                    <md-select v-model="$route.params.id ? editableQuiz.difficulty : newQuiz.difficulty" required>
                       <md-option value="Beginner">Beginner</md-option>
                       <md-option value="Intermediate">Intermediate</md-option>
                       <md-option value="Hard">Hard</md-option>
                     </md-select>
                   </md-field>
                 </div>
-                <div class="md-layout-item md-small-size-100 md-size-100">
-                  <button @click="selectQuestions = true" class="md-button md-raised md-primary md-theme-default">
+                <div class="md-layout-item md-size-100">
+                  <button @click="selectQuestions = true"
+                    class="md-layout-item md-xsmall-size-100 md-size-33 md-alignment-center-center md-button md-raised md-primary">
                     <div class="md-ripple">
                       <div class="md-button-content">View Available Questions</div>
                     </div>
@@ -70,7 +70,6 @@
     </div>
 
     <div v-show="selectQuestions" class="row justify-content-center">
-      <!-- table needs v-model both places DON'T delete one -->
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <div class="md-card">
           <div class="md-card-header" data-background-color="blue">
@@ -91,8 +90,7 @@
               <md-table-cell>{{ question.type }}</md-table-cell>
               <md-table-cell>{{ prettify(question.categories) }}</md-table-cell>
               <md-table-cell>
-                <md-checkbox v-model="newQuiz.questions" :value="question">
-                  <!--table needs v-model both places DON'T delete one-->
+                <md-checkbox v-model="$route.params.id ? editableQuiz.questions : newQuiz.questions" :value="question">
                 </md-checkbox>
               </md-table-cell>
               <md-table-cell>
@@ -104,9 +102,6 @@
         </div>
       </div>
     </div>
-
-
-
   </div>
 </template>
 
@@ -198,8 +193,6 @@
         this.newQuiz.topic = ''
         this.selected = 'beginner'
       }
-
-
     },
     components: {
       SearchQuestions,
