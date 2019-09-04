@@ -55,11 +55,10 @@
     },
     methods: {
       submit() {
-        // debugger
-        this.submission = this.submission.join(" ")
+        let submissionString = this.submission.join(" ")
         this.$emit("submit", {
           question: this.question,
-          submission: { value: this.submission }
+          submission: { value: submissionString }
         });
       },
       shuffle(a) {
