@@ -68,13 +68,23 @@
         </form>
       </div>
     </div>
+    <CreateQuestionComponent></CreateQuestionComponent>
 
     <div v-show="selectQuestions" class="row justify-content-center">
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <div class="md-card">
-          <div class="md-card-header" data-background-color="blue">
-            <h1 class="md-title" style="color:white !important; text-shadow: gray 0 1px; font-weight: 500;">
-              Available Questions</h1>
+          <div class="md-card-header md-layout" data-background-color="blue">
+            <div class="md-layout-item md-size-66 md-xsmall-size-100 text-left my-3">
+              <h1 class="md-title" style="color:white !important; text-shadow: gray 0 1px; font-weight: 500;">
+                Available Questions</h1>
+            </div>
+            <div class="md-layout-item md-size-33 md-xsmall-size-33 mt-3 text-right addQuiz hover">
+              <i id="addQuizIcon" class="text-white fas fa-lg fa-plus" data-toggle="modal"
+                data-target="#questionModal"></i>
+              <div id="quizText">
+                Add A Question
+              </div>
+            </div>
           </div>
           <SearchQuestions></SearchQuestions>
           <md-table>
@@ -106,6 +116,7 @@
 </template>
 
 <script>
+  import CreateQuestionComponent from '@/components/CreateQuestionComponent.vue'
   import SearchQuestions from '@/components/SearchQuestions.vue'
   import CategoriesComponent from '@/components/CategoriesComponent.vue'
   import delortAlert from '../delortAlert.js'
@@ -193,6 +204,7 @@
     },
     components: {
       SearchQuestions,
+      CreateQuestionComponent,
       CategoriesComponent
     }
   };
@@ -201,5 +213,26 @@
 <style>
   #available-questions {
     margin: 10vw;
+  }
+
+  .hover {
+    cursor: pointer;
+  }
+
+  #addQuizIcon {
+    color: white;
+    visibility: visible !important;
+  }
+
+  .addQuiz {
+    align-items: center;
+    justify-content: flex-end;
+    visibility: hidden;
+    color: white;
+  }
+
+  .addQuiz:hover #quizText {
+    visibility: visible;
+    cursor: pointer;
   }
 </style>

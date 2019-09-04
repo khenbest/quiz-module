@@ -11,13 +11,6 @@ async function confirm(content) {
     confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
     return result.value
-    // if (result.value) {
-    //   swal.fire(
-    //     'Deleted!',
-    //     'Successfully Deleted!',
-    //     'success'
-    //   )
-    // }
   });
 }
 
