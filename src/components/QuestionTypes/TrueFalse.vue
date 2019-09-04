@@ -28,15 +28,14 @@
     },
     data() {
       return {
-        checked: ""
+        checked: ''
       };
     },
     methods: {
       submit() {
-        let bool = this.checked == 'true' ? true : false
         this.$emit("submit", {
           question: this.question,
-          submission: { value: bool }
+          submission: { value: this.checked }
         });
       }
     }
