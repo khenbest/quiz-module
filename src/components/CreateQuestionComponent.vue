@@ -1,39 +1,40 @@
 <template>
-  <div class="CreateQuestion row d-flex justify-content-center">
-    <!-- <div class="col-sm-12"> -->
-    <div class="md-layout-item md-medium-size-100 md-size-66">
-      <div class="md-card md-theme-default">
-        <div class="md-card-header" data-background-color="orange">
-          <h3 class="title"><strong>Select Category Type</strong>
-            <i class="ml-1 text-white fas " :class="[selectTypeOpen ? 'fa-minus' : 'fa-plus']"
-              @click="selectTypeOpen = !selectTypeOpen"></i></h3>
-        </div>
-        <div v-if="selectTypeOpen" class="md-card-content">
-          <div class="md-content md-table md-theme-default" table-header-color="orange">
-            <div class="md-content md-table-content md-scrollbar md-theme-default">
-              <div class="md-layout-item md-size ">
-                <CategoriesComponent v-on:change-categories='updateCategories($event)'></CategoriesComponent>
-                <div class="row justify-content-center">
-                  <md-field class="col-3">
-                    <label>Question Type</label>
-                    <md-select v-model="selected" id="questionType">
-                      <md-option v-for="type in types" :value="type.value" :key="type.text">{{type.text}}</md-option>
-                    </md-select>
-                  </md-field>
+  <div class="modal" id="questionModal">
+
+    <div class="CreateQuestion md-layout md-alignment-center-center ">
+      <div class="md-layout-item md-size-100">
+        <div class="md-card md-theme-default">
+          <div class="md-card-header" data-background-color="orange">
+            <h3 class="title"><strong>Select Category Type</strong>
+              <i class="ml-1 text-white fas " :class="[selectTypeOpen ? 'fa-minus' : 'fa-plus']"
+                @click="selectTypeOpen = !selectTypeOpen"></i></h3>
+          </div>
+          <div v-if="selectTypeOpen" class="md-card-content">
+            <div class="md-content md-table md-theme-default" table-header-color="orange">
+              <div class="md-content md-table-content md-scrollbar md-theme-default">
+                <div class="md-layout-item md-size ">
+                  <CategoriesComponent id="modalDropdown" v-on:change-categories='updateCategories($event)'>
+                  </CategoriesComponent>
+                  <div class="row justify-content-center">
+                    <md-field class="col-3">
+                      <label>Question Type</label>
+                      <md-select v-model="selected" id="questionType">
+                        <md-option v-for="type in types" :value="type.value" :key="type.text">{{type.text}}</md-option>
+                      </md-select>
+                    </md-field>
+                  </div>
+                  <button type="button" data-dismiss="modal" data-target="#questionModal">Hi</button>
+
                 </div>
               </div>
             </div>
-            <!---->
           </div>
         </div>
       </div>
-    </div>
-    <!-- </div> -->
-
-
-    <div class="col-12 d-flex flex-column">
-      <component v-if="categories.length > 0" :is="selected" v-on:createQuestion="createQuestion($event)"
-        :type="selected"></component>
+      <div class="col-12 d-flex flex-column">
+        <component v-if="categories.length > 0" :is="selected" v-on:createQuestion="createQuestion($event)"
+          :type="selected"></component>
+      </div>
     </div>
   </div>
 </template>
@@ -108,5 +109,16 @@
 
   .fa-check {
     color: green;
+  }
+
+  #modalDropdown {
+    position: relative !important;
+    z-index: 5000 !important;
+  }
+
+  #questionModal {
+    position: relative !important;
+    z-index: 5000 !important;
+
   }
 </style>
