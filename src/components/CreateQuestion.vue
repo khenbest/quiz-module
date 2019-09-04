@@ -1,7 +1,7 @@
 <template>
   <div class="modal" id="questionModal">
 
-    <div class="CreateQuestion md-layout md-alignment-center-center ">
+    <div class="CreateQuestion md-layout md-alignment-center-center mt-5">
       <div class="md-layout-item md-size-100">
         <div class="md-card md-theme-default">
           <div class="md-card-header" data-background-color="orange">

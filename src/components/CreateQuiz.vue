@@ -68,7 +68,7 @@
         </form>
       </div>
     </div>
-    <CreateQuestionComponent></CreateQuestionComponent>
+    <CreateQuestion></CreateQuestion>
 
     <div v-show="selectQuestions" class="row justify-content-center">
       <div class="md-layout-item md-medium-size-100 md-size-66">
@@ -116,7 +116,7 @@
 </template>
 
 <script>
-  import CreateQuestionComponent from '@/components/CreateQuestionComponent.vue'
+  import CreateQuestion from '@/components/CreateQuestion.vue'
   import SearchQuestions from '@/components/SearchQuestions.vue'
   import CategoriesComponent from '@/components/CategoriesComponent.vue'
   import delortAlert from '../delortAlert.js'
@@ -204,7 +204,7 @@
     },
     components: {
       SearchQuestions,
-      CreateQuestionComponent,
+      CreateQuestion,
       CategoriesComponent
     }
   };

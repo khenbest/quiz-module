@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import CreateQuestionComponent from '@/components/CreateQuestionComponent.vue'
+  import CreateQuestion from '@/components/CreateQuestion.vue'
 
   // @ is an alias to /src
   import NavButtons from '@/components/NavButtons.vue'
@@ -32,7 +32,7 @@
 
     },
     components: {
-      CreateQuestionComponent,
+      CreateQuestion,
       SearchQuestion,
       NavButtons,
       Question,
