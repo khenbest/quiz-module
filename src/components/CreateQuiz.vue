@@ -5,28 +5,28 @@
         <form @submit.prevent="createQuiz">
           <div class="md-card md-theme-default">
             <div class="md-card-header" data-background-color="purple">
-              <h3 class="title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">Create
-                Quiz</h3>
+              <h3 class="title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">
+                {{activeQuiz._id ? 'Edit Quiz' : 'Create Quiz'}}</h3>
             </div>
             <div class="md-card-content">
               <div class="md-layout">
                 <div class="md-layout-item md-small-size-100 md-size-100">
                   <md-field class="has-danger md-theme-defult">
                     <label>Quiz Title:</label>
-                    <md-input v-model="$route.params.id ? editableQuiz.name : newQuiz.name"></md-input>
+                    <md-input v-model="quiz.name"></md-input>
                   </md-field>
                 </div>
                 <div class="md-layout-item md-small-size-100 md-size-50">
                   <md-field class="has-danger">
                     <label>Topic</label>
-                    <md-input v-model="$route.params.id ? editableQuiz.topic : newQuiz.topic" spellcheck=true required>
+                    <md-input v-model="quiz.topic" spellcheck=true required>
                     </md-input>
                   </md-field>
                 </div>
                 <div class="md-layout-item md-xsmall-size-100 md-size-33">
                   <md-field>
                     <label>Difficulty Level</label>
-                    <md-select v-model="$route.params.id ? editableQuiz.difficulty : newQuiz.difficulty" required>
+                    <md-select v-model="quiz.difficulty" required>
                       <md-option value="Beginner">Beginner</md-option>
                       <md-option value="Intermediate">Intermediate</md-option>
                       <md-option value="Hard">Hard</md-option>
@@ -45,12 +45,12 @@
                   </h3>
                   <div v-if="$route.params.id" class="md-layout md-gutter">
                     <div class="md-layout-item md-size-33 md-xsmall-size-100 md-alignment-center-center my-2"
-                      v-for="(question, index) in editableQuiz.questions">
+                      v-for="(question, index) in quiz.questions">
                       <p class="text-truncate">{{index + 1}}. {{question.prompt}}</p>
                     </div>
                   </div>
                   <div v-else class="md-layout-item md-small-size-100 md-size-100 justify-content-center">
-                    <div class="col-4" style="display: inline-block;" v-for="(question, index) in newQuiz.questions">
+                    <div class="col-4" style="display: inline-block;" v-for="(question, index) in quiz.questions">
                       <p class="text-truncate">{{index + 1}}. {{question.prompt}}</p>
                     </div>
                   </div>
@@ -90,7 +90,7 @@
               <md-table-cell>{{ question.type }}</md-table-cell>
               <md-table-cell>{{ prettify(question.categories) }}</md-table-cell>
               <md-table-cell>
-                <md-checkbox v-model="$route.params.id ? editableQuiz.questions : newQuiz.questions" :value="question">
+                <md-checkbox v-model="quiz.questions" :value="question">
                 </md-checkbox>
               </md-table-cell>
               <md-table-cell>
@@ -111,28 +111,21 @@
   import delortAlert from '../delortAlert.js'
   export default {
     name: "CreateQuiz",
-    props: [],
+    props: ["id"],
     mounted() {
-      if (this.$route.params.id) {
-        let editableQuiz = this.$store.state.quizzes.find(q => q._id == this.$route.params.id)
-        this.$store.dispatch("getActiveQuiz", editableQuiz)
+      if (this.$route.params.id != 'new-quiz') {
+        this.$store.dispatch("getActiveQuiz", this.$route.params.id)
       }
       this.$store.dispatch("getQuestions");
     },
     data() {
       return {
         selectQuestions: false,
-        newQuiz: {
-          name: "",
-          questions: [],
+        quiz: {
+          name: '',
+          topic: '',
           difficulty: '',
-          topic: ''
-        },
-        editedQuiz: {
-          name: "",
-          questions: this.editableQuiz ? this.editableQuiz.questions : [],
-          difficulty: '',
-          topic: ''
+          questions: []
         }
       };
     },
@@ -144,9 +137,12 @@
           return this.$store.state.searchResults;
         }
       },
-      editableQuiz() {
-        return this.$store.state.activeQuiz
-      }
+
+      activeQuiz() {
+        let active = this.$store.state.activeQuiz
+        this.quiz = active
+        return active
+      },
     },
     methods: {
       prettify(arr) {
@@ -174,25 +170,26 @@
           confirmButtonColor: "#9c27b0"
         });
       },
+      quizEdited() {
+        this.$swal({
+          title: "Quiz Succesfully Edited!",
+          showConfirmButton: true,
+          confirmButtonColor: "#9c27b0"
+        });
+      },
 
       createQuiz() {
-        if (this.editableQuiz._id) {
-          this.$store.dispatch("editQuiz", this.editedQuiz)
+        let quiz = JSON.parse(JSON.stringify(this.quiz))
+        if (this.activeQuiz._id) {
+          this.$store.dispatch("editQuiz", { quiz, alert: this.quizEdited })
         }
-        if (this.newQuiz.questions.length < 1) {
+        else if (this.quiz.questions.length < 1) {
           this.selectQuestionAlert()
         } else {
-          let quiz = JSON.parse(JSON.stringify(this.newQuiz))
           this.$store.dispatch("createQuiz", { quiz, alert: this.quizCreated });
-          this.reset()
         }
       },
-      reset() {
-        this.newQuiz.name = "";
-        this.newQuiz.questions = [];
-        this.newQuiz.topic = ''
-        this.selected = 'beginner'
-      }
+
     },
     components: {
       SearchQuestions,

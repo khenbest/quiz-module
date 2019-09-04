@@ -7,7 +7,7 @@ let quizRepo = quizServ.repository
 export default class QuizController {
     async getAllQuizzes(req, res, next) {
         try {
-            let quizzes = await quizRepo.find({})
+            let quizzes = await quizRepo.find({}).populate({ path: 'questions', select: { "correct": 0 } })
             res.send(quizzes)
         } catch (error) { next(error) }
     }

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import swal from 'sweetalert2'
+import router from './router';
 
 Vue.use(Vuex)
 
@@ -93,7 +94,28 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-
+    // searchQuestions({ commit, dispatch, state }, categoryIds) {
+    //   // debugger
+    //   let categories = []
+    //   categoryIds.forEach(id => categories.push(state.categories.find(category => category._id == id)))
+    //   console.log(categories)
+    //   let questions = state.searchResults
+    //   let results = []
+    //   categories.forEach(category => results.concat(questions.filter(question => question.categories.includes(category))))
+    //   console.log(results)
+    //   commit('setSearchResults', results)
+    // },
+    // searchQuestions({ commit, dispatch, state }, categoryIds) {
+    //   debugger
+    //   let results = []
+    //   categoryIds.forEach(catId => {
+    //     results = results.concat(state.searchResults.filter(q => {
+    //       q.categories.forEach(c => c._id == catId)
+    //     }))
+    //   })
+    //   console.log(results)
+    //   commit('setSearchResults', results)
+    // },
     searchQuestions({ commit, dispatch }, payload) {
       try {
         questionApi.put('', payload)
@@ -123,6 +145,7 @@ export default new Vuex.Store({
         quizApi.post('', payload.quiz)
           .then(res => {
             console.log("successss: ", res.data)
+            commit('setActiveQuiz', {})
             payload.alert()
           })
       } catch (error) {
@@ -138,6 +161,7 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+
     getQuizzes({ commit, dispatch }) {
       try {
         quizApi.get('')
@@ -148,13 +172,14 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    editQuiz({ commit, dispatch }, payload) {
+    async  editQuiz({ commit, dispatch }, payload) {
       try {
-        quizApi.put(payload).then(res => {
-
-        })
+        let editedQuiz = await quizApi.put(payload.quiz._id, payload.quiz)
+        payload.alert()
+        commit('setActiveQuiz', {})
+        router.push({ name: "SelectQuiz" })
       } catch (error) {
-
+        console.error(error)
       }
     },
     deleteQuiz({ commit, dispatch }, payload) {

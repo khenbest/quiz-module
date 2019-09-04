@@ -1,43 +1,6 @@
 <template>
   <div class="md-layout md-alignment-center-center">
-    <div v-if="selectedQuiz" id="selected"
-      class="md-layout-item md-size-100 md-xsmall-size-100 md-alignment-center-center modal">
-      <div class="md-layout-item md-size-66 md-xsmall-size-100 md-alignment-center-center md-card">
-        <div class="md-toolbar md-table-toolbar md-transparent md-header my-3 md-theme-default md-elevation-0"
-          data-background-color="blue">
-          <h1 class="md-title" style="color: white !important; text-shadow: gray 0px 1px; font-weight: 500;">Confirm
-            Quiz Details</h1>
-        </div>
-        <div class="md-layout-item md-size-100 md-alignment-center-center">
-          <h2>{{activeQuiz.name}}</h2>
-        </div>
-        <div class="md-layout-item md-size-100 md-alignment-center-center">
-          <h3>Topic: {{activeQuiz.topic}}</h3>
-        </div>
-        <div class="md-layout">
-          <div class="md-layout-item md-size-100 md-alignment-center-center">
-            <h4>
-              <u>Quiz Questions</u>
-            </h4>
-            <div class="md-layout md-gutter">
-              <div class="md-layout-item md-size-33 md-xsmall-size-100 md-alignment-center-center my-2"
-                v-for="(question, index) in activeQuiz.questions" :key="question._id">
-                <p>{{index + 1}}. {{question.prompt}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="btn-bar" class="my-2">
-          <md-button class="md-info" data-dismiss="modal" @click="go('Quiz')" data-target="#selected">Start Quiz
-          </md-button>
-          <md-button class="md-warning" data-dismiss="modal" @click="go('CreateQuizView')" data-target="#selected">
-            Edit
-            Quiz</md-button>
-          <md-button class="md-danger" data-dismiss="modal" data-target="#selected">Close</md-button>
-        </div>
-      </div>
-    </div>
-
+    <QuizModal :activeQuiz="activeQuiz"></QuizModal>
 
     <div class="md-layout-item md-size-66 md-xsmall-size-100">
       <md-table md-card>
@@ -64,7 +27,7 @@
           <md-table-head>Edit</md-table-head>
         </md-table-row>
         <md-table-row v-for="quiz in quizzes" data-toggle="modal" data-target="#selected" :key="quiz._id"
-          class='text-left hover' @click='selectedQuiz = quiz._id'>
+          class='text-left hover' @click=setActiveQuiz(quiz)>
           <md-table-cell>{{ quiz.name }}</md-table-cell>
           <md-table-cell>{{ quiz.topic }}</md-table-cell>
           <md-table-cell>{{ quiz.difficulty }}</md-table-cell>
@@ -72,7 +35,7 @@
             <i class="fas fa-times fa-lg ml-2" @click.stop="deleteQuiz(quiz._id)"></i>
           </md-table-cell>
           <md-table-cell>
-            <i class="fas fa-edit text-info"></i>
+            <i class="fas fa-edit text-info" @click="edit('CreateQuizView', quiz._id)"></i>
           </md-table-cell>
         </md-table-row>
       </md-table>
@@ -86,27 +49,26 @@
   import Question from "@/components/Question.vue";
   import router from "../router.js";
   import delortAlert from '../delortAlert.js'
+  import QuizModal from '@/components/QuizModal.vue'
   export default {
     name: "SelectQuizView",
     data() {
       return {
-        selectedQuiz: ""
+        activeQuiz: {}
       };
     },
     mounted() {
       this.$store.dispatch("getQuizzes");
     },
-    watch: {
-      selectedQuiz: function () {
-        this.setActiveQuiz()
-      }
-    },
     methods: {
       go(pageName) {
-        router.push({ name: pageName, params: { id: this.activeQuiz._id } });
+        router.push({ name: pageName, params: { id: 'new-quiz' } });
       },
-      setActiveQuiz() {
-        this.$store.dispatch("getActiveQuiz", this.selectedQuiz);
+      edit(pageName, id) {
+        router.push({ name: pageName, params: { id: id } })
+      },
+      setActiveQuiz(quiz) {
+        this.activeQuiz = quiz
       },
       async deleteQuiz(id) {
         if (await delortAlert.confirm('Quiz')) {
@@ -118,12 +80,10 @@
       quizzes() {
         return this.$store.state.quizzes;
       },
-      activeQuiz() {
-        return this.$store.state.activeQuiz;
-      }
     },
     components: {
-      Question
+      Question,
+      QuizModal
     }
   };
 </script>

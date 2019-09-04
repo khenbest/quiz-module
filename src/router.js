@@ -16,8 +16,9 @@ export default new Router({
       component: SelectQuizView
     },
     {
-      path: '/create-quiz',
+      path: '/create-quiz/:id',
       name: 'CreateQuizView',
+      props: true,
       component: CreateQuizView
     },
     {
