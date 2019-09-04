@@ -34,7 +34,7 @@
                   </md-field>
                 </div>
                 <div class="md-layout-item md-size-100">
-                  <button @click="selectQuestions = true"
+                  <button type="button" @click="selectQuestions = true"
                     class="md-layout-item md-xsmall-size-100 md-size-33 md-alignment-center-center md-button md-raised md-primary">
                     <div class="md-ripple">
                       <div class="md-button-content">View Available Questions</div>
