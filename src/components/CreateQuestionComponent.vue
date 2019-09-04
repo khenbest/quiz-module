@@ -5,14 +5,12 @@
       <div class="md-layout-item md-size-100">
         <div class="md-card md-theme-default">
           <div class="md-card-header" data-background-color="orange">
-            <h3 class="title"><strong>Select Category Type</strong>
-              <i class="ml-1 text-white fas " :class="[selectTypeOpen ? 'fa-minus' : 'fa-plus']"
-                @click="selectTypeOpen = !selectTypeOpen"></i></h3>
+            <h3 class="title"><strong>Select Category Type</strong></h3>
           </div>
-          <div v-if="selectTypeOpen" class="md-card-content">
+          <div class="md-card-content">
             <div class="md-content md-table md-theme-default" table-header-color="orange">
               <div class="md-content md-table-content md-scrollbar md-theme-default">
-                <div class="md-layout-item md-size ">
+                <div class="md-layout-item md-size-100 ">
                   <CategoriesComponent id="modalDropdown" v-on:change-categories='updateCategories($event)'>
                   </CategoriesComponent>
                   <div class="row justify-content-center">
@@ -23,17 +21,17 @@
                       </md-select>
                     </md-field>
                   </div>
-                  <button type="button" data-dismiss="modal" data-target="#questionModal">Hi</button>
-
                 </div>
               </div>
             </div>
+            <div class="md-layout-item md-size-100">
+              <component v-if="categories.length > 0" :is="selected" v-on:createQuestion="createQuestion($event)"
+                :type="selected"></component>
+            </div>
+            <button class="md-button md-warning" type="button" data-dismiss="modal"
+              data-target="#questionModal">Close</button>
           </div>
         </div>
-      </div>
-      <div class="col-12 d-flex flex-column">
-        <component v-if="categories.length > 0" :is="selected" v-on:createQuestion="createQuestion($event)"
-          :type="selected"></component>
       </div>
     </div>
   </div>
@@ -116,8 +114,7 @@
     z-index: 5000 !important;
   }
 
-  #questionModal {
-    position: relative !important;
+  .md-menu-content.md-select-menu {
     z-index: 5000 !important;
 
   }

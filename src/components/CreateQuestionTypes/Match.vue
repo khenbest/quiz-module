@@ -1,6 +1,6 @@
 <template>
   <div class="Match row justify-content-center">
-    <div class="md-layout-item md-medium-size-100 md-size-66">
+    <div class="md-layout-item md-size-100">
       <form @submit.prevent="setCorrect">
         <div class="md-card md-theme-default">
           <div class="md-card-header" data-background-color="blue">

@@ -1,6 +1,6 @@
 <template>
   <div class="FillInTheBlank row justify-content-center">
-    <div class="md-layout-item md-medium-size-100 md-size-66">
+    <div class="md-layout-item md-size-100">
       <form @submit.prevent="format">
         <div class="md-card md-theme-default">
           <div class="md-card-header" data-background-color="blue">
