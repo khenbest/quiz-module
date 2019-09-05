@@ -219,11 +219,12 @@ export default new Vuex.Store({
     },
 
     deleteAlert() {
-      swal.fire(
-        'Deleted!',
-        'Successfully Deleted!',
-        'success'
-      )
+      swal.fire({
+        title: 'Deleted!',
+        text: 'Successfully Deleted!',
+        confirmButtonColor: '#9c27b0',
+        type: 'success'
+      })
     }
   }
 

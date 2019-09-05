@@ -34,6 +34,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -86,7 +87,6 @@
           text: 'Please Select A Category',
           showCloseButton: true,
           confirmButtonColor: "#fb8c00"
-
         });
       }
     },
