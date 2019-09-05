@@ -43,14 +43,9 @@
                   <h3>
                     <u>Quiz Questions</u>
                   </h3>
-                  <div v-if="$route.params.id" class="md-layout md-gutter">
+                  <div class="md-layout md-gutter">
                     <div class="md-layout-item md-size-33 md-xsmall-size-100 md-alignment-center-center my-2"
                       v-for="(question, index) in quiz.questions">
-                      <p class="text-truncate">{{index + 1}}. {{question.prompt}}</p>
-                    </div>
-                  </div>
-                  <div v-else class="md-layout-item md-small-size-100 md-size-100 justify-content-center">
-                    <div class="col-4" style="display: inline-block;" v-for="(question, index) in quiz.questions">
                       <p class="text-truncate">{{index + 1}}. {{question.prompt}}</p>
                     </div>
                   </div>
@@ -99,8 +94,8 @@
               <md-table-cell>{{ question.prompt }}</md-table-cell>
               <md-table-cell>{{ question.type }}</md-table-cell>
               <md-table-cell>{{ prettify(question.categories) }}</md-table-cell>
-              <md-table-cell>
-                <md-checkbox v-model="quiz.questions" :value="question">
+              <md-table-cell multiple>
+                <md-checkbox md-dense v-model="quiz.questions" :value="question">
                 </md-checkbox>
               </md-table-cell>
               <md-table-cell>
@@ -140,6 +135,7 @@
         }
       };
     },
+
     computed: {
       results() {
         if (this.$store.state.searchResults.length === 0) {
@@ -151,7 +147,9 @@
 
       activeQuiz() {
         let active = this.$store.state.activeQuiz
-        this.quiz = active
+        if (active._id) {
+          this.quiz = active
+        }
         return active
       },
     },
