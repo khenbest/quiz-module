@@ -75,6 +75,9 @@
       gradeQuestion({ question, submission }) {
         this.$store.dispatch("gradeQuestion", { question, submission, alert: this.alert });
         this.isSubmitted = true
+        // if(this.currentQuestion == questions.length - 1){
+        //   router.push()
+        // }
       }
     },
     components: {

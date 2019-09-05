@@ -94,8 +94,8 @@
               <md-table-cell>{{ question.prompt }}</md-table-cell>
               <md-table-cell>{{ question.type }}</md-table-cell>
               <md-table-cell>{{ prettify(question.categories) }}</md-table-cell>
-              <md-table-cell>
-                <md-checkbox v-model="quiz.questions" :value="question">
+              <md-table-cell multiple>
+                <md-checkbox md-dense v-model="quiz.questions" :value="question">
                 </md-checkbox>
               </md-table-cell>
               <md-table-cell>
@@ -136,6 +136,7 @@
         }
       };
     },
+
     computed: {
       results() {
         if (this.$store.state.searchResults.length === 0) {
