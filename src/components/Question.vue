@@ -60,11 +60,11 @@
           return this.$swal.fire({
             title: gradeAlert.isCorrect(this.grade),
             html: gradeAlert.determineAlert(this.grade),
-            type: 'warning',
+            type: gradeAlert.isSuccess(this.grade),
             showCancelButton: true,
-            confirmButtonColor: "#fb8c00",
+            confirmButtonColor: "#00bcd4",
             confirmButtonText: "Sweet, let's take another!",
-            cancelButtonColor: "#00bcd4",
+            cancelButtonColor: "#fb8c00",
             cancelButtonText: "I'd like to retake this quiz."
           })
             .then((res) => {
@@ -79,7 +79,7 @@
             html: gradeAlert.determineAlert(this.grade),
             type: gradeAlert.isSuccess(this.grade),
             showCloseButton: true,
-            confirmButtonColor: "#fb8c00"
+            confirmButtonColor: "#00bcd4"
           });
         }
       },
@@ -90,7 +90,6 @@
       gradeQuestion({ question, submission }) {
         this.$store.dispatch("gradeQuestion", { question, submission, alert: this.alert });
         this.isSubmitted = true
-
       }
     },
     components: {

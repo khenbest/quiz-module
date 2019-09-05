@@ -44,7 +44,7 @@
       },
       async deleteCategory(id) {
         if (await delortAlert.confirm('category')) {
-          console.log('delete method here', id)
+          this.$store.dispatch('deleteCategory', id)
         }
       }
     },

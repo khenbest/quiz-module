@@ -49,12 +49,14 @@
           text: 'This category already exists, please create a new one',
           showCloseButton: true,
           confirmButtonColor: "#fb8c00"
+
         });
       },
       success() {
         this.$swal({
           title: 'Success!',
-          text: 'Category successfully created'
+          text: 'Category successfully created',
+          confirmButtonColor: '#00bcd4'
         })
       }
 
