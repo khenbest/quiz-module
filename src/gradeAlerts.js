@@ -28,11 +28,9 @@ function matchAlert(grade) {
   return out
 }
 
-
 function singleCorrectValue(grade) {
   let out = 'The answer was: ' + grade.correct[0].value
   return out
-
 }
 
 function openEndedAlert(grade) {
@@ -40,17 +38,12 @@ function openEndedAlert(grade) {
   return out
 }
 
-// function fillInTheBlankAlert(grade) {
-
-// }
-
 function isSuccess(grade) {
   if (grade.type == 'OpenEnded') { return 'question' }
   return grade.passed ? 'success' : 'error'
 }
 function isCorrect(grade) {
   if (grade.type == 'OpenEnded') { return 'Compare Your Answer' }
-
   return grade.passed ? 'Correct!' : "Incorrect"
 }
 

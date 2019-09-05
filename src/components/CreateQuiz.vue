@@ -43,14 +43,9 @@
                   <h3>
                     <u>Quiz Questions</u>
                   </h3>
-                  <div v-if="$route.params.id" class="md-layout md-gutter">
+                  <div class="md-layout md-gutter">
                     <div class="md-layout-item md-size-33 md-xsmall-size-100 md-alignment-center-center my-2"
                       v-for="(question, index) in quiz.questions">
-                      <p class="text-truncate">{{index + 1}}. {{question.prompt}}</p>
-                    </div>
-                  </div>
-                  <div v-else class="md-layout-item md-small-size-100 md-size-100 justify-content-center">
-                    <div class="col-4" style="display: inline-block;" v-for="(question, index) in quiz.questions">
                       <p class="text-truncate">{{index + 1}}. {{question.prompt}}</p>
                     </div>
                   </div>
@@ -120,6 +115,7 @@
   import SearchQuestions from '@/components/SearchQuestions.vue'
   import CategoriesComponent from '@/components/CategoriesComponent.vue'
   import delortAlert from '../delortAlert.js'
+  import router from '../router.js'
   export default {
     name: "CreateQuiz",
     props: ["id"],
@@ -148,10 +144,11 @@
           return this.$store.state.searchResults;
         }
       },
-
       activeQuiz() {
         let active = this.$store.state.activeQuiz
-        this.quiz = active
+        if (active._id) {
+          this.quiz = active
+        }
         return active
       },
     },
@@ -179,7 +176,7 @@
           title: "Quiz Created!",
           showConfirmButton: true,
           confirmButtonColor: "#9c27b0"
-        });
+        }).then(router.push({ name: "SelectQuiz" }));
       },
       quizEdited() {
         this.$swal({
