@@ -7,7 +7,7 @@ async function confirm(content) {
     type: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#9c27b0',
-    cancelButtonColor: '#ffc107',
+    cancelButtonColor: '#ff9800',
     confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
     return result.value
