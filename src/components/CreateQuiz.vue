@@ -46,9 +46,18 @@
                   <div class="md-layout md-gutter">
                     <div class="md-layout-item md-size-33 md-xsmall-size-100 md-alignment-center-center my-2"
                       v-for="(question, index) in quiz.questions">
-                      <p class="text-truncate">{{index + 1}}. {{question.prompt}}</p>
+                      <p>{{index + 1}}. {{question.prompt}}</p>
+                      <i class="fas fa-ban fa-lg inline-form mr-2 align-self-center"
+                        @click="removeQuizQuestion(index, question)"></i>
                     </div>
                   </div>
+                  <!-- <div class="md-layout md-gutter">
+                    <div class="md-layout-item md-size-33 md-xsmall-size-100 md-alignment-center-center my-2"
+                      v-for="(question, index) in quiz.questions">
+                      <p v-if="index > originalQuestions.length - 1" class="text-truncate">{{index + 1}}.
+                        {{question.prompt}}</p>
+                    </div>
+                  </div> -->
                 </div>
                 <div class="md-layout-item md-size-100 justify-content-center "><button type="submit"
                     class="md-button md-raised md-primary md-theme-default">
@@ -94,6 +103,7 @@
               <md-table-cell>{{ question.prompt }}</md-table-cell>
               <md-table-cell>{{ question.type }}</md-table-cell>
               <md-table-cell>{{ prettify(question.categories) }}</md-table-cell>
+              <!-- TODO UNWRAP THIS FOR EDITS -->
               <md-table-cell multiple>
                 <md-checkbox md-dense v-model="quiz.questions" :value="question">
                 </md-checkbox>
@@ -126,6 +136,7 @@
     },
     data() {
       return {
+        // originalQuestions: [],
         selectQuestions: false,
         quiz: {
           name: '',
@@ -144,11 +155,11 @@
           return this.$store.state.searchResults;
         }
       },
-
       activeQuiz() {
         let active = this.$store.state.activeQuiz
         if (active._id) {
           this.quiz = active
+          // this.originalQuestions = [...active.questions]
         }
         return active
       },
@@ -198,6 +209,10 @@
           this.$store.dispatch("createQuiz", { quiz, alert: this.quizCreated });
         }
       },
+      removeQuizQuestion(i) {
+        this.quiz.questions.splice(i, 1)
+        // this.$store.dispatch("editQuiz", { quiz: this.quiz })
+      }
 
     },
     components: {
