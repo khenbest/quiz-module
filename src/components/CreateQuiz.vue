@@ -125,6 +125,7 @@
   import SearchQuestions from '@/components/SearchQuestions.vue'
   import CategoriesComponent from '@/components/CategoriesComponent.vue'
   import delortAlert from '../delortAlert.js'
+  import router from '../router.js'
   export default {
     name: "CreateQuiz",
     props: ["id"],
@@ -188,7 +189,7 @@
           title: "Quiz Created!",
           showConfirmButton: true,
           confirmButtonColor: "#9c27b0"
-        });
+        }).then(router.push({ name: "SelectQuiz" }));
       },
       quizEdited() {
         this.$swal({

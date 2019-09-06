@@ -29,8 +29,8 @@ export default new Vuex.Store({
     grade: {},
     categories: []
   },
-  mutations: {
 
+  mutations: {
     removeQuestion(state, id) {
       let deleted = state.searchResults.find(q => q._id == id)
       let index = state.searchResults.indexOf(deleted)
@@ -57,8 +57,8 @@ export default new Vuex.Store({
       state.categories = categories
     }
   },
-  actions: {
 
+  actions: {
     getQuestions({ commit, dispatch }) {
       try {
         questionApi.get('')
@@ -71,10 +71,8 @@ export default new Vuex.Store({
     },
     gradeQuestion({ commit, dispatch }, payload) {
       try {
-        // debugger
         questionApi.post(`${payload.question._id}/answers`, payload)
           .then(res => {
-            // debugger
             console.log(res.data)
             commit('setGrade', res.data)
             payload.alert()
@@ -94,28 +92,6 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    // searchQuestions({ commit, dispatch, state }, categoryIds) {
-    //   // debugger
-    //   let categories = []
-    //   categoryIds.forEach(id => categories.push(state.categories.find(category => category._id == id)))
-    //   console.log(categories)
-    //   let questions = state.searchResults
-    //   let results = []
-    //   categories.forEach(category => results.concat(questions.filter(question => question.categories.includes(category))))
-    //   console.log(results)
-    //   commit('setSearchResults', results)
-    // },
-    // searchQuestions({ commit, dispatch, state }, categoryIds) {
-    //   debugger
-    //   let results = []
-    //   categoryIds.forEach(catId => {
-    //     results = results.concat(state.searchResults.filter(q => {
-    //       q.categories.forEach(c => c._id == catId)
-    //     }))
-    //   })
-    //   console.log(results)
-    //   commit('setSearchResults', results)
-    // },
     searchQuestions({ commit, dispatch }, payload) {
       try {
         questionApi.put('', payload)
@@ -161,7 +137,6 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-
     getQuizzes({ commit, dispatch }) {
       try {
         quizApi.get('')
@@ -194,30 +169,40 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-
     //#endregion 
     //#region Categories
-    async getCategories({ commit, dispatch }) {
+    getCategories({ commit, dispatch }) {
       try {
-        let res = await categoryApi.get('')
-        commit('setCategories', res.data)
+        categoryApi.get('')
+          .then(res => {
+            commit('setCategories', res.data)
+          })
       } catch (error) {
         console.error(error)
       }
     },
-
     async createCategory({ commit, dispatch }, payload) {
       try {
         categoryApi.post('', payload.newCategory)
           .then(res => {
             payload.alert()
+            dispatch('getCategories')
           })
-
       } catch (error) {
         console.error(error)
       }
     },
-
+    async deleteCategory({ commit, dispatch }, payload) {
+      try {
+        categoryApi.delete(payload)
+          .then(res => {
+            payload.alert()
+            dispatch('getCategories')
+          })
+      } catch (error) {
+        console.error(error)
+      }
+    },
     deleteAlert() {
       swal.fire({
         title: 'Deleted!',

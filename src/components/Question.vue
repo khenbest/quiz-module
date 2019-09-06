@@ -6,11 +6,8 @@
       </div>
       <div class="md-card-content">
         <div class="md-layout">
-
           <component v-if="activeQuestion" :is="activeQuestion.type" :question="activeQuestion"
             @submit="gradeQuestion" />
-          <div v-else>UMMM WHAT???</div>
-
           <div v-if="isSubmitted && this.currentQuestion != questions.length - 1"
             class="md-layout-item md-size-100 text-center">
             <button type="button" class="md-button md-raised md-info md-theme-default mt-3" @click="nextQuestion">
@@ -19,7 +16,6 @@
               </div>
             </button>
           </div>
-
         </div>
       </div>
     </div>
@@ -33,6 +29,7 @@
   import MultipleChoice from "./QuestionTypes/MultipleChoice";
   import FillInTheBlank from "./QuestionTypes/FillInTheBlank";
   import gradeAlert from "../gradeAlerts.js"
+  import router from '../router.js'
 
   export default {
     name: "Question",
@@ -59,14 +56,32 @@
     },
     methods: {
       alert() {
-        this.$swal({
-          title: gradeAlert.isCorrect(this.grade),
-          html: gradeAlert.determineAlert(this.grade),
-          type: gradeAlert.isSuccess(this.grade),
-          showCloseButton: true,
-          confirmButtonColor: "#fb8c00"
-
-        });
+        if (this.currentQuestion == this.questions.length - 1) {
+          return this.$swal.fire({
+            title: gradeAlert.isCorrect(this.grade),
+            html: gradeAlert.determineAlert(this.grade),
+            type: gradeAlert.isSuccess(this.grade),
+            showCancelButton: true,
+            confirmButtonColor: "#00bcd4",
+            confirmButtonText: "Sweet, let's take another!",
+            cancelButtonColor: "#fb8c00",
+            cancelButtonText: "I'd like to retake this quiz."
+          })
+            .then((res) => {
+              if (res.value) {
+                router.push({ name: "SelectQuiz" })
+              }
+            })
+        }
+        else {
+          this.$swal({
+            title: gradeAlert.isCorrect(this.grade),
+            html: gradeAlert.determineAlert(this.grade),
+            type: gradeAlert.isSuccess(this.grade),
+            showCloseButton: true,
+            confirmButtonColor: "#00bcd4"
+          });
+        }
       },
       nextQuestion() {
         this.currentQuestion += 1
@@ -75,9 +90,6 @@
       gradeQuestion({ question, submission }) {
         this.$store.dispatch("gradeQuestion", { question, submission, alert: this.alert });
         this.isSubmitted = true
-        // if(this.currentQuestion == questions.length - 1){
-        //   router.push()
-        // }
       }
     },
     components: {
