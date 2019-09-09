@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "debug": "node index.js",
-        "start": "node server/index.js",
+        "start": "node index.js",
         "dev": "node index.js",
         "serve": "npm run --prefix ./client serve"
     },
