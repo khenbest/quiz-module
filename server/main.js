@@ -16,7 +16,7 @@ server.use(bp.urlencoded({
     extended: true
 }))
 
-server.use(express.static(__dirname + '/../client/docs'))
+server.use(express.static(__dirname + '/../client/dist'))
 var whitelist = [];
 var corsOptions = {
     origin: function (origin, callback) {
