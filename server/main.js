@@ -7,7 +7,7 @@ import QuestionController from './controllers/QuestionController'
 import QuizController from "./controllers/QuizController";
 import Categorycontroller from './controllers/CategoryController';
 
-let port = 3000
+const port = process.env.PORT || 3000
 
 let server = express()
 
@@ -16,7 +16,8 @@ server.use(bp.urlencoded({
     extended: true
 }))
 
-var whitelist = ['http://localhost:8080', 'http://localhost:3000/api/questions'];
+server.use(express.static(__dirname + '/../client/docs'))
+var whitelist = [];
 var corsOptions = {
     origin: function (origin, callback) {
         var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
