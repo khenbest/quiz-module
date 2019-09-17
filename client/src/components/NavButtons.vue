@@ -18,6 +18,7 @@
         methods: {
             go(pageName) {
                 router.push({ name: pageName });
+                this.$store.state.activeQuiz = {}
             }
         }
     };
