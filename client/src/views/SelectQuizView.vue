@@ -16,9 +16,9 @@
             </div>
           </div>
         </md-table-toolbar>
-        <md-table-row>
-          <h4 class="ml-5 text-left">Select A Quiz</h4>
-        </md-table-row>
+        <div class="md-layout-item md-size-100 text-left my-3 md-small-hide">
+          <h4 class="ml-3">Select A Quiz</h4>
+        </div>
         <md-table-row>
           <md-table-head>Title</md-table-head>
           <md-table-head>Topic</md-table-head>

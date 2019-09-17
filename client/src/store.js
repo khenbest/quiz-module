@@ -7,7 +7,7 @@ import router from './router';
 Vue.use(Vuex)
 
 const questionApi = axios.create({
-  baseURL: '/api/questions/',
+  baseURL: '/api/questions',
   timeout: 5000
 })
 const quizApi = axios.create({
