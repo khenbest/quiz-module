@@ -61,6 +61,7 @@
           })
             .then((res) => {
               if (res.value) {
+                this.$store.state.activeQuiz = {}
                 router.push({ name: "SelectQuiz" })
               }
             })
