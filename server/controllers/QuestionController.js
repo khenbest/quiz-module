@@ -4,7 +4,6 @@ import StudentSubmission from '../models/StudentSubmission';
 
 let questionServ = new QuestionService()
 let questionRepo = questionServ.repository
-// .select("-correct -rationale")
 export default class QuestionController {
 
     async getAllQuestions(req, res, next) {

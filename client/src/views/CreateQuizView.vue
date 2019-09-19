@@ -2,8 +2,6 @@
   <div class="home">
     <create-quiz>
     </create-quiz>
-
-
   </div>
 </template>
 
